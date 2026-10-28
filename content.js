@@ -25,7 +25,7 @@ const people = [
   },
 ];
 
-// Das Highlight ist unabhängig von den Layoutstudien in der Projektübersicht.
+// Das Highlight nutzt dieselben Projektdaten wie die Übersicht.
 const featuredProject = {
   slug: 'wiriehorn',
   title: 'Wiriehorn',
@@ -36,40 +36,38 @@ const featuredProject = {
   ],
 };
 
-// Eigenständig erstellte Layoutstudien, keine behaupteten Kundenreferenzen.
+// Die bereitgestellten Rigi-Bilder gehören zum Imagefilm, nicht zum Fotoshooting.
+const rigiFilmFrames = [
+  { image: 'assets/Rigi8-verkleinert.jpg', alt: 'Eine Frau und Kinder schauen aus dem offenen Fenster eines historischen Bahnwagens.', width: 2304, height: 1296, caption: 'Unterwegs mit der Bahn' },
+  { image: 'assets/Rigi6-verkleinert.jpg', alt: 'Eine Frau und Kinder blicken während der Bahnfahrt in einen sonnenbeschienenen Wald.', width: 1920, height: 1080, caption: 'Mitten im Wald' },
+  { image: 'assets/Rigi3-verkleinert.jpg', alt: 'Kinder sitzen im Sonnenlicht mit Blick auf die Berglandschaft.', width: 2304, height: 1296, caption: 'Gemeinsam unterwegs' },
+  { image: 'assets/Rigi11-verkleinert.jpg', alt: 'Mit einer Schaufel wird Kohle in die glühende Feuerung einer Dampflokomotive gegeben.', width: 2304, height: 1296, caption: 'Ganz nah am Detail' },
+];
+
+// Nur bestätigte Projekte; noch fehlende Inhalte bleiben als solche erkennbar.
 const projects = [
   {
-    slug: 'studie-01', number: '01', title: 'Anders denken.', category: 'Identität',
-    descriptor: 'Eine Idee bekommt eine Form.', year: 'Entwurf', image: 'assets/study-type.svg',
-    alt: 'Typografische Layoutstudie mit blauem Ring und dem Schriftzug anders denken.',
-    lead: 'Wie aus einem Gedanken ein eigenständiger Auftritt entsteht.',
-    stages: [
-      { title: 'Der Anfang ist eine Frage.', text: 'Was sollte dieses Projekt verändern? Hier beschreiben wir die Ausgangslage, die Menschen dahinter und die Aufgabe, die es zu lösen galt.' },
-      { title: 'Ein Gedanke wird konkret.', text: 'Hier erzählen wir, welche Idee das Projekt trägt. Skizzen, erste Entwürfe und bewusste Entscheidungen machen den Weg sichtbar.' },
-      { title: 'Ausprobieren. Verfeinern. Machen.', text: 'Hier zeigen wir die Entwicklung: Varianten, Materialtests oder Prototypen – und warum am Ende genau diese Richtung überzeugt hat.' },
-      { title: 'Eine Idee, die sichtbar wird.', text: 'Hier kommt das fertige Ergebnis hin. Mit echten Anwendungen und einer ehrlichen Einordnung dessen, was entstanden ist.' },
-    ],
-    gallery: ['assets/study-type.svg', 'assets/study-grid.svg', 'assets/study-form.svg'],
+    ...featuredProject,
+    number: '01', category: 'Interaktive Übersichtskarte',
+    image: featuredProject.views[0].image, alt: featuredProject.views[0].alt,
+    width: featuredProject.views[0].width, height: featuredProject.views[0].height,
   },
   {
-    slug: 'studie-02', number: '02', title: 'Neue Perspektiven.', category: 'Design',
-    descriptor: 'Raum für einen anderen Blick.', year: 'Entwurf', image: 'assets/study-form.svg',
-    alt: 'Abstrakte silberne Ringe vor grauem Hintergrund als eigenständige Formstudie.',
-    lead: 'Ein Blick auf Form, Raum und das Spiel mit Perspektiven.',
-    gallery: ['assets/study-form.svg', 'assets/study-grid.svg', 'assets/study-type.svg'],
-  },
-  {
-    slug: 'studie-03', number: '03', title: 'In Bewegung.', category: 'Bewegtbild',
-    descriptor: 'Wenn ein Gedanke Kreise zieht.', year: 'Entwurf', image: 'assets/study-motion.svg',
-    alt: 'Schwarze elliptische Linien auf einer orangefarbenen grafischen Layoutstudie.',
-    lead: 'Eine visuelle Studie über Rhythmus, Wiederholung und Veränderung.',
-    gallery: ['assets/study-motion.svg', 'assets/study-form.svg', 'assets/study-type.svg'],
-  },
-  {
-    slug: 'studie-04', number: '04', title: 'Drei. Mal. Eins.', category: 'Digital',
-    descriptor: 'Ein System. Viele Möglichkeiten.', year: 'Entwurf', image: 'assets/study-grid.svg',
-    alt: 'Schwarzweisse Rasterkomposition mit übergrossen Buchstaben Drei Mal Eins.',
-    lead: 'Drei Perspektiven finden in einem gemeinsamen Gestaltungsraster zusammen.',
-    gallery: ['assets/study-grid.svg', 'assets/study-type.svg', 'assets/study-motion.svg'],
+    slug: 'rigi', number: '02', title: 'Rigi',
+    category: 'Imagefilm & Fotoshooting',
+    lead: 'Die Rigi in Bewegung. Und in Bildern.',
+    ...rigiFilmFrames[0],
+    coverCaption: 'Imagefilm / Unterwegs mit der Bahn',
+    film: {
+      title: 'Die Rigi in Bewegung.',
+      text: 'Menschen, Natur und die Fahrt mit der Bahn. Vier Einblicke in unseren Rigi-Imagefilm.',
+      video: '', // Hier später die lokale Filmdatei eintragen.
+      frames: rigiFilmFrames.slice(1),
+    },
+    photoshoot: {
+      title: 'Die Rigi im Fokus.',
+      text: 'Der zweite Blick aufs Projekt: Die Bildstrecke aus dem Fotoshooting folgt.',
+      images: [], // Eigene Fotos separat ergänzen; die Filmstills bleiben beim Imagefilm.
+    },
   },
 ];
