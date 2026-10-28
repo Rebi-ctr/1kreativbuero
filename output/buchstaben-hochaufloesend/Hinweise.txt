@@ -1,0 +1,1 @@
+12 einzeln zugeschnittene PNG-Dateien mit transparentem Hintergrund. Jeweils 4000 Pixel Höhe, Breite proportional. Hochskalierte Materialtexturen aus dem ersten Entwurf; keine neu generierten feinen Materialdetails. Die Dateien sind individuell zugeschnitten und haben deshalb keine gemeinsame Logo-Leinwand. Für deckungsgleiche Überblendungen die ursprünglichen Ebenen verwenden.
