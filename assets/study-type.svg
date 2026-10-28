@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100">
+  <rect width="1600" height="1100" fill="#dcded9"/>
+  <g stroke="#182026" opacity=".15"><path d="M0 275h1600M0 550h1600M0 825h1600M400 0v1100M800 0v1100M1200 0v1100"/></g>
+  <ellipse cx="1090" cy="558" rx="350" ry="470" transform="rotate(28 1090 558)" fill="#174fe4"/>
+  <ellipse cx="1090" cy="558" rx="190" ry="300" transform="rotate(28 1090 558)" fill="#dcded9"/>
+  <g fill="#131313" font-family="Arial, Helvetica, sans-serif" font-weight="700" letter-spacing="-18"><text x="78" y="448" font-size="290">anders</text><text x="78" y="719" font-size="290">denken.</text></g>
+  <g fill="#131313" font-family="Arial, Helvetica, sans-serif" font-size="18"><text x="88" y="63">1K / VISUELLE STUDIE 01</text><text x="88" y="1035">IDEE → FORM → WIRKUNG</text><text x="1320" y="1035">ENTWURF / 2026</text></g>
+  <path d="M1500 60v70m-35-35h70" stroke="#131313" stroke-width="2"/>
+</svg>
