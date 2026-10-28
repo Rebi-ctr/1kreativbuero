@@ -43,3 +43,13 @@ Die Rigi-Seite trennt Imagefilm und Fotoshooting in zwei Kapitel mit direkten Sp
 Texte, Rollen und Stärken sind Vorschläge; die dargestellten Personen sind Referenzporträts. Die fehlende Kontaktadresse ist als Textplatzhalter dargestellt; sobald `studio.email` in `content.js` gesetzt ist, erscheint ein funktionierender E-Mail-Link.
 
 Der Bild-zu-Hero-Übergang nutzt progressive native View Transitions in unterstützten Browsern. Sonst bleiben die normalen Seitenlinks nutzbar. Die Ansicht unterstützt kleine Bildschirme, Tastaturbedienung und `prefers-reduced-motion`. Bei reduzierter Bewegung stehen Raster und Wörter sofort vollständig da. Ohne JavaScript bleiben die drei Wörter ebenfalls sichtbar. Für einen späteren Livegang müssen Inhalte, Bildrechte und die passenden rechtlichen Angaben ergänzt und die Entwurfskennzeichnungen einschliesslich `noindex` entfernt werden.
+
+## Wiriehorn-Projektgeschichte
+
+`projekt.html?projekt=wiriehorn` zeigt alle zehn Schritte aus `assets/projects/wiriehorn/content-steps/Beschreibung-Projektschritte.docx`. Inhalte und Interaktionen stehen in `wiriehorn.js`, komprimierte Rasterbilder in `assets/projects/wiriehorn/web/`. Die Originalmedien bleiben unverändert.
+
+Kompakte Bildraster und wechselnde Rosé-, Salbei-, Blau- und dunkle Flächen orientieren sich an der aktuellen Hauptseite. Der Jahreszeitenvergleich lässt sich direkt im Bild per Ziehen, Touch und Tastatur bedienen. Videos spielen im sichtbaren Bereich stumm und in Schleife; native Steuerelemente sind ausgeblendet. Ein dezenter Pause-/Play-Schalter erscheint bei Hover, Tastaturfokus oder auf Touch-Geräten. Reduzierte Bewegung verhindert automatisches Abspielen. Ausserhalb des sichtbaren Bereichs pausieren die Videos.
+
+Panorama und Erlebniskarte laden als verzögerte iFrames mit ergänzenden Direktlinks. Die frühere Einbettungssperre der Karte wurde entfernt und am 28. Oktober 2026 erneut geprüft. Die Infotafel bleibt als Zukunfts-Mockup gekennzeichnet.
+
+Die Karte startet nach einem Klick innerhalb des iFrames. Dadurch zieht ihr automatischer Fokus die Projektseite beim Lesen nicht unerwartet zum Kartenabschnitt.

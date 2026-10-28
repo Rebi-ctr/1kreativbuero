@@ -111,3 +111,11 @@ Die ursprünglichen sechs Bildreferenzen und das Video sind Gestaltungsreferenze
 Für die spätere Website werden echte Teamdaten und Projektgeschichten benötigt. Wo diese fehlen, stehen klar erkennbare Platzhalter. Die früheren vier Gestaltungsstudien sind nicht mehr eingebunden. Wiriehorn und Rigi nutzen die bereitgestellten Projektbilder; bei Rigi sind die Fotoshooting-Bilder noch offen. Die Porträts nutzen gekennzeichnete Bildreferenzen. Das Büro-Raster besteht aus HTML und CSS und verwendet kein Referenzfoto. Die ausfüllbare Vorlage steht in [INHALTE.md](INHALTE.md).
 
 Noch offen sind insbesondere die endgültige Positionierung, das Leistungsangebot, Namen und Porträts der drei Personen, die ausführliche Wiriehorn-Projektgeschichte sowie weitere veröffentlichbare Projektbilder und Kontaktangaben. Diese Inhalte lassen sich ergänzen, ohne die beschriebene Seitenstruktur neu aufzubauen.
+
+## Wiriehorn-Timeline
+
+Die zehn Schritte nutzen kompakte Bildraster und zweispaltige Textköpfe am Desktop. Rosé, Salbei, Eisblau und einzelne dunkle Flächen verbinden die Projektgeschichte mit dem aktuellen Hero und seinen farbigen Materialdetails. Mobil bleiben die Bildgruppen überwiegend zweispaltig; Videos und Einbettungen erhalten ausreichend Platz.
+
+Der Sommer-/Wintervergleich wird unmittelbar am Trennpfeil im Bild bedient, inklusive Touch und Tastatur. Stumme Videos laufen in Schleife, solange sie sichtbar sind; eine reduzierte Bewegungseinstellung und manuelles Pausieren werden respektiert. Native Videosteuerleisten entfallen. Karte und Gipfelpanorama sind eingebettet.
+
+Die Karte startet nach einem Klick innerhalb des iFrames. Dadurch zieht ihr automatischer Fokus die Projektseite beim Lesen nicht unerwartet zum Kartenabschnitt.

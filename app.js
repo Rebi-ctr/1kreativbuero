@@ -322,6 +322,10 @@ function renderCase() {
   const container = $('#case-content');
   if (!container) return;
   const slug = new URLSearchParams(window.location.search).get('projekt');
+  if (slug === featuredProject.slug) {
+    renderWiriehorn(container);
+    return;
+  }
   const project = projects.find((item) => item.slug === slug);
   if (!project) {
     document.title = 'Projekt nicht gefunden - 1Kreativbüro';

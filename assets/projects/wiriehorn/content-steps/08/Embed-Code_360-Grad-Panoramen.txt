@@ -1,0 +1,34 @@
+Embed-Code für die 360°-Panoramen Übersichtsseite
+<iframe
+  src="https://erlebniskarte.wiriehorn.ch/360/#bergstation-nueegg"
+  title="360°-Panorama Wiriehorn-Gipfel"
+  style="display:block; width:100%; height:clamp(350px, 60vw, 650px); border:0;"
+  loading="lazy"
+  allow="fullscreen"
+  allowfullscreen>
+</iframe>
+
+
+Embed-Code für die 360°-Panoramen einzeln
+
+Hier ein Beispiel für den Wiriehorn-Gipfel:
+
+<iframe
+  src="https://erlebniskarte.wiriehorn.ch/360/?embed=1#wiriehorn-gipfel"
+  title="360°-Panorama Wiriehorn-Gipfel"
+  style="display:block; width:100%; height:clamp(350px, 60vw, 650px); border:0;"
+  loading="lazy"
+  allow="fullscreen"
+  allowfullscreen>
+</iframe>
+
+Für die anderen Panoramen kannst du die Kennung nach # ersetzen:
+- Bergstation Nüegg: bergstation-nueegg
+- Bergstation Nüegg erhöht: bergstation-nueegg-erhoeht
+- Wiriehorn-Gipfel: wiriehorn-gipfel
+- Wiriehorn-Gipfel Luftaufnahme: wiriehorn-gipfel-luftpanorama
+- Wiriehorn Talblick: wiriehorn-talblick
+- Wiriehorn Übersicht: wiriehorn-uebersicht
+
+Die Höhe kannst du natürlich passend zum Seitentemplate anpassen.
+Die vollständige Galerie ist weiterhin unter https://erlebniskarte.wiriehorn.ch/360/ erreichbar.
