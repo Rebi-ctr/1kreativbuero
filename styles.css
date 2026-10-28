@@ -1,6 +1,6 @@
 @view-transition { navigation: auto; }
 
-:root { --ink: #111110; --paper: #f0efe9; --muted: #a0a09a; --line: #cdcdc5; --dark-line: #3b3b37; --gutter: clamp(22px, 4vw, 80px); --sans: 'Inter', sans-serif; --mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace; }
+:root { --ink: #111110; --paper: #f0efe9; --muted: #a0a09a; --line: #cdcdc5; --dark-line: #3b3b37; --gutter: clamp(22px, 4vw, 80px); --title-font: "Sansation", sans-serif; --sans: 'Inter', sans-serif; --mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace; }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 92px; }
 body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-optical-sizing: auto; font-weight: 100; font-style: normal; -webkit-font-smoothing: antialiased; }
@@ -15,8 +15,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 button:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid currentColor; outline-offset: 6px; }
 img { display: block; width: 100%; }
 ::selection { color: var(--paper); background: #575952; }
-h1, h2, h3 { font-weight: 500; letter-spacing: -.065em; line-height: .97; }
-h1, h2, h3, h4, h5, h6 { font-family: "Sansation", sans-serif; font-weight: 400; font-style: normal; }
+h1, h2, h3 { letter-spacing: -.065em; line-height: .97; }
+h1, h2, h3, h4, h5, h6 { font-family: var(--title-font); font-weight: 400; font-style: normal; }
 .meta { font-family: var(--mono); font-size: 11px; font-weight: 400; line-height: 1.55; letter-spacing: .01em; }
 .muted { color: var(--muted); }
 .serif { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; font-style: italic; }
@@ -33,12 +33,9 @@ h1, h2, h3, h4, h5, h6 { font-family: "Sansation", sans-serif; font-weight: 400;
 .site-header nav a span { color: #a0a09a; transition: transform .2s; }
 .site-header nav a:hover span { transform: translate(2px, -2px); }
 .hero { min-height: 780px; min-height: clamp(700px, calc(100svh - 87px), 1050px); padding: 25px var(--gutter) 30px; background: var(--ink); color: var(--paper); display: flex; flex-direction: column; overflow: hidden; }
-.hero-eyebrow { display: flex; justify-content: space-between; gap: 30px; }
-.hero-eyebrow > :last-child { text-align: right; }
+
 .hero-composition { width: 100%; min-height: 390px; height: min(40vw, 630px); position: relative; margin: auto 0; }
-.hero-bottom { display: grid; grid-template-columns: 1.2fr 1fr auto; align-items: end; gap: 25px; margin-top: 28px; }
-.hero h1 { font-size: clamp(29px, 3.3vw, 52px); letter-spacing: -.055em; line-height: 1.02; }
-.hero-bottom p { font-size: 14px; line-height: 1.5; color: #c1c1b8; }
+
 .text-link { display: flex; align-items: center; gap: 28px; font-size: 13px; padding: 10px 0; border-bottom: 1px solid currentColor; }
 .text-link span { font-size: 22px; }
 .section-label { display: flex; justify-content: space-between; gap: 25px; padding-bottom: 24px; border-bottom: 1px solid var(--line); }
@@ -243,8 +240,7 @@ h1, h2, h3, h4, h5, h6 { font-family: "Sansation", sans-serif; font-weight: 400;
   .header-note { margin-left: 2vw; }
   .hero { min-height: 700px; }
   .hero-composition { min-height: 340px; }
-  .hero-bottom { grid-template-columns: 1.2fr 1fr; }
-  .hero-bottom .text-link { grid-column: 2; width: max-content; }
+
   .person-strength { left: 10px; bottom: 10px; }
   .project-row { grid-template-columns: 1fr 2.5fr .8fr; min-height: 210px; }
 }
@@ -255,21 +251,9 @@ h1, h2, h3, h4, h5, h6 { font-family: "Sansation", sans-serif; font-weight: 400;
   .site-header nav { font-size: 11px; gap: 16px; }
   .site-header nav a { gap: 4px; }
   .hero { min-height: 660px; min-height: calc(100svh - 70px); padding-top: 20px; padding-bottom: 30px; }
-  .hero-eyebrow { font-size: 9px; }
-  .hero-eyebrow > :last-child { max-width: 145px; }
+
   .hero-composition { min-height: 240px; height: 65vw; margin-top: 45px; margin-bottom: 35px; }
-  .hero-letters { font-size: 64vw; transform: translate(-57%, -50%); }
-  .orbit { width: 31%; }
-  .orbit-one { left: -1%; top: 25%; }
-  .orbit-two { top: 1%; left: 47%; }
-  .orbit-three { right: -6%; top: 42%; }
-  .orbit-label { font-size: 9px; }
-  .orbit-three .orbit-label { left: 33%; top: 85%; }
-  .composition-index { font-size: 8px; bottom: -20px; }
-  .hero-bottom { grid-template-columns: 1fr auto; gap: 25px 16px; }
-  .hero h1 { font-size: clamp(29px, 7.5vw, 43px); grid-column: 1 / -1; }
-  .hero-bottom p { font-size: 12px; }
-  .hero-bottom .text-link { font-size: 11px; gap: 15px; }
+
   .section-pad { padding-top: 28px; padding-bottom: 60px; }
   .section-label { font-size: 9px; padding-bottom: 20px; }
   .section-label > :last-child { text-align: right; max-width: 135px; }
@@ -369,7 +353,7 @@ h1, h2, h3, h4, h5, h6 { font-family: "Sansation", sans-serif; font-weight: 400;
   .case-next > a { grid-template-columns: 1fr; gap: 25px; }
   .case-next h2 { font-size: 50px; }
 }
-@media (max-width: 380px) { .site-header { gap: 15px; } .site-header nav { justify-content: space-between; width: 100%; } .hero { min-height: 660px; } .hero-bottom { display: flex; flex-wrap: wrap; } .hero-bottom h1 { width: 100%; } .hero-bottom p { font-size: 11px; } .hero-bottom .text-link { margin-left: auto; } .badge-detail { display: none; } }
+@media (max-width: 380px) { .site-header { gap: 15px; } .site-header nav { justify-content: space-between; width: 100%; } .hero { min-height: 660px; } .badge-detail { display: none; } }
 @media (prefers-reduced-motion: reduce) {
   .feature-card, .person-card { transition: none; }
   html { scroll-behavior: auto; }
@@ -508,7 +492,9 @@ h1, h2, h3, h4, h5, h6 { font-family: "Sansation", sans-serif; font-weight: 400;
 .wiriehorn-page .navbar-logo img { filter: invert(1); }
 .wiriehorn-page .header-note, .wiriehorn-page .site-header nav a span { color: #b1b1aa; }
 
-/* Titel inklusive der doppelten Kontur-Ebene, Fliesstexte in Inter Thin. */
-.creative-title, .studio-word { font-family: "Sansation", sans-serif; font-weight: 400; }
-p { font-family: var(--sans); font-optical-sizing: auto; font-weight: 100; font-style: normal; }
+/* Gemeinsame Typografie für Texte, Bedienelemente und Titelgrafiken. */
+.creative-title, .studio-word { font-family: var(--title-font); font-weight: 400; }
+p { font-family: var(--sans); font-optical-sizing: auto; font-weight: 300; font-style: normal; }
 h1 .serif, h2 .serif, h3 .serif { font-family: inherit; font-style: inherit; }
+
+button:not(.studio-title-label), .text-link, .feature-open, a[role="button"] { font-weight: 300; }

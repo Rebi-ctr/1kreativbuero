@@ -17,11 +17,15 @@ Dann `http://127.0.0.1:4173` im Browser öffnen. Es gibt keine Build-Abhängigke
 ## Aufbau
 
 - `index.html`: Hero, Highlight-Projekt, Büro, drei Personen, Projektarchiv und Kontakt.
-- `projekt.html?projekt=wiriehorn`: Wiriehorn-Vorschau mit Sommer- und Winterbild.
+- `projekt.html?projekt=wiriehorn`: Wiriehorn-Projektgeschichte mit zehn Schritten, Bildern, Videos, Sommer-/Winter-Vergleich und eingebetteten Karten.
 - `projekt.html?projekt=rigi`: Rigi-Detailansicht mit grossformatigem Einstieg, vier Filmstills zum Imagefilm und einem vorbereiteten Bereich für das Fotoshooting.
 - `content.js`: Zentraler Ort für Teamtexte, Rollen, Leistungen, Kontakt und Projekte.
 - `styles.css`: Gestaltung, Raster, mobile Ansichten, Bewegungen und reduzierte Animationen.
-- `app.js`: Sommer-/Winter-Kartenstapel, Büro-Scrollytelling, Teamfächer, Projektübersicht und Projektnavigation.
+- `shared.js`: Gemeinsame DOM-, Text- und URL-Hilfsfunktionen sowie die Einstellung für reduzierte Bewegung. Wird vor den Seiten-Scripts geladen.
+- `app.js`: Sommer-/Winter-Kartenstapel, Projektübersicht, allgemeine Projektseiten und native Seitenübergänge.
+- `studio.js`: Büro-Scrollytelling, Schriftanimation und Teamfächer; nur auf der Startseite geladen.
+- `hero-reveal.js`: Responsive SVG-Masken mit drei Gucklöchern auf Desktop und zwei auf Mobile, Kollisionen, Cursor-Haftung, Touch-Ziehen und sanfter Rückkehr zum Logo.
+- `wiriehorn.js`: Zehnteilige Projektgeschichte, Sommer-/Winter-Vergleich und Videosteuerung. Auf Projektseiten vor `app.js` laden.
 - `background-motion.js`: Lokaler Wasserfarbenzug der Hintergründe auf Start- und Projektseiten. Ein kleines Bewegungsfeld zieht und verwischt die Farbe entlang der Mausspur; die Verformung klingt nach wenigen Zehntelsekunden ab. Die WebGL-Textur enthält nur Farbflächen. Bilder, Grafiken und Texte werden nicht erfasst. Auf Touch-Geräten, bei reduzierter Bewegung und ohne WebGL bleiben die normalen CSS-Hintergründe aktiv.
 - `assets/study-*.svg`: Frühere Layoutstudien; in der aktuellen Projektübersicht nicht mehr eingebunden.
 - `assets/references/`: Unveränderte, vom User gelieferte Bildreferenzen für die lokale Entwurfsarbeit. Die verwendeten Referenzporträts sind im Entwurf ausdrücklich gekennzeichnet.
@@ -53,3 +57,15 @@ Kompakte Bildraster und wechselnde Rosé-, Salbei-, Blau- und dunkle Flächen or
 Panorama und Erlebniskarte laden als verzögerte iFrames mit ergänzenden Direktlinks. Die frühere Einbettungssperre der Karte wurde entfernt und am 28. Oktober 2026 erneut geprüft. Die Infotafel bleibt als Zukunfts-Mockup gekennzeichnet.
 
 Die Karte startet nach einem Klick innerhalb des iFrames. Dadurch zieht ihr automatischer Fokus die Projektseite beim Lesen nicht unerwartet zum Kartenabschnitt.
+
+## Prüfung nach Änderungen
+
+Mit Node.js lassen sich die Prüfungen ohne zusätzliche Pakete starten:
+
+```sh
+node --test tests/site.test.cjs
+```
+
+Sie prüfen lokale HTML-Verweise, eindeutige Script-Einbindungen, deren Ladefolge und den tatsächlichen Seitenaufbau aller Projekte. Die Wiriehorn-Prüfung kontrolliert zusätzlich die zehn Schritte, Vergleich, Videos und lokalen Medien. Browser-APIs werden dabei vereinfacht nachgebildet; die visuellen Interaktionen müssen zusätzlich im Browser geprüft werden.
+
+Gemeinsame Styles und Typografie liegen in `styles.css`. Titel verwenden Sansation, Absätze und Aktionsbuttons Inter mit Gewicht 300. Änderungen am Hero müssen auf beiden Seiten des 650-px-Breakpoints geprüft werden. Die SVG-Konturen und Masken müssen stets gemeinsam verändert werden.
