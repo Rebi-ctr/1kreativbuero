@@ -490,5 +490,3 @@ button:not(.studio-title-label), .text-link, .feature-open, a[role="button"] { f
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
  .wiriehorn-page .journey-image:hover img { transform: scale(1.035); filter: contrast(1.025); }
 }
-.journey-launch { max-width: 650px; margin: 10px 0 30px; padding-top: 24px; border-top: 1px solid #ffffff35; }
-.journey-launch p { font-size: 15px; line-height: 1.7; margin-bottom: 12px; }
