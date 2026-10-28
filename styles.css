@@ -477,3 +477,18 @@ button:not(.studio-title-label), .text-link, .feature-open, a[role="button"] { f
 }
 
 .studio-letter svg { display: block; width: 100%; height: 100%; overflow: visible; }
+
+/* Wiriehorn: monochrome Abstufungen, Farbe ausschliesslich in den Projektmedien. */
+.wiriehorn-page .journey-step { --step-bg: var(--paper); --step-ink: var(--ink); }
+.wiriehorn-page .journey-step:nth-child(2), .wiriehorn-page .journey-step:nth-child(6), .wiriehorn-page .journey-step:nth-child(10) { --step-bg: #dededb; }
+.wiriehorn-page .journey-step:nth-child(3), .wiriehorn-page .journey-step:nth-child(7) { --step-bg: #e9e9e6; }
+.wiriehorn-page .journey-step:nth-child(8) { --step-bg: #d3d3d0; }
+.wiriehorn-page .journey-step:nth-child(4), .wiriehorn-page .journey-step:nth-child(9) { --step-bg: #242424; --step-ink: var(--paper); }
+.wiriehorn-page .season-compare, .wiriehorn-page .journey-embed iframe, .wiriehorn-page .journey-embed-start { background: #dededb; }
+.wiriehorn-page .journey-image { display: block; overflow: hidden; }
+.wiriehorn-page .journey-image img { transition: transform .5s cubic-bezier(.2,.7,.3,1), filter .5s; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+ .wiriehorn-page .journey-image:hover img { transform: scale(1.035); filter: contrast(1.025); }
+}
+.journey-launch { max-width: 650px; margin: 10px 0 30px; padding-top: 24px; border-top: 1px solid #ffffff35; }
+.journey-launch p { font-size: 15px; line-height: 1.7; margin-bottom: 12px; }
