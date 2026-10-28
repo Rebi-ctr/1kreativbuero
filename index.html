@@ -8,11 +8,11 @@
   <meta name="robots" content="noindex, nofollow">
   <title>1Kreativbüro — Drei Köpfe. Ein Büro.</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=12">
-  <script defer src="content.js?v=7"></script>
-  <script defer src="app.js?v=7"></script>
-  <script defer src="background-motion.js?v=8"></script>
-  <script defer src="hero-reveal.js?v=8"></script>
+  <link rel="stylesheet" href="styles.css?v=13">
+  <script defer src="content.js?v=13"></script>
+  <script defer src="app.js?v=13"></script>
+  <script defer src="background-motion.js?v=13"></script>
+  <script defer src="hero-reveal.js?v=13"></script>
 </head>
 <body>
   <a class="skip-link" href="#inhalt">Zum Inhalt</a>
@@ -54,17 +54,21 @@
     </section>
 
     <section class="about section-pad" id="buero" aria-labelledby="about-title">
-      <div class="section-label meta"><span><span class="section-number">02 /</span> Das Büro</span><span>Zusammen entsteht mehr.</span></div>
-      <div class="about-intro"><h2 id="about-title">Drei Köpfe.<br>Kein Gleichklang.</h2><div><p class="large-copy" id="studio-intro"></p><p class="muted">Unterschiedliche Stärken, ein gemeinsamer Anspruch: Dinge gestalten, die etwas auslösen.</p><span class="draft-tag">Textentwurf</span></div></div>
-      <div class="about-mosaic" aria-label="Gestaltungsstudie einer Rastercollage">
-        <img src="assets/references/portrait-focus.jpg" alt="Referenzporträt als vorläufige Bildstudie, wird durch ein eigenes Teambild ersetzt." loading="lazy" width="1080" height="1440">
-        <div class="mosaic-grid" aria-hidden="true"></div><div class="mosaic-word" aria-hidden="true"><span>wei</span><span>ter</span><span>den</span><span>ken.</span></div><span class="mosaic-caption meta">Drei Perspektiven.<br>Eine gemeinsame Richtung.</span><span class="image-note meta">Referenzbild · Teambild folgt</span>
+      <div class="studio-story" id="studio-story" role="region" aria-label="Unsere drei Disziplinen: Foto, Video und Web">
+        <div class="studio-scene" id="studio-scene">
+          <div class="studio-grid" id="studio-grid" aria-hidden="true"></div>
+          <h2 class="studio-title" id="about-title"><button class="studio-title-label" id="studio-title-label" type="button" aria-label="Das Büro."><span aria-hidden="true">Das Büro.</span></button></h2>
+          <div class="studio-hotspot studio-hotspot-photo"><span class="sr-only">Foto</span><span class="studio-word" data-word="Foto" aria-hidden="true">Foto</span></div>
+          <div class="studio-hotspot studio-hotspot-video"><span class="sr-only">Video</span><span class="studio-word" data-word="Video" aria-hidden="true">Video</span></div>
+          <div class="studio-hotspot studio-hotspot-web"><span class="sr-only">Web</span><span class="studio-word" data-word="Web" aria-hidden="true">Web</span></div>
+        </div>
       </div>
-      <div class="keywords-header"><span class="meta">Was wir einbringen <span class="muted">/ Leistungsentwurf</span></span><button class="motion-toggle meta" id="motion-toggle" type="button" aria-pressed="false">Bewegung pausieren <span aria-hidden="true">Ⅱ</span></button></div>
-      <div class="keyword-window" id="keyword-window" role="region" aria-label="Schlagworte zu unseren Leistungen, Entwurf" tabindex="0"><div class="keyword-track" id="keyword-track"></div></div>
-      <div class="people-heading"><h3>Die Köpfe dahinter.</h3><p class="meta muted">Drei Persönlichkeiten.<br>Hier ist Platz für euch.</p></div>
-      <div class="people-grid" id="people-grid"></div>
-      <p class="content-note">Die Porträts sind Bildreferenzen. Namen, Rollen und Stärken sind Platzhalter für eure echten Vorstellungen.</p>
+      <section class="creative" aria-labelledby="creative-title">
+        <div class="people-deck" id="people-grid" role="group" aria-label="Die drei Köpfe im Kreativbüro"><h3 class="creative-title creative-title-fill" id="creative-title"><span>Das Kreative.</span></h3></div>
+        <div class="people-switches" id="people-switches" role="group" aria-label="Teammitglied auswählen"></div>
+        <div class="person-panel" id="person-panel" role="region" aria-label="Die ausgewählte Perspektive" aria-live="polite" aria-atomic="true"></div>
+        <p class="content-note">Die Porträts sind Bildreferenzen. Namen, Rollen und Stärken sind Platzhalter für eure echten Vorstellungen.</p>
+      </section>
     </section>
 
     <section class="projects section-pad" id="projekte" aria-labelledby="projects-title">
