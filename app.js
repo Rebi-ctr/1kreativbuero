@@ -304,18 +304,41 @@ function caseFigures(images) {
 function renderProjectStory(project) {
   if (project.film) {
     const { film, photoshoot } = project;
-    return `<section class="case-section case-film" id="imagefilm" aria-labelledby="case-film-title">
-      <header class="case-section-heading"><span class="meta">01 / IMAGEFILM</span><h2 id="case-film-title">${escapeHTML(film.title)}</h2><p>${escapeHTML(film.text)}</p></header>
-      ${film.video ? `<video class="case-film-video" src="${escapeHTML(film.video)}" poster="${escapeHTML(project.image)}" controls playsinline preload="none">Dein Browser unterstützt dieses Video nicht. <a href="${escapeHTML(film.video)}">Imagefilm öffnen</a></video>` : ''}
-      <div class="case-film-gallery" role="group" aria-label="Filmstills aus dem Rigi-Imagefilm">${caseFigures(film.frames)}</div>
+    return `<div class="journey">
+    <section class="journey-step" id="imagefilm" aria-labelledby="case-film-title">
+      <div class="journey-marker"><span>01</span><span class="meta">Imagefilm</span></div>
+      <div class="journey-content"><div class="journey-copy"><h2 id="case-film-title">${escapeHTML(film.title)}</h2><p>${escapeHTML(film.text)}</p></div>
+      ${film.video ? `<figure class="rigi-film-player"><video src="${escapeHTML(film.video)}" poster="${escapeHTML(project.image)}" controls playsinline preload="none">Dein Browser unterstützt dieses Video nicht. <a href="${escapeHTML(film.video)}">Imagefilm öffnen</a></video><figcaption>Imagefilm / ${escapeHTML(project.title)}</figcaption></figure>` : ''}
+      <div class="journey-report rigi-film-gallery" role="group" aria-label="Filmstills aus dem Rigi-Imagefilm">${caseFigures(film.frames)}</div></div>
     </section>
-    <section class="case-section case-photoshoot" id="fotoshooting" aria-labelledby="case-photo-title">
-      <header class="case-section-heading"><span class="meta">02 / FOTOSHOOTING</span><h2 id="case-photo-title">${escapeHTML(photoshoot.title)}</h2><p>${escapeHTML(photoshoot.text)}</p></header>
-      ${photoshoot.images.length ? `<div class="case-film-gallery">${caseFigures(photoshoot.images)}</div>` : '<div class="case-photo-placeholder" aria-hidden="true"><span>Fotoshooting.</span><span class="meta">Bilder folgen</span></div>'}
-    </section>`;
+    <section class="journey-step" id="fotoshooting" aria-labelledby="case-photo-title">
+      <div class="journey-marker"><span>02</span><span class="meta">Fotoshooting</span></div>
+      <div class="journey-content"><div class="journey-copy"><h2 id="case-photo-title">${escapeHTML(photoshoot.title)}</h2><p>${escapeHTML(photoshoot.text)}</p></div>
+      ${photoshoot.images.length ? `<div class="journey-report rigi-photo-gallery">${caseFigures(photoshoot.images)}</div>` : '<div class="rigi-photo-placeholder" aria-hidden="true"><span>Fotoshooting.</span><span class="meta">Bilder folgen</span></div>'}</div>
+    </section>
+    </div>`;
   }
   const gallery = project.views?.slice(1) || [];
   return gallery.length ? `<div class="case-gallery case-gallery-featured">${gallery.map((view) => `<figure><img src="${view.image}" alt="${escapeHTML(view.alt)}" width="${view.width}" height="${view.height}" loading="lazy"><figcaption class="meta">${escapeHTML(view.season)}</figcaption></figure>`).join('')}</div>` : `<section class="case-description" aria-labelledby="case-story-title"><span class="meta">PROJEKTEINBLICK</span><div><h2 id="case-story-title">Die Geschichte folgt.</h2><p>Hier zeigen wir bald Bilder und Einblicke in unser ${escapeHTML(project.title)}-Projekt.</p></div></section>`;
+}
+
+function renderFilmCase(container, project) {
+  const nextProject = projects[(projects.indexOf(project) + 1) % projects.length];
+  const headline = project.headline || [project.title];
+  document.title = `${project.title} – Imagefilm & Fotoshooting — 1Kreativbüro`;
+  document.querySelector('meta[name="description"]').content = `${project.title}: Einblicke in den Imagefilm und das Fotoshooting von 1Kreativbüro.`;
+  document.body.classList.add('project-story-page', 'rigi-page');
+  container.innerHTML = `<article class="case-project" aria-labelledby="case-title">
+    <section class="case-intro" aria-labelledby="case-title">
+      <div class="case-breadcrumb meta"><a href="index.html#projekte">← Zur Projektübersicht</a><span>${escapeHTML(project.title.toUpperCase())} / PROJEKTGESCHICHTE</span></div>
+      <h1 class="case-title" id="case-title">${headline.map(escapeHTML).join('<br>')}</h1>
+      <div class="case-meta"><p>${escapeHTML(project.lead)}</p><div class="case-tags"><span class="meta">PROJEKT<br>${escapeHTML(project.title)}</span><span class="meta">LEISTUNGEN<br>${escapeHTML(project.category)}</span></div></div>
+    </section>
+    <figure class="case-hero">${projectVisual(project, true)}${project.coverCaption ? `<figcaption class="sr-only">${escapeHTML(project.coverCaption)}</figcaption>` : ''}</figure>
+    <nav class="journey-nav" aria-label="Projektbereiche"><a href="#imagefilm"><span>01</span> Imagefilm</a><a href="#fotoshooting"><span>02</span> Fotoshooting</a></nav>
+    ${renderProjectStory(project)}
+    <section class="journey-end"><span class="meta">AUS UNSEREM KREATIVBÜRO</span><h2>Noch mehr<br>zu entdecken.</h2><a class="text-link" data-project="${nextProject.slug}" href="${projectURL(nextProject)}">${escapeHTML(nextProject.title)} entdecken ↗</a><a class="text-link" href="index.html#projekte">Weitere Projekte entdecken ↗</a></section>
+    </article>`;
 }
 
 function renderCase() {
@@ -332,17 +355,21 @@ function renderCase() {
     container.innerHTML = '<section class="case-not-found"><span class="meta">404 / PROJEKT</span><h1>Hier ist noch<br>Raum für Ideen.</h1><p>Dieses Projekt gibt es im Entwurf noch nicht.</p><a class="text-link" href="index.html#projekte">Zur Projektübersicht <span>↗</span></a></section>';
     return;
   }
+  if (project.film) {
+    renderFilmCase(container, project);
+    return;
+  }
   const index = projects.indexOf(project);
   const nextProject = projects[(index + 1) % projects.length];
   document.title = `${project.title} - 1Kreativbüro`;
   container.innerHTML = `
-    <article class="case-project${project.film ? ' case-project-film' : ''}" aria-labelledby="case-title">
+    <article class="case-project" aria-labelledby="case-title">
     <section class="case-intro" aria-labelledby="case-title">
       <div class="case-breadcrumb meta"><a href="index.html#projekte">← Projektübersicht</a><span>${escapeHTML(project.title.toUpperCase())}</span></div>
       <h1 class="case-title" id="case-title">${escapeHTML(project.title)}</h1>
-      <div class="case-meta"><p>${escapeHTML(project.lead)}</p>${project.film ? '<nav class="case-section-links meta" aria-label="Projektbereiche"><a href="#imagefilm">Imagefilm ↓</a><a href="#fotoshooting">Fotoshooting ↓</a></nav>' : ''}</div>
+      <div class="case-meta"><p>${escapeHTML(project.lead)}</p></div>
     </section>
-    <figure class="case-hero${project.image ? '' : ' is-placeholder'}">${projectVisual(project, true)}${project.coverCaption ? `<figcaption class="case-hero-caption meta">${escapeHTML(project.coverCaption)}</figcaption>` : ''}</figure>
+    <figure class="case-hero${project.image ? '' : ' is-placeholder'}">${projectVisual(project, true)}</figure>
     ${renderProjectStory(project)}
     <section class="case-next" aria-label="Nächstes Projekt"><a data-project="${nextProject.slug}" href="${projectURL(nextProject)}"><div><span class="meta">NÄCHSTES PROJEKT</span><h2>${escapeHTML(nextProject.title)}</h2><span class="text-link">Ab ins Projektbüro <span aria-hidden="true">↗</span></span></div><div class="case-next-visual">${projectVisual(nextProject)}</div></a></section>
     </article>`;

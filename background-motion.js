@@ -1,7 +1,8 @@
 // Lokaler Wasserfarbenzug. Die Textur enthält nur Farbflächen, nie Seiteninhalte.
 (() => {
   const media = matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
-  const selector = '.site-header, .featured, .feature-stage, .about, .projects, .contact, .case-next, .site-footer';
+  const selector = '.site-header, .hero, .hero-composition, .featured, .feature-stage, .about, .projects, .contact, .case-intro, .case-hero, .journey-nav, .journey-step, .journey-end, .case-next, .site-footer';
+  const isTransparent = (color) => color === 'transparent' || /^rgba\([^)]*,\s*0(?:\.0+)?\s*\)$/.test(color);
   const MAX_PULL = 76;
   const GRID_WIDTH = 160;
   const vertexSource = `
@@ -51,7 +52,7 @@
   let width = 0, height = 0, rows = 0;
   let frame = 0, lastTime = 0;
   let layoutDirty = true;
-  let paper = '#f0efe9';
+  let baseColor = '#f0efe9';
 
   function schedule() {
     if (canvas && !frame) frame = requestAnimationFrame(draw);
@@ -115,13 +116,15 @@
       gl.uniform2f(gl.getUniformLocation(program, 'uSize'), w, h);
     }
     const rects = surfaces.map(({ element }) => element.getBoundingClientRect());
-    context.fillStyle = paper;
+    context.fillStyle = baseColor;
     context.fillRect(0, 0, width, height);
     surfaces.forEach(({ color }, index) => {
       const r = rects[index];
       if (r.bottom < 0 || r.top > height) return;
       context.fillStyle = color;
-      context.fillRect(r.left, r.top, r.width, r.height + .5);
+      // Ganze Pixel decken auch Bruchteile an Abschnittskanten lückenlos ab.
+      const left = Math.floor(r.left), top = Math.floor(r.top);
+      context.fillRect(left, top, Math.ceil(r.left + r.width) - left, Math.ceil(r.top + r.height) - top);
     });
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, colors);
@@ -205,11 +208,14 @@
     if (!media.matches || document.hidden) { stop(); return; }
     if (canvas) return;
     try {
-      paper = getComputedStyle(document.documentElement).getPropertyValue('--paper').trim() || '#f0efe9';
+      const bodyColor = getComputedStyle(document.body).backgroundColor;
+      baseColor = isTransparent(bodyColor) ? getComputedStyle(document.documentElement).getPropertyValue('--paper').trim() || '#f0efe9' : bodyColor;
+      // Transparente Kinder lassen die bereits gemalte Elternfarbe durch.
+      // Sie dürfen dunkle Abschnitte niemals mit der hellen Grundfarbe ersetzen.
       surfaces = Array.from(document.querySelectorAll(selector)).map((element) => {
         const color = getComputedStyle(element).backgroundColor;
-        return { element, color: color === 'transparent' || color === 'rgba(0, 0, 0, 0)' ? paper : color };
-      });
+        return { element, color };
+      }).filter(({ color }) => !isTransparent(color));
       if (!surfaces.length) return;
       canvas = document.createElement('canvas');
       canvas.className = 'site-background';

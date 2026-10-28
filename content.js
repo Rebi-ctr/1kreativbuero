@@ -54,6 +54,7 @@ const projects = [
   },
   {
     slug: 'rigi', number: '02', title: 'Rigi',
+    headline: ['Ein Berg.', 'Viele Augenblicke.'],
     category: 'Imagefilm & Fotoshooting',
     lead: 'Die Rigi in Bewegung. Und in Bildern.',
     ...rigiFilmFrames[0],

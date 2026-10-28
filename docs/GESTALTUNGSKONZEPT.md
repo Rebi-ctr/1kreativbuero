@@ -27,6 +27,12 @@ Auf Start- und Projektseiten reagiert die Hintergrundfarbe lokal auf den Mauszug
 
 Ein WebGL-Canvas rendert ausschliesslich die CSS-Farbflächen. Bilder, Höhenlinien, Grafiken, Texte und Bedienelemente bleiben ausserhalb der Textur; ihre bestehenden Hover-Interaktionen bleiben erhalten. Scrollen und Grössenänderungen löschen alte Spuren und aktualisieren die Farbgeometrie. Im Ruhezustand läuft keine dauernde Animationsschleife. Auf Touch-Geräten, bei reduzierter Bewegung, ohne WebGL und ohne JavaScript bleiben die normalen Hintergründe bestehen.
 
+Die Farbtextur berücksichtigt auch den Titelbereich auf der Startseite und die Projektkapitel samt dunklem Einstieg. Transparente Bereiche werden übersprungen, damit die tatsächlich darunterliegende Farbe bestehen bleibt. Auf ganze Pixel erweiterte Flächen schliessen Lücken an Abschnittskanten. So zieht der Effekt an dunklen Übergängen die angrenzenden Farben ineinander und fügt keine helle Ersatzfarbe hinzu.
+
+### Header und Footer
+
+Alle Seiten verwenden denselben dunklen Header mit Logo, Positionierung und den drei Links zu Projekten, Büro und Kontakt auf der Startseite. Der gemeinsame Footer verwendet dasselbe SVG-Logo, den Satz «Drei Köpfe. Ein Büro.» und den Link nach oben. Entwurfstext und feste Konzept-Plakette entfallen vollständig.
+
 ### Hero
 
 - Schwarzer Hintergrund, übergrosse helle „1K.“-Typografie.
@@ -81,7 +87,7 @@ Für den Entwurf wird daraus ein Bild-zu-Hero-Übergang mit anschliessender luft
 
 Am Ende steht ein nächstes Projekt; oben führt ein Rücklink ins Archiv. Beim Ergänzen der echten Inhalte sollen Projektrollen und Bildbeschriftungen nachvollziehbar zeigen, welchen Beitrag das Team geleistet hat.
 
-Die Rigi-Seite hat zwei Kapitel: **Imagefilm** und **Fotoshooting**. Das Bahn-Motiv steht als unbeschnittenes 16:9-Einstiegsbild mit Filmstill-Beschriftung vor einer versetzten Bilderstrecke aus Waldszene, Kindern und Lokomotivdetail. Die vier Bilder werden ausschliesslich dem Imagefilm zugeordnet. Das Fotoshooting-Kapitel erhält bis zur Bildlieferung einen eigenen Platzhalter. Sprunglinks erschliessen beide Bereiche. Ein optionaler Videoplayer erscheint erst, sobald eine Filmdatei hinterlegt ist. Mobil stehen die Galeriebilder untereinander; Bildmasse reservieren den benötigten Platz.
+Die Rigi-Seite übernimmt das Design der Wiriehorn-Projektgeschichte: dunkler Einstieg mit zweizeiligem Titel, Projekt- und Leistungsangaben, eingerücktem Bild, Kapitelnavigation und dunklem Abschluss. Gemeinsame Stile unter `project-story-page` halten Typografie und Abstände beider Seiten zusammen. Die Kapitel **01 / Imagefilm** und **02 / Fotoshooting** verwenden dieselben nummerierten Randmarkierungen, Textspalten und wechselnden Farbflächen wie Wiriehorn. Das Bahn-Motiv steht als unbeschnittenes Einstiegsbild vor dem Bildraster aus Waldszene, Kindern und Lokomotivdetail. Die vier Bilder werden ausschliesslich dem Imagefilm zugeordnet. Das Fotoshooting-Kapitel erhält bis zur Bildlieferung einen eigenen Platzhalter. Ein optionaler Videoplayer erscheint erst, sobald eine Filmdatei hinterlegt ist. Mobil stehen die Galeriebilder untereinander; Bildmasse reservieren den benötigten Platz.
 
 ## 3. Empfohlene Seitenstruktur
 

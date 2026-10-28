@@ -163,16 +163,10 @@ h1, h2, h3, h4, h5, h6 { font-family: "Sansation", sans-serif; font-weight: 400;
 .contact-bottom > p { font-size: 18px; line-height: 1.5; letter-spacing: -.025em; }
 .contact-bottom > div { display: flex; flex-direction: column; gap: 12px; }
 .contact-placeholder { font-size: clamp(19px, 2.2vw, 35px); padding-bottom: 10px; border-bottom: 1px solid #737469; letter-spacing: -.04em; display: flex; align-items: center; gap: 40px; }
-.site-footer { background: var(--ink); color: var(--paper); padding: 30px var(--gutter) 65px; display: flex; gap: 30px; justify-content: space-between; align-items: center; border-top: 1px solid var(--dark-line); }
-.site-footer .wordmark { font-size: 20px; }
-.preview-badge { position: fixed; left: 50%; bottom: 15px; transform: translateX(-50%); z-index: 20; background: #f0efe9f0; color: var(--ink); border: 1px solid #b2b3a6; border-radius: 30px; padding: 9px 15px; font-family: var(--mono); font-size: 10px; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 20px #0001; backdrop-filter: blur(10px); white-space: nowrap; }
-.preview-badge > :first-child { font-size: 14px; }
-.badge-detail { color: #616357; }
+.site-footer { background: var(--ink); color: var(--paper); padding: 30px var(--gutter); display: flex; gap: 30px; justify-content: space-between; align-items: center; border-top: 1px solid var(--dark-line); }
 .noscript-note { padding: 30px; background: var(--paper); color: var(--ink); position: fixed; bottom: 0; z-index: 30; width: 100%; font-size: 15px; }
 
 /* Projektunterseite: Bildexpansion und eine versetzte, redaktionelle Bilderstrecke. */
-.project-page .site-header { background: var(--paper); color: var(--ink); border-color: var(--line); }
-.project-page .header-note, .project-page .site-header nav a span { color: #66685d; }
 .case-intro { padding: 35px var(--gutter) 45px; }
 .case-breadcrumb { display: flex; justify-content: space-between; gap: 25px; }
 .case-title { font-size: clamp(66px, 10vw, 170px); margin-top: 55px; max-width: 1200px; }
@@ -199,28 +193,6 @@ h1, h2, h3, h4, h5, h6 { font-family: "Sansation", sans-serif; font-weight: 400;
 .case-gallery figure img { height: auto; }
 .case-gallery figcaption { margin-top: 12px; color: #65675b; }
 .case-gallery-featured { padding-top: 48px; padding-bottom: 64px; }
-/* Filmstills und die spätere Fotostrecke bilden zwei eigene Projektkapitel. */
-.case-project-film .case-hero { height: auto; max-height: none; background: var(--paper); }
-.case-project-film .case-hero img { height: auto; aspect-ratio: 16 / 9; object-fit: contain; }
-.case-hero-caption { padding: 14px var(--gutter) 0; color: #65675b; }
-.case-section-links { display: flex; flex-wrap: wrap; gap: 24px; }
-.case-section-links a { padding: 8px 0; border-bottom: 1px solid var(--line); }
-.case-section-links a:hover { border-color: currentColor; }
-.case-section { margin: clamp(56px, 8vw, 120px) var(--gutter); }
-.case-section-heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 24px 10%; }
-.case-section-heading > .meta { padding-top: 8px; color: #65675b; }
-.case-section-heading h2 { grid-column: 2; font-size: clamp(40px, 5.5vw, 84px); max-width: 720px; }
-.case-section-heading p { grid-column: 2; font-size: 16px; line-height: 1.6; max-width: 460px; color: #5b5e52; }
-.case-film-video { display: block; width: 100%; margin-top: 48px; aspect-ratio: 16 / 9; background: var(--ink); }
-.case-film-gallery { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: start; gap: clamp(32px, 5vw, 72px) 24px; margin-top: 48px; }
-.case-film-gallery figure:nth-child(3n + 1) { grid-column: 1 / 8; }
-.case-film-gallery figure:nth-child(3n + 2) { grid-column: 9 / 13; margin-top: 22%; }
-.case-film-gallery figure:nth-child(3n) { grid-column: 3 / 13; }
-.case-film-gallery img { height: auto; }
-.case-film-gallery figcaption { margin-top: 12px; color: #65675b; }
-.case-photoshoot { border-top: 1px solid var(--line); padding-top: clamp(32px, 5vw, 64px); }
-.case-photo-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; min-height: 180px; aspect-ratio: 3.4; margin-top: 48px; padding: 32px 16px; border: 1px dashed #b7b9af; color: #74756b; text-align: center; }
-.case-photo-placeholder > :first-child { font-size: clamp(40px, 7.5vw, 120px); font-weight: 500; letter-spacing: -.065em; line-height: 1; }
 .case-outcome { padding: 90px var(--gutter); display: grid; grid-template-columns: 1fr 1fr; gap: 12%; }
 .case-outcome h2 { font-size: clamp(40px, 5.5vw, 90px); }
 .case-outcome p { font-size: 18px; line-height: 1.6; margin-top: 25px; max-width: 520px; }
@@ -326,10 +298,10 @@ h1, h2, h3, h4, h5, h6 { font-family: "Sansation", sans-serif; font-weight: 400;
   .contact-bottom { display: block; }
   .contact-bottom > p { font-size: 16px; margin-bottom: 30px; }
   .contact-placeholder { justify-content: space-between; font-size: 23px; gap: 15px; }
-  .site-footer { display: grid; grid-template-columns: 1fr 1fr; gap: 25px 10px; padding-bottom: 80px; }
-  .site-footer > :nth-child(even) { text-align: right; }
+  .site-footer { display: grid; grid-template-columns: 1fr 1fr; gap: 25px 10px; }
+  .site-footer .navbar-logo { grid-column: 1 / -1; }
+  .site-footer > a.meta { justify-self: end; text-align: right; }
   .site-footer .meta { font-size: 9px; }
-  .preview-badge { font-size: 9px; padding: 7px 13px; bottom: 10px; }
   .case-intro { padding-top: 25px; padding-bottom: 30px; }
   .case-breadcrumb { font-size: 9px; }
   .case-title { font-size: clamp(56px, 13vw, 85px); margin-top: 45px; }
@@ -351,17 +323,6 @@ h1, h2, h3, h4, h5, h6 { font-family: "Sansation", sans-serif; font-weight: 400;
   .case-gallery figure:nth-child(2) { grid-column: 3 / 13; margin-top: 0; }
   .case-gallery figure:nth-child(3) { grid-column: 1 / 12; margin-top: 0; }
   .case-gallery figcaption { font-size: 9px; }
-  .case-hero-caption { font-size: 9px; }
-  .case-section-links { margin-top: 24px; gap: 20px; }
-  .case-section-heading { grid-template-columns: 1fr; gap: 20px; }
-  .case-section-heading > .meta { padding-top: 0; font-size: 10px; }
-  .case-section-heading h2, .case-section-heading p { grid-column: 1; }
-  .case-section-heading h2 { font-size: clamp(36px, 9vw, 56px); }
-  .case-section-heading p { font-size: 15px; }
-  .case-film-gallery { gap: 32px; margin-top: 32px; }
-  .case-film-gallery figure:nth-child(n) { grid-column: 1 / -1; margin-top: 0; }
-  .case-film-gallery figcaption { font-size: 9px; }
-  .case-film-video, .case-photo-placeholder { margin-top: 32px; }
   .case-outcome { padding-top: 55px; padding-bottom: 55px; grid-template-columns: 1fr; gap: 20px; }
   .case-outcome h2 { font-size: 44px; }
   .case-outcome p { font-size: 15px; margin: 0; }
@@ -369,7 +330,7 @@ h1, h2, h3, h4, h5, h6 { font-family: "Sansation", sans-serif; font-weight: 400;
   .case-next > a { grid-template-columns: 1fr; gap: 25px; }
   .case-next h2 { font-size: 50px; }
 }
-@media (max-width: 380px) { .site-header { gap: 15px; } .site-header nav { justify-content: space-between; width: 100%; } .hero { min-height: 660px; } .hero-bottom { display: flex; flex-wrap: wrap; } .hero-bottom h1 { width: 100%; } .hero-bottom p { font-size: 11px; } .hero-bottom .text-link { margin-left: auto; } .badge-detail { display: none; } }
+@media (max-width: 380px) { .site-header { gap: 15px; } .site-header nav { justify-content: space-between; width: 100%; } .hero { min-height: 660px; } .hero-bottom { display: flex; flex-wrap: wrap; } .hero-bottom h1 { width: 100%; } .hero-bottom p { font-size: 11px; } .hero-bottom .text-link { margin-left: auto; } }
 @media (prefers-reduced-motion: reduce) {
   .feature-card, .person-card { transition: none; }
   html { scroll-behavior: auto; }
@@ -394,10 +355,10 @@ h1, h2, h3, h4, h5, h6 { font-family: "Sansation", sans-serif; font-weight: 400;
   .hero .hero-reveal { width: 100vw; margin-left: calc(-1 * max(var(--gutter), (100vw - 1680px) / 2)); margin-right: calc(-1 * max(var(--gutter), (100vw - 1680px) / 2)); }
 }
 
-.site-header .navbar-logo { display: block; width: clamp(180px, 23vw, 300px); flex-shrink: 0; }
+.site-header .navbar-logo, .site-footer .navbar-logo { display: block; width: clamp(180px, 23vw, 300px); flex-shrink: 0; }
 .navbar-logo img { width: 100%; height: auto; filter: invert(1); }
 @media (max-width: 650px) {
-  .site-header .navbar-logo { width: clamp(155px, 43vw, 220px); }
+  .site-header .navbar-logo, .site-footer .navbar-logo { width: clamp(155px, 43vw, 220px); }
   .hero.hero { min-height: 0; padding-top: 0; padding-bottom: 20px; }
   .hero-composition.hero-reveal { margin-top: 0; margin-bottom: 0; }
 }
@@ -411,11 +372,12 @@ h1, h2, h3, h4, h5, h6 { font-family: "Sansation", sans-serif; font-weight: 400;
 }
 
 /* Wiriehorn: kompakte Bildgruppen, Materialfarben und direkte Interaktionen. */
-.wiriehorn-page .case-intro { background: #171816; color: var(--paper); padding-bottom: 46px; }
-.wiriehorn-page .case-title { font-size: clamp(58px, 8vw, 126px); }
-.wiriehorn-page .case-meta p { color: #d0d2c8; }
-.wiriehorn-page .case-hero { width: auto; height: auto; max-height: none; padding: 0 var(--gutter) 40px; background: #171816; }
-.wiriehorn-page .case-hero img { height: auto; max-height: 580px; object-fit: contain; }
+/* Gemeinsamer Einstieg für die Projektgeschichten von Wiriehorn und Rigi. */
+.project-story-page .case-intro { background: #171816; color: var(--paper); padding-bottom: 46px; }
+.project-story-page .case-title { font-size: clamp(58px, 8vw, 126px); }
+.project-story-page .case-meta p { color: #d0d2c8; }
+.project-story-page .case-hero { width: auto; height: auto; max-height: none; padding: 0 var(--gutter) 40px; background: #171816; }
+.project-story-page .case-hero img { height: auto; max-height: 580px; object-fit: contain; }
 .journey-nav { display: flex; flex-wrap: wrap; gap: 8px 22px; padding: 24px var(--gutter); border-bottom: 1px solid var(--line); }
 .journey-nav a { font-size: 12px; padding: 8px 0; }
 .journey-nav span { opacity: .6; font-family: var(--mono); margin-right: 5px; }
@@ -503,10 +465,19 @@ h1, h2, h3, h4, h5, h6 { font-family: "Sansation", sans-serif; font-weight: 400;
 .journey-embed-start { position: relative; display: block; padding: 0; width: 100%; height: clamp(350px, 40vw, 560px); background: #d1d9d1; overflow: hidden; }
 .journey-embed-start img { width: 100%; height: 100%; object-fit: cover; }
 .journey-embed-start > span { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); padding: 16px 22px; border-radius: 40px; background: #f0efe9; color: #171816; font-size: 14px; white-space: nowrap; box-shadow: 0 4px 24px #0003; }
-.project-page .navbar-logo img { filter: none; }
-.wiriehorn-page .site-header { background: #171816; color: var(--paper); border-color: #3b3b37; }
-.wiriehorn-page .navbar-logo img { filter: invert(1); }
-.wiriehorn-page .header-note, .wiriehorn-page .site-header nav a span { color: #b1b1aa; }
+
+/* Rigi nutzt das gemeinsame Kapitelraster; Filmstills bleiben unbeschnitten. */
+.rigi-page .journey-step:first-child .journey-copy { margin-bottom: 28px; }
+.rigi-film-gallery img { aspect-ratio: 16 / 9; object-fit: contain; }
+.rigi-photo-gallery img { aspect-ratio: auto; object-fit: contain; }
+.rigi-film-player { margin-bottom: 28px; }
+.rigi-film-player video { aspect-ratio: 16 / 9; }
+.rigi-photo-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; min-height: 180px; aspect-ratio: 3.4; padding: 32px 16px; background: #f0efe955; border: 1px solid #20231d26; text-align: center; }
+.rigi-photo-placeholder > :first-child { font-size: clamp(32px, 4vw, 64px); letter-spacing: -.065em; line-height: 1; }
+@media (max-width: 600px) {
+  .rigi-film-gallery, .rigi-photo-gallery { grid-template-columns: 1fr; }
+  .rigi-photo-placeholder { min-height: 160px; aspect-ratio: auto; }
+}
 
 /* Titel inklusive der doppelten Kontur-Ebene, Fliesstexte in Inter Thin. */
 .creative-title, .studio-word { font-family: "Sansation", sans-serif; font-weight: 400; }
