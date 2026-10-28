@@ -21,6 +21,12 @@ Schwarzweiss bildet die ruhige Grundfläche. Farbe entsteht vor allem durch Proj
 
 Gross gesetzte Überschriften stehen einer kleinen, gut lesbaren Informationsebene gegenüber. Eine klare Groteskschrift trägt das Erscheinungsbild; Navigation, Beschriftungen und Projektangaben bleiben sachlich. Raster, Nummerierungen und Linien geben Orientierung.
 
+### Mausbewegung der Farbflächen
+
+Auf Start- und Projektseiten reagiert die Hintergrundfarbe lokal auf den Mauszug: Ein weiches Bewegungsfeld mit etwa 72–110 Pixeln Radius zieht Farbe in Bewegungsrichtung und mischt sie in der frischen Spur unscharf. Die Spur klingt exponentiell ab; nach etwa 330 Millisekunden sind über 94 Prozent der Feldstärke abgebaut. Es gibt kein Verschieben oder Neigen der ganzen Fläche. Besonders sichtbar wird der Effekt an Übergängen zwischen unterschiedlichen Hintergrundfarben.
+
+Ein WebGL-Canvas rendert ausschliesslich die CSS-Farbflächen. Bilder, Höhenlinien, Grafiken, Texte und Bedienelemente bleiben ausserhalb der Textur; ihre bestehenden Hover-Interaktionen bleiben erhalten. Scrollen und Grössenänderungen löschen alte Spuren und aktualisieren die Farbgeometrie. Im Ruhezustand läuft keine dauernde Animationsschleife. Auf Touch-Geräten, bei reduzierter Bewegung, ohne WebGL und ohne JavaScript bleiben die normalen Hintergründe bestehen.
+
 ### Hero
 
 - Schwarzer Hintergrund, übergrosse helle „1K.“-Typografie.
@@ -31,10 +37,10 @@ Gross gesetzte Überschriften stehen einer kleinen, gut lesbaren Informationsebe
 ### Featured Projekt
 
 - Ein dominantes Bild mit gross überlagertem Projekttitel und kurzem Einstieg.
-- Eine versetzte Fläche hinter dem Bild deutet einen Kartenstapel an. So findet die dunkle, räumliche Kartenstapel-Referenz hier einen gezielten Einsatz.
-- Vor-/Zurück-Schaltflächen wechseln im aktuellen Entwurf zwischen vier Layoutstudien; eine Anzeige nennt die aktuelle Position.
-- Ein klarer Projektlink öffnet die entsprechende Unterseite.
-- Solange kein echtes Highlight-Projekt vorliegt, ist das Beispiel ausdrücklich als Projektplatzhalter gekennzeichnet.
+- Unter «Unser neustes Projekt.» zeigt ein Kartenstapel die Sommer- und Winterbilder des Wiriehorn-Projekts. «Interaktive Übersichtskarte» beschreibt das Projekt neben der Überschrift. Sommer liegt beim Öffnen vorne. Hover auf die hintere Karte, Tastaturfokus oder Klick holen das Bild mit 12 Pixeln seitlichem Versatz, 6 Pixeln vertikalem Versatz und 1 Grad Drehung nach vorne. Die Bewegung dauert 450 ms; die Ebene wechselt nach 180 ms. Die Trefferflächen bleiben fest. Bei reduzierter Bewegung erfolgt der Wechsel direkt.
+- Feine Höhenlinien liegen mit 10 Prozent Deckkraft auf der dunklen Fläche hinter den Bildern. Zusätzliche Sommer-/Winter-Beschriftungen auf den Karten entfallen; für Screenreader bleiben die Ansichten benannt.
+- Ein separater Link «Ab ins Projektbüro» öffnet die Wiriehorn-Vorschau. Der Bildwechsel bleibt innerhalb des Abschnitts.
+- Grosszügigere Abstände um Überschrift, Kartenstapel und Abschnittsende geben den Bildern Raum. Die obere Beschriftungszeile, die Bildunterschrift sowie die bisherigen Vor-/Zurück-Schaltflächen entfallen.
 
 ### Über uns und Schlagwortkarussell
 
@@ -96,8 +102,12 @@ Die folgenden Punkte ergänzen das Briefing als Umsetzungsempfehlungen:
 
 ## 5. Referenzen und echte Inhalte
 
-Die vom Nutzer bereitgestellten Bilder und das Video sind Gestaltungsreferenzen. Daraus wird keine Erlaubnis zur produktiven Werbenutzung der abgebildeten Personen, Projekte, Logos oder Bilder abgeleitet. Im lokalen Entwurf verwendete Referenzmotive bleiben sichtbar als solche gekennzeichnet.
+Die ursprünglichen sechs Bildreferenzen und das Video sind Gestaltungsreferenzen. Daraus wird keine Erlaubnis zur produktiven Werbenutzung der abgebildeten Personen, Projekte, Logos oder Bilder abgeleitet. Im lokalen Entwurf verwendete Referenzmotive bleiben sichtbar als solche gekennzeichnet. Die zusätzlich bereitgestellten Wiriehorn-Bilder werden im Highlight und in der zugehörigen Projektvorschau verwendet.
 
 Für die spätere Website werden echte Teamdaten und Projektgeschichten benötigt. Wo diese fehlen, stehen klar erkennbare Platzhalter. Die vier Projektmotive im Entwurf sind selbst erstellte Gestaltungsstudien; die Porträts und die Rastercollage nutzen gekennzeichnete Bildreferenzen. Die ausfüllbare Vorlage steht in [INHALTE.md](INHALTE.md).
 
-Noch offen sind insbesondere die endgültige Positionierung, das Leistungsangebot, Namen und Porträts der drei Personen, die Auswahl des Highlight-Projekts sowie veröffentlichbare Projektbilder und Kontaktangaben. Diese Inhalte lassen sich ergänzen, ohne die beschriebene Seitenstruktur neu aufzubauen.
+Noch offen sind insbesondere die endgültige Positionierung, das Leistungsangebot, Namen und Porträts der drei Personen, weitere veröffentlichbare Projektbilder und Kontaktangaben. Diese Inhalte lassen sich ergänzen, ohne die beschriebene Seitenstruktur neu aufzubauen.
+
+## Wiriehorn-Timeline
+
+Zehn nummerierte Schritte führen von der Ausgangslage zum Ausblick. Grosse Überschriften, feine Trennlinien und asymmetrische Bildfolgen greifen die Projektvorlage auf. Am Desktop begleitet die Schrittnummer den Inhalt; mobil steht sie vor dem jeweiligen Abschnitt. Eine Sprungnavigation erschliesst alle Schritte. Der Vergleich zeigt die finalen Sommer- und Winter-SVG überlagert, steuerbar über einen beschrifteten Range-Regler. Videos laufen mit sichtbaren Bedienelementen ohne Autoplay. Das Gipfelpanorama ist eingebettet. Die Live-Karte nutzt auf freigegebenen Wiriehorn-Domains einen iFrame, sonst eine verlinkte Bildvorschau, da ihre Serverrichtlinie externe Einbettungen derzeit sperrt.
