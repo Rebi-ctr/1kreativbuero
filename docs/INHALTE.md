@@ -87,15 +87,26 @@ Die erste Stärke steht als Beschriftung am Porträt. Unter «Das Kreative» lie
 
 ## Projektübersicht und Featured Projekt
 
+Die Übersicht «Aus unserem Kreativbüro.» enthält aktuell nur **Wiriehorn** und **Rigi**, ohne Filter oder Studienzählung. Beide öffnen eine eigene Detailansicht. Für Rigi sind Imagefilm und Fotoshooting festgelegt. Die vier bereits bereitgestellten Bilder gehören zum Imagefilm; Fotoshooting-Bilder, Filmdatei und ausführliche Projektgeschichte sind noch offen.
+
 Ein Projekt pro Zeile aufnehmen; die ausführliche Case-Vorlage darunter für jedes Projekt kopieren. Frühere Arbeiten einzelner Teammitglieder können gezeigt werden, wenn der konkrete Beitrag und der damalige Zusammenhang klar benannt werden.
 
 | Projekttitel | Kunde oder Eigenprojekt | Jahr | Leistung | Vorschaubild | Reihenfolge |
 | --- | --- | --- | --- | --- | --- |
-| [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] |
-| [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] |
-| [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] |
+| Wiriehorn | [OFFEN] | [OFFEN] | Interaktive Übersichtskarte | `assets/Wiriehorn_Sommer_Test.jpg` | 1 |
+| Rigi | [OFFEN] | [OFFEN] | Imagefilm & Fotoshooting | `assets/Rigi8-verkleinert.jpg` | 2 |
 
-- Welches Projekt soll hervorgehoben werden? [OFFEN]
+### Rigi: vorhandenes Material und Ergänzungen
+
+- Einstieg und Vorschaubild: `assets/Rigi8-verkleinert.jpg` (Bahnfahrt).
+- Weitere Filmstills: `assets/Rigi6-verkleinert.jpg` (Wald), `assets/Rigi3-verkleinert.jpg` (Kinder), `assets/Rigi11-verkleinert.jpg` (Lokomotivdetail).
+- Filmdatei für den Player: [OFFEN]; später unter `film.video` in `content.js` eintragen.
+- Bilder aus dem Fotoshooting: [OFFEN]; separat unter `photoshoot.images` ergänzen, jeweils mit `image`, `alt`, `width`, `height` und optional `caption`. Danach den Einleitungstext des Fotoshooting-Kapitels anpassen.
+- Projektaufgabe, Zeitraum, konkrete Beiträge und Credits: [OFFEN].
+
+### Featured Projekt
+
+- Welches Projekt soll hervorgehoben werden? **Wiriehorn**
 - Warum eignet sich dieses Projekt als Einstieg? [OFFEN]
 - Kurzer Text für das Featured Bild, etwa 5–12 Wörter: [OFFEN]
 - Ergänzende Projektbeschreibung, ein bis zwei Sätze: [OFFEN]

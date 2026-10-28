@@ -17,12 +17,13 @@ Dann `http://127.0.0.1:4173` im Browser öffnen. Es gibt keine Build-Abhängigke
 ## Aufbau
 
 - `index.html`: Hero, Highlight-Projekt, Büro, drei Personen, Projektarchiv und Kontakt.
-- `projekt.html?projekt=wiriehorn`: Wiriehorn-Vorschau mit Sommer- und Winterbild. Die Layoutstudien nutzen dieselbe HTML-Datei mit einer eigenen Projektvorlage.
+- `projekt.html?projekt=wiriehorn`: Wiriehorn-Vorschau mit Sommer- und Winterbild.
+- `projekt.html?projekt=rigi`: Rigi-Detailansicht mit grossformatigem Einstieg, vier Filmstills zum Imagefilm und einem vorbereiteten Bereich für das Fotoshooting.
 - `content.js`: Zentraler Ort für Teamtexte, Rollen, Leistungen, Kontakt und Projekte.
 - `styles.css`: Gestaltung, Raster, mobile Ansichten, Bewegungen und reduzierte Animationen.
-- `app.js`: Sommer-/Winter-Kartenstapel, Büro-Scrollytelling, Teamfächer, Projektfilter und Projektnavigation.
+- `app.js`: Sommer-/Winter-Kartenstapel, Büro-Scrollytelling, Teamfächer, Projektübersicht und Projektnavigation.
 - `background-motion.js`: Lokaler Wasserfarbenzug der Hintergründe auf Start- und Projektseiten. Ein kleines Bewegungsfeld zieht und verwischt die Farbe entlang der Mausspur; die Verformung klingt nach wenigen Zehntelsekunden ab. Die WebGL-Textur enthält nur Farbflächen. Bilder, Grafiken und Texte werden nicht erfasst. Auf Touch-Geräten, bei reduzierter Bewegung und ohne WebGL bleiben die normalen CSS-Hintergründe aktiv.
-- `assets/study-*.svg`: Selbst erstellte, austauschbare Layoutstudien, keine Kundenreferenzen.
+- `assets/study-*.svg`: Frühere Layoutstudien; in der aktuellen Projektübersicht nicht mehr eingebunden.
 - `assets/references/`: Unveränderte, vom User gelieferte Bildreferenzen für die lokale Entwurfsarbeit. Die verwendeten Referenzporträts sind im Entwurf ausdrücklich gekennzeichnet.
 - [Gestaltungskonzept](docs/GESTALTUNGSKONZEPT.md): Gestaltungsgrundlage, Bildzuordnung und Interaktionen.
 - [Inhaltsvorlagen](docs/INHALTE.md): Ausfüllbare Vorlage für die echten Inhalte.
@@ -35,6 +36,10 @@ Die Site ist lokal vorbereitet und nicht veröffentlicht. Das Highlight «Unser 
 
 «Das Kreative.» liegt direkt über dem Teamfächer. Die gefüllte Schrift steht hinter den Karten; eine zweite, invertierende Kontur wird ausschliesslich auf den tatsächlichen Kartenflächen sichtbar. Eine gemeinsame SVG-Maske berücksichtigt Drehung, Skalierung und den Kartenwechsel. Beim Hover auf eine Karte oder Tastaturfokus treten die Konturen hinter die Karten zurück. Die drei Personen lassen sich per Hover, Tastatur oder Antippen wählen. Ihre Beschreibung und Stärken stehen unter dem Fächer; zusätzliche Auswahlknöpfe machen alle drei Personen direkt erreichbar.
 
-Texte, Rollen und Stärken sind Vorschläge; die dargestellten Personen sind Referenzporträts. Die vier Projekte im Archiv sind eigene Gestaltungsstudien, die später durch echte Arbeiten ersetzt werden. Die fehlende Kontaktadresse ist als Textplatzhalter dargestellt; sobald `studio.email` in `content.js` gesetzt ist, erscheint ein funktionierender E-Mail-Link.
+Unter «Aus unserem Kreativbüro.» stehen ausschliesslich Wiriehorn und Rigi, jeweils mit eigener Detailansicht. Filter, Studienzählung und die bisherige Abschnittsbeschriftung sind entfernt. Das Bahn-Motiv aus dem Rigi-Imagefilm dient als Vorschaubild. Die Detailseiten verlinken jeweils auf das andere Projekt sowie zurück zur Übersicht.
+
+Die Rigi-Seite trennt Imagefilm und Fotoshooting in zwei Kapitel mit direkten Sprunglinks. Das Bahn-Motiv eröffnet die Seite; Wald, Kinder und Lokomotivdetail folgen in einer versetzten Filmstill-Galerie. Alle vier bereitgestellten Bilder gehören zum Imagefilm. Im Fotoshooting-Kapitel steht bis zur Bildlieferung ein eigener Platzhalter. In `content.js` lassen sich eine lokale Filmdatei unter `film.video` und die späteren Fotos unter `photoshoot.images` ergänzen; dann erscheinen Videoplayer beziehungsweise Fotogalerie. Titel und Einleitungstext können dort ebenfalls angepasst werden. Ohne Filmdatei erscheint kein Wiedergabeknopf.
+
+Texte, Rollen und Stärken sind Vorschläge; die dargestellten Personen sind Referenzporträts. Die fehlende Kontaktadresse ist als Textplatzhalter dargestellt; sobald `studio.email` in `content.js` gesetzt ist, erscheint ein funktionierender E-Mail-Link.
 
 Der Bild-zu-Hero-Übergang nutzt progressive native View Transitions in unterstützten Browsern. Sonst bleiben die normalen Seitenlinks nutzbar. Die Ansicht unterstützt kleine Bildschirme, Tastaturbedienung und `prefers-reduced-motion`. Bei reduzierter Bewegung stehen Raster und Wörter sofort vollständig da. Ohne JavaScript bleiben die drei Wörter ebenfalls sichtbar. Für einen späteren Livegang müssen Inhalte, Bildrechte und die passenden rechtlichen Angaben ergänzt und die Entwurfskennzeichnungen einschliesslich `noindex` entfernt werden.

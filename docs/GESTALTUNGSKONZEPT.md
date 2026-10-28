@@ -62,10 +62,10 @@ Ein WebGL-Canvas rendert ausschliesslich die CSS-Farbflächen. Bilder, Höhenlin
 
 ### Projektarchiv
 
-- Eine helle, zeilenbasierte Übersicht nach `Projektübersicht_2.png` zeigt sämtliche Projekte.
+- Unter «Aus unserem Kreativbüro.» zeigt eine helle, zeilenbasierte Übersicht nach `Projektübersicht_2.png` ausschliesslich Wiriehorn und Rigi.
 - Jede Zeile kombiniert Projekttitel, Kategorie oder Leistung, Bild und einen eindeutigen Link.
 - Feine Trennlinien und grosszügige Bildflächen bilden einen ruhigen Rahmen. Im aktuellen Entwurf stehen die Titel neben den Bildern; auf schmalen Bildschirmen darüber.
-- Filter nach Disziplin grenzen die sichtbaren Arbeiten ein. „Alle“ zeigt die vollständige Übersicht.
+- Abschnittsnummer, zusätzliche Beschriftungszeile, Studienzählung, Filter und der bisherige Studienhinweis entfallen. Wiriehorn verlinkt auf die bestehende Detailansicht. Das Bahn-Motiv aus dem Rigi-Imagefilm dient als Vorschau für `projekt.html?projekt=rigi`.
 - Das dunkle Kartenstapelmotiv aus `Projektübersicht.jpg` bleibt dem Featured Bereich zugeordnet. Dadurch bleibt das vollständige Archiv einfach zu überblicken und lässt sich um weitere Arbeiten ergänzen.
 
 ### Projektunterseite
@@ -80,6 +80,8 @@ Beobachtungen aus `UnterseiteProjekt.mov` laut Videoauswertung:
 Für den Entwurf wird daraus ein Bild-zu-Hero-Übergang mit anschliessender luftiger, versetzter Bilderstrecke. Der Übergang nutzt die Unterstützung des Browsers für Ansichtswechsel zwischen Seiten; ohne diese Unterstützung öffnen sich die Projektlinks direkt. Ergänzend setzen kurze Textblöcke den Wunsch um, die Entstehung zu erklären: **Ausgangslage → Idee → Entwicklung → Ergebnis**. Diese inhaltliche Gliederung ist eine Empfehlung zur Umsetzung des Briefings, keine Beobachtung aus dem Video.
 
 Am Ende steht ein nächstes Projekt; oben führt ein Rücklink ins Archiv. Beim Ergänzen der echten Inhalte sollen Projektrollen und Bildbeschriftungen nachvollziehbar zeigen, welchen Beitrag das Team geleistet hat.
+
+Die Rigi-Seite hat zwei Kapitel: **Imagefilm** und **Fotoshooting**. Das Bahn-Motiv steht als unbeschnittenes 16:9-Einstiegsbild mit Filmstill-Beschriftung vor einer versetzten Bilderstrecke aus Waldszene, Kindern und Lokomotivdetail. Die vier Bilder werden ausschliesslich dem Imagefilm zugeordnet. Das Fotoshooting-Kapitel erhält bis zur Bildlieferung einen eigenen Platzhalter. Sprunglinks erschliessen beide Bereiche. Ein optionaler Videoplayer erscheint erst, sobald eine Filmdatei hinterlegt ist. Mobil stehen die Galeriebilder untereinander; Bildmasse reservieren den benötigten Platz.
 
 ## 3. Empfohlene Seitenstruktur
 
@@ -106,6 +108,6 @@ Die folgenden Punkte ergänzen das Briefing als Umsetzungsempfehlungen:
 
 Die ursprünglichen sechs Bildreferenzen und das Video sind Gestaltungsreferenzen. Daraus wird keine Erlaubnis zur produktiven Werbenutzung der abgebildeten Personen, Projekte, Logos oder Bilder abgeleitet. Im lokalen Entwurf verwendete Referenzmotive bleiben sichtbar als solche gekennzeichnet. Die zusätzlich bereitgestellten Wiriehorn-Bilder werden im Highlight und in der zugehörigen Projektvorschau verwendet.
 
-Für die spätere Website werden echte Teamdaten und Projektgeschichten benötigt. Wo diese fehlen, stehen klar erkennbare Platzhalter. Die vier Projektmotive im Entwurf sind selbst erstellte Gestaltungsstudien; die Porträts nutzen gekennzeichnete Bildreferenzen. Das Büro-Raster besteht aus HTML und CSS und verwendet kein Referenzfoto. Die ausfüllbare Vorlage steht in [INHALTE.md](INHALTE.md).
+Für die spätere Website werden echte Teamdaten und Projektgeschichten benötigt. Wo diese fehlen, stehen klar erkennbare Platzhalter. Die früheren vier Gestaltungsstudien sind nicht mehr eingebunden. Wiriehorn und Rigi nutzen die bereitgestellten Projektbilder; bei Rigi sind die Fotoshooting-Bilder noch offen. Die Porträts nutzen gekennzeichnete Bildreferenzen. Das Büro-Raster besteht aus HTML und CSS und verwendet kein Referenzfoto. Die ausfüllbare Vorlage steht in [INHALTE.md](INHALTE.md).
 
 Noch offen sind insbesondere die endgültige Positionierung, das Leistungsangebot, Namen und Porträts der drei Personen, die ausführliche Wiriehorn-Projektgeschichte sowie weitere veröffentlichbare Projektbilder und Kontaktangaben. Diese Inhalte lassen sich ergänzen, ohne die beschriebene Seitenstruktur neu aufzubauen.
