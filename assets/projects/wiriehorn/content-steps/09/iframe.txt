@@ -1,0 +1,29 @@
+Karte aktuelle Saison:
+<iframe
+    class="wiriehorn-map-iframe"
+    src="https://erlebniskarte.wiriehorn.ch/"
+    title="Interaktive Sommerkarte Wiriehorn"
+    loading="lazy"
+    allow="fullscreen"
+    allowfullscreen
+></iframe>
+
+Sommerkarte:
+<iframe
+    class="wiriehorn-map-iframe"
+    src="https://erlebniskarte.wiriehorn.ch/?karte=summer"
+    title="Interaktive Sommerkarte Wiriehorn"
+    loading="lazy"
+    allow="fullscreen"
+    allowfullscreen
+></iframe>
+
+Winterkarte:
+<iframe
+    class="wiriehorn-map-iframe"
+    src="https://erlebniskarte.wiriehorn.ch/?karte=winter"
+    title="Interaktive Winterkarte Wiriehorn"
+    loading="lazy"
+    allow="fullscreen"
+    allowfullscreen
+></iframe>
