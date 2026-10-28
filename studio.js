@@ -9,19 +9,35 @@
     const title = $('#creative-title', deck)?.textContent || 'DAS KREATIVE.';
     deck.innerHTML = `<h3 class="creative-title creative-title-fill" id="creative-title"><span>${escapeHTML(title)}</span></h3>` + people.map((person, index) => `<article class="person-card${index === initial ? ' is-active' : ''}" data-person="${index}" aria-labelledby="person-name-${index}">
       <div class="person-sheet"><div class="person-visual">
-        <img src="${person.image}" class="${person.imageClass}" alt="Referenzporträt für den vorläufigen Personenplatz ${person.number}; kein Mitglied von 1Kreativbüro." loading="lazy" width="${index === 1 ? 354 : 1080}" height="${index === 1 ? 500 : 1440}">
-        <span class="person-no meta">[ ${person.number} ]</span>
-        ${index === 1 ? '<div class="person-grid-tiles" aria-hidden="true"></div>' : '<div class="focus-frame" aria-hidden="true"></div>'}
-        <span class="person-strength">${escapeHTML(person.strengths[0])}</span>
-        <span class="image-note meta">Referenzporträt</span>
+        <img src="${person.image}" class="${person.imageClass}" alt="${escapeHTML(person.name)} von 1Kreativbüro" loading="lazy" width="${person.width}" height="${person.height}">
       </div>
-      <div class="person-info"><div class="person-title"><h4 id="person-name-${index}">${escapeHTML(person.name)}</h4><span class="draft-tag">Platzhalter</span></div>
-      <p class="person-role">${escapeHTML(person.role)} / Vorschlag</p></div></div>
+      <div class="person-info"><div class="person-title"><h4 id="person-name-${index}">${escapeHTML(person.name)}</h4></div>
+      <p class="person-role">${escapeHTML(person.role)}</p></div></div>
       <button class="person-select" type="button" data-person="${index}" aria-label="Perspektive von ${escapeHTML(person.name)} anzeigen" aria-controls="person-panel" aria-pressed="${index === initial}"></button>
     </article>`).join('') + `<svg class="creative-clip" aria-hidden="true" focusable="false"><defs><clipPath id="creative-card-clip" clipPathUnits="userSpaceOnUse">${people.map(() => '<polygon></polygon>').join('')}</clipPath></defs></svg><div class="creative-title creative-title-outline" aria-hidden="true"><span>${escapeHTML(title)}</span></div>`;
-    switches.innerHTML = people.map((person, index) => `<button class="people-switch meta" type="button" data-person="${index}" aria-controls="person-panel" aria-pressed="${index === initial}"><span>${person.number}</span> ${escapeHTML(person.name)}</button>`).join('');
+    switches.innerHTML = people.map((person, index) => `<button class="people-switch meta" type="button" data-person="${index}" aria-controls="person-panel" aria-pressed="${index === initial}">${escapeHTML(person.name)}</button>`).join('');
     const cards = Array.from(deck.querySelectorAll('.person-card'));
     const controls = [...deck.querySelectorAll('.person-select'), ...switches.querySelectorAll('button')];
+    // Die Namensauswahl folgt der tatsächlichen Kartenhöhe statt einer festen Leerfläche.
+    let deckFrame = 0;
+    function fitPeopleDeck() {
+      if (deckFrame) return;
+      deckFrame = requestAnimationFrame(() => {
+        deckFrame = 0;
+        const top = deck.getBoundingClientRect().top;
+        const bottom = Math.max(...cards.map(card => $('.person-sheet', card).getBoundingClientRect().bottom));
+        const height = Math.ceil(bottom - top + 20);
+        if (deck.style.height !== `${height}px`) deck.style.height = `${height}px`;
+      });
+    }
+    if ('ResizeObserver' in window) {
+      const cardObserver = new ResizeObserver(fitPeopleDeck);
+      cards.forEach(card => cardObserver.observe($('.person-sheet', card)));
+    }
+    window.addEventListener('resize', fitPeopleDeck, { passive: true });
+    cards.forEach(card => card.addEventListener('transitionend', fitPeopleDeck));
+    document.fonts.ready.then(fitPeopleDeck);
+    fitPeopleDeck();
     const hover = window.matchMedia('(hover: hover) and (pointer: fine)');
     const refreshTitle = setupLayeredTitle(deck, cards);
     let current = -1;
@@ -31,7 +47,7 @@
       cards.forEach((card, i) => card.classList.toggle('is-active', i === index));
       controls.forEach((control) => control.setAttribute('aria-pressed', String(Number(control.dataset.person) === index)));
       const person = people[index];
-      panel.innerHTML = `<div><span class="meta muted">${person.number} / PERSPEKTIVE</span><h4>${escapeHTML(person.name)}</h4><p class="person-panel-role">${escapeHTML(person.role)} / Vorschlag</p></div><div><p class="person-description">${escapeHTML(person.description)}</p><div class="strength-tags">${person.strengths.map((strength) => `<span>${escapeHTML(strength)}</span>`).join('')}</div></div>`;
+      panel.innerHTML = `<div><h4>${escapeHTML(person.name)}</h4><p class="person-panel-role">${escapeHTML(person.role)}</p></div><div><p class="person-description">${escapeHTML(person.description)}</p><div class="strength-tags">${person.strengths.map((strength) => `<span>${escapeHTML(strength)}</span>`).join('')}</div></div>`;
       refreshTitle();
     };
     cards.forEach((card, index) => {
@@ -59,32 +75,40 @@
     if (!label) return;
     const visual = $('span', label);
     const original = label.getAttribute('aria-label');
-    visual.innerHTML = Array.from(original, (letter) => `<span class="studio-title-char">${escapeHTML(letter)}</span>`).join('');
-    const letters = Array.from(visual.children);
+    const prefix = 'DAS ';
+    const capacity = Math.max(original.length, studioHoverText(original, 1).length) - prefix.length;
+    visual.innerHTML = `<span class="studio-title-prefix">${prefix}</span><span class="studio-title-change">${Array.from({ length: capacity }, () => '<span class="studio-title-char"></span>').join('')}</span>`;
+    const changing = $('.studio-title-change', visual);
+    const letters = Array.from(changing.children);
     const hover = window.matchMedia('(hover: hover) and (pointer: fine)');
     let frame = 0, start = 0;
+    function show(text) {
+      letters.forEach((letter, index) => { letter.textContent = text[index + prefix.length] || ''; });
+      label.setAttribute('aria-label', text);
+    }
     function restore() {
       cancelAnimationFrame(frame);
       frame = 0;
-      letters.forEach((letter, index) => { letter.textContent = original[index]; });
+      show(original);
     }
     function measure() {
       restore();
-      letters.forEach((letter) => { letter.style.width = ''; });
-      const widths = letters.map((letter) => letter.getBoundingClientRect().width);
-      letters.forEach((letter, index) => { letter.style.width = `${widths[index]}px`; });
+      const originalWidth = label.getBoundingClientRect().width;
+      show(studioHoverText(original, 1));
+      const hoverWidth = label.getBoundingClientRect().width;
+      label.style.setProperty('--title-hit-width', `${Math.max(originalWidth, hoverWidth)}px`);
+      show(original);
     }
     function tick(time) {
-      const progress = Math.min(1, (time - start) / 520);
-      letters.forEach((letter, index) => {
-        letter.textContent = /\p{L}/u.test(original[index]) ? studioGlyph(original, index, progress, 31).character : original[index];
-      });
+      const progress = Math.min(1, (time - start) / 250);
+      const text = studioHoverText(original, progress);
+      show(text);
       if (progress < 1) frame = requestAnimationFrame(tick);
       else frame = 0;
     }
     function play() {
       restore();
-      if (reducedMotion.matches) return;
+      if (reducedMotion.matches) { show(studioHoverText(original, 1)); return; }
       start = performance.now();
       frame = requestAnimationFrame(tick);
     }
@@ -97,21 +121,7 @@
     reducedMotion.addEventListener('change', restore);
     document.addEventListener('visibilitychange', () => { if (document.hidden) restore(); });
     measure();
-  }
-
-  // Deterministische Zufallszeichen: Beim Zurückscrollen läuft dieselbe Sequenz zurück.
-  function studioGlyph(word, index, progress, seed) {
-    const settleAt = .55 + index / Math.max(1, word.length - 1) * .4;
-    if (progress >= settleAt) return { character: word[index], x: 0, y: 0 };
-    const step = Math.floor(progress * 32);
-    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const noise = Math.abs(Math.sin((step + 1) * 12.9898 + (index + seed) * 78.233));
-    const remaining = 1 - progress / settleAt;
-    return {
-      character: alphabet[Math.floor(noise * alphabet.length) % alphabet.length],
-      x: Math.sin(step + index * 2.4) * 10 * remaining,
-      y: Math.cos(step * .8 + index * 1.7) * 44 * remaining,
-    };
+    document.fonts.ready.then(measure);
   }
 
   function setupStudioStory() {

@@ -119,3 +119,36 @@ test('Alle JavaScript-Dateien sind syntaktisch gültig', () => {
     assert.doesNotThrow(() => new vm.Script(read(file), { filename: file }));
   }
 });
+
+test('Zeichenanimation erzeugt nur Symbole und vorgesehene Zielbuchstaben', () => {
+  const context = vm.createContext({ window: { matchMedia() { return { matches: false }; } } });
+  vm.runInContext(read('shared.js'), context);
+  const symbols = new Set('+×○□△◇*');
+  for (const word of ['FILM', 'WEB', 'FOTO', 'DAS BÜRO.', 'DAS KREATIVE.']) {
+    for (const seed of [0, 11, 22, 31]) {
+      for (let step = 0; step <= 1000; step++) {
+        const progress = step / 1000;
+        const frame = Array.from(word, (expected, index) => {
+          const { character } = context.studioGlyph(word, index, progress, seed);
+          assert(character === expected || symbols.has(character));
+          if (!/\p{L}/u.test(expected)) assert.equal(character, expected);
+          return character;
+        }).join('');
+        if (progress === 1) assert.equal(frame, word);
+      }
+    }
+  }
+});
+
+test('Titel-Hover verwendet freigegebene Begriffe und behält DAS bei und endet bei DAS KREATIV.', () => {
+  const context = vm.createContext({ window: { matchMedia() { return { matches: false }; } } });
+  vm.runInContext(read('shared.js'), context);
+  const allowed = new Set(['DAS TEAM.', 'DAS BILD.', 'DAS WERK.', 'DAS KINO.', 'DAS FOTO.', 'DAS BÜRO.', 'DAS KREATIV.']);
+  for (let step = 0; step <= 1000; step++) {
+    const text = context.studioHoverText('DAS BÜRO.', step / 1000);
+    assert(allowed.has(text));
+    assert(text.startsWith('DAS '));
+    assert(text.length <= 'DAS KREATIV.'.length);
+  }
+  assert.equal(context.studioHoverText('DAS BÜRO.', 1), 'DAS KREATIV.');
+});

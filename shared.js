@@ -63,3 +63,26 @@ function setupLayeredTitle(deck, cards, {
   return refresh;
 }
 
+
+// Zwischenbilder verwenden ausschliesslich Symbole oder die vorgesehenen Zielbuchstaben.
+// So entstehen auch beim Anhalten und Zurückscrollen keine zufälligen Wörter.
+function studioGlyph(word, index, progress, seed = 0) {
+  const settleAt = .55 + index / Math.max(1, word.length - 1) * .4;
+  if (progress >= settleAt || !/\p{L}/u.test(word[index])) {
+    return { character: word[index] };
+  }
+  const symbols = '+×○□△◇*';
+  const step = Math.floor(progress * 32);
+  const noise = Math.abs(Math.sin((step + 1) * 12.9898 + (index + seed) * 78.233));
+  return { character: symbols[Math.floor(noise * symbols.length) % symbols.length] };
+}
+
+// Ganze, freigegebene Begriffe verhindern problematische Buchstabenkombinationen im Hover.
+function studioHoverText(original, progress) {
+  if (original !== 'DAS BÜRO.') return original;
+  if (progress >= .95) return 'DAS KREATIV.';
+  // Zwei Zwischenbegriffe statt vieler schneller Wechsel.
+  if (progress < .3) return original;
+  if (progress < .6) return 'DAS TEAM.';
+  return 'DAS WERK.';
+}

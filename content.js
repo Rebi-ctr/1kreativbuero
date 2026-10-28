@@ -1,4 +1,4 @@
-// Alle Texte sind Entwürfe. Hier später die echten Team- und Projektinhalte ergänzen.
+// Inhalte für Büro, Team und Projekte.
 const studio = {
   name: '1Kreativbüro',
   email: '',
@@ -6,22 +6,22 @@ const studio = {
 
 const people = [
   {
-    number: '01', name: 'Kopf 01', role: 'Konzept & Strategie',
-    strengths: ['Weiterdenken', 'Zusammenhänge', 'Klarheit'],
-    description: 'Hier lernen wir den Menschen hinter der Idee kennen: Was treibt dich an und welche Perspektive bringst du ins Büro?',
-    image: 'assets/references/portrait-focus.jpg', imageClass: 'portrait-blue',
+    number: '01', name: 'Beni', role: 'Film · Web · Fotografie · Produktion',
+    strengths: ['Film', 'Web', 'Fotografie'],
+    description: 'Ein Multitalent: Filmer, Webkönner, Fotograf und Produzent mit Event- und Agenturerfahrung. Zudem leidenschaftlicher Volleyballer.',
+    image: 'assets/Beni.png', imageClass: 'portrait-beni', width: 1028, height: 1588,
   },
   {
-    number: '02', name: 'Kopf 02', role: 'Design & Identität',
-    strengths: ['Formgefühl', 'Neugier', 'Details'],
-    description: 'Hier steht deine persönliche Vorstellung. Ein paar eigene Worte erzählen mehr als ein austauschbarer Agenturtext.',
-    image: 'assets/references/portrait-grid.jpg', imageClass: 'portrait-beige',
+    number: '02', name: 'Rebecca', role: 'Gestaltung · Illustration · Web · Konzept',
+    strengths: ['Ideen', 'Konzept', 'Details'],
+    description: 'Ein kreativer Kopf mit vielen Ideen. Gestalterin und Illustratorin mit einem Gespür für Web und einem Auge fürs Detail, die in Konzepten denkt, schöne Dinge liebt und von Neuem fasziniert ist.',
+    image: 'assets/Rebecca.png', imageClass: 'portrait-rebecca', width: 1026, height: 1590,
   },
   {
-    number: '03', name: 'Kopf 03', role: 'Digital & Bewegung',
-    strengths: ['Experiment', 'Rhythmus', 'Umsetzung'],
-    description: 'Hier zeigen wir, wie du arbeitest, was dich begeistert und was durch deine Perspektive im Team möglich wird.',
-    image: 'assets/references/portrait-focus.jpg', imageClass: 'portrait-mono',
+    number: '03', name: 'Mathis', role: 'Film · FPV · Storytelling · Produktion',
+    strengths: ['Film', 'FPV', 'Storytelling'],
+    description: 'Ein Macher: Filmer, FPV-Pilot, Abenteurer, Storyteller und Produzent mit Eventerfahrung. Er liebt es, cinematische Aufnahmen einzufangen.',
+    image: 'assets/Mathis.png', imageClass: 'portrait-mathis', width: 1028, height: 1588,
   },
 ];
 
