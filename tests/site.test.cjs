@@ -78,3 +78,44 @@ test('Alle weiteren Projekte und die Fehlerseite werden aufgebaut', () => {
   }
   assert.match(renderProject('unbekannt').html, /case-not-found/);
 });
+
+test('Rigi behält den neuen Projekteinstieg und das gemeinsame Kapitelraster', () => {
+  const { html } = renderProject('rigi');
+  assert.match(html, /Ein Berg\.<br>Viele Augenblicke\./);
+  assert.match(html, /class="journey-nav"/);
+  assert.match(html, /class="journey-report rigi-film-gallery"/);
+  assert.match(html, /id="fotoshooting"/);
+  assert.match(html, /class="journey-end"/);
+  assert.doesNotMatch(html, /class="case-section case-film"/);
+  for (const match of html.matchAll(/(?:src|poster)="(assets\/[^"?#]+)"/g)) {
+    assert(fs.existsSync(path.join(root, match[1])), `Fehlendes Rigi-Medium: ${match[1]}`);
+  }
+});
+
+test('Header und Footer sind auf beiden Seiten gleich und enthalten das SVG-Logo', () => {
+  const home = read('index.html');
+  const project = read('projekt.html');
+  for (const tag of ['header', 'footer']) {
+    const pattern = new RegExp(`<${tag} class="site-${tag}">[\\s\\S]*?<\\/${tag}>`);
+    const a = home.match(pattern)?.[0];
+    const b = project.match(pattern)?.[0];
+    assert(a && b, `${tag} fehlt`);
+    assert.equal(a.replace(/\s+/g, ' '), b.replace(/\s+/g, ' '));
+    assert.match(a, /assets\/LogoNavbar.svg/);
+  }
+  assert.doesNotMatch(home + project, /<aside class="preview-badge"/);
+});
+
+test('Keine doppelten Seitenfunktionen oder Merge-Marker', () => {
+  const functions = [...read('app.js').matchAll(/^  function (\w+)\(/gm)].map(match => match[1]);
+  assert.equal(functions.length, new Set(functions).size);
+  for (const file of ['app.js', 'studio.js', 'shared.js', 'styles.css', 'index.html', 'projekt.html']) {
+    assert.doesNotMatch(read(file), /^(<<<<<<<|=======|>>>>>>>)/m);
+  }
+});
+
+test('Alle JavaScript-Dateien sind syntaktisch gültig', () => {
+  for (const file of fs.readdirSync(root).filter(file => file.endsWith('.js'))) {
+    assert.doesNotThrow(() => new vm.Script(read(file), { filename: file }));
+  }
+});

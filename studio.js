@@ -5,7 +5,7 @@
     if (!deck) return;
     const switches = $('#people-switches');
     const panel = $('#person-panel');
-    const initial = Math.min(1, people.length - 1);
+    const initial = 0;
     const title = $('#creative-title', deck)?.textContent || 'Das Kreative.';
     deck.innerHTML = `<h3 class="creative-title creative-title-fill" id="creative-title"><span>${escapeHTML(title)}</span></h3>` + people.map((person, index) => `<article class="person-card${index === initial ? ' is-active' : ''}" data-person="${index}" aria-labelledby="person-name-${index}">
       <div class="person-sheet"><div class="person-visual">
@@ -23,7 +23,7 @@
     const cards = Array.from(deck.querySelectorAll('.person-card'));
     const controls = [...deck.querySelectorAll('.person-select'), ...switches.querySelectorAll('button')];
     const hover = window.matchMedia('(hover: hover) and (pointer: fine)');
-    const refreshTitle = setupCreativeTitle(deck, cards);
+    const refreshTitle = setupLayeredTitle(deck, cards);
     let current = -1;
     const selectPerson = (index) => {
       if (index === current || !people[index]) return;
@@ -52,59 +52,6 @@
       link.textContent = `${studio.email} ↗`;
       container.replaceChildren(link);
     }
-  }
-
-  // Die gemeinsame Kontur wird nur auf den tatsächlichen Kartenflächen gezeichnet.
-  // Der Mittelpunkt kommt aus dem DOM, die gedrehten Ecken aus den CSS-Matrizen.
-  function creativeCardPolygon(width, height, centreX, centreY, matrix) {
-    return [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(([x, y]) => {
-      const dx = x * width / 2, dy = y * height / 2;
-      return [centreX + matrix.a * dx + matrix.c * dy, centreY + matrix.b * dx + matrix.d * dy];
-    });
-  }
-
-  function setupCreativeTitle(deck, cards) {
-    const outline = $('.creative-title-outline', deck);
-    if (!outline || !window.DOMMatrixReadOnly) return () => {};
-    const polygons = Array.from(deck.querySelectorAll('.creative-clip polygon'));
-    const matrixOf = (element) => {
-      const transform = getComputedStyle(element).transform;
-      return transform === 'none' ? new DOMMatrixReadOnly() : new DOMMatrixReadOnly(transform);
-    };
-    let frame = 0, until = 0;
-    function update(time) {
-      frame = 0;
-      if (document.hidden) return;
-      const origin = deck.getBoundingClientRect();
-      const shapes = cards.map((card) => {
-        const sheet = $('.person-sheet', card);
-        const bounds = sheet.getBoundingClientRect();
-        const matrix = matrixOf(card).multiply(matrixOf(sheet));
-        const style = getComputedStyle(sheet);
-        return creativeCardPolygon(parseFloat(style.width) || sheet.offsetWidth, parseFloat(style.height) || sheet.offsetHeight, bounds.left + bounds.width / 2 - origin.left, bounds.top + bounds.height / 2 - origin.top, matrix);
-      });
-      shapes.forEach((points, index) => polygons[index].setAttribute('points', points.map(([x, y]) => `${x.toFixed(2)},${y.toFixed(2)}`).join(' ')));
-      outline.style.clipPath = 'url("#creative-card-clip")';
-      if (time < until) frame = requestAnimationFrame(update);
-    }
-    function refresh(animate = true) {
-      until = performance.now() + (animate && !reducedMotion.matches ? 500 : 0);
-      if (!frame && !document.hidden) frame = requestAnimationFrame(update);
-    }
-    window.addEventListener('resize', () => refresh(false), { passive: true });
-    window.addEventListener('pageshow', () => refresh(false));
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) { cancelAnimationFrame(frame); frame = 0; }
-      else refresh(false);
-    });
-    reducedMotion.addEventListener('change', () => refresh(false));
-    if ('ResizeObserver' in window) {
-      const observer = new ResizeObserver(() => refresh(false));
-      observer.observe(deck);
-      cards.forEach((card) => observer.observe($('.person-sheet', card)));
-    }
-    refresh(false);
-    return refresh;
   }
 
   function setupStudioTitle() {
@@ -173,17 +120,54 @@
     const scene = $('#studio-scene');
     const grid = $('#studio-grid');
     const clamp = (value) => Math.max(0, Math.min(1, value));
-    // Offener linker Rand; zusätzliche Zeilen führen das Raster bis in die Karten.
-    grid.innerHTML = [
-      ...Array.from({ length: 8 }, (_, i) => `<span class="studio-line is-vertical" style="--line-position:${(i + 1) * 12.5}%"></span>`),
-      ...Array.from({ length: 18 }, (_, i) => `<span class="studio-line is-horizontal" style="--line-row:${i}"></span>`),
-    ].join('');
-    const lines = Array.from(grid.querySelectorAll('.studio-line'));
+    let lines = [];
+    let columns = 0;
+    function buildGrid() {
+      const style = getComputedStyle(scene);
+      const nextColumns = Number(style.getPropertyValue('--studio-columns')) || 16;
+      const offset = Number(style.getPropertyValue('--studio-offset')) || 0;
+      if (nextColumns === columns) return;
+      columns = nextColumns;
+      grid.innerHTML = [
+        ...Array.from({ length: Math.ceil(columns) + 1 }, (_, i) => `<span class="studio-line is-vertical" style="--line-position:${offset + i / columns * 100}%"></span>`),
+        ...Array.from({ length: 28 }, (_, i) => `<span class="studio-line is-horizontal" style="--line-row:${i}"></span>`),
+      ].join('');
+      lines = Array.from(grid.querySelectorAll('.studio-line'));
+    }
     const hotspots = Array.from(story.querySelectorAll('.studio-word')).map((element, index) => {
       const word = element.dataset.word;
-      element.innerHTML = Array.from(word, (letter) => `<span class="studio-letter">${escapeHTML(letter)}</span>`).join('');
+      element.innerHTML = Array.from(word, (letter) => `<span class="studio-letter"><svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><text fill="currentColor">${escapeHTML(letter)}</text></svg></span>`).join('');
       return { element: element.parentElement, word, letters: Array.from(element.children), seed: index * 11 };
     });
+    const metricsCanvas = document.createElement('canvas');
+    const metricsContext = metricsCanvas.getContext('2d');
+    const glyphMetrics = new Map();
+
+    function fitGlyph(cell, character) {
+      const text = cell.querySelector('text');
+      const font = getComputedStyle(cell);
+      const key = `${font.fontWeight}|${font.fontFamily}|${character}`;
+      let fitted = glyphMetrics.get(key);
+      if (!fitted) {
+        metricsContext.font = `${font.fontWeight} 100px ${font.fontFamily}`;
+        const metrics = metricsContext.measureText(character);
+        const width = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
+        const height = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+        // Die sichtbaren Konturen passen mit einem kleinen Rand in die 100er-Zelle.
+        const scale = Math.min(96 / Math.max(1, width), 96 / Math.max(1, height));
+        fitted = {
+          size: 100 * scale,
+          x: (100 - width * scale) / 2 + metrics.actualBoundingBoxLeft * scale,
+          y: (100 - height * scale) / 2 + metrics.actualBoundingBoxAscent * scale,
+        };
+        glyphMetrics.set(key, fitted);
+      }
+      text.textContent = character;
+      text.setAttribute('font-size', fitted.size);
+      text.setAttribute('x', fitted.x);
+      text.setAttribute('y', fitted.y);
+    }
+
     const deck = $('#people-grid');
     let frame = 0;
     let lastState = '';
@@ -193,7 +177,7 @@
       if (state === lastState) return;
       lastState = state;
       lines.forEach((line, index) => {
-        const delay = index < 8 ? .06 + index * .035 : (index - 8) * .025;
+        const delay = index <= Math.ceil(columns) ? .06 + index * .018 : (index - Math.ceil(columns) - 1) * .025;
         line.style.setProperty('--line-progress', clamp((progress - delay) / .55).toFixed(4));
       });
       hotspots.forEach(({ element, word, letters, seed }, hotspotIndex) => {
@@ -201,9 +185,7 @@
         element.style.setProperty('--hotspot-visibility', clamp(local / .15).toFixed(4));
         letters.forEach((letter, index) => {
           const state = studioGlyph(word, index, local, seed);
-          letter.textContent = state.character;
-          letter.style.setProperty('--letter-x', `${state.x.toFixed(2)}px`);
-          letter.style.setProperty('--letter-y', `${state.y.toFixed(2)}px`);
+          fitGlyph(letter, state.character);
         });
       });
     }
@@ -227,6 +209,7 @@
       if (frame) cancelAnimationFrame(frame);
       frame = 0;
       lastState = '';
+      buildGrid();
       story.classList.toggle('is-enhanced', !reducedMotion.matches);
       if (deck) {
         const sceneBounds = scene.getBoundingClientRect();
@@ -239,6 +222,7 @@
       if (reducedMotion.matches) paint(1);
       else update();
     }
+    document.fonts.ready.then(() => { glyphMetrics.clear(); refresh(); });
     window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', refresh, { passive: true });
     window.addEventListener('pageshow', refresh);
