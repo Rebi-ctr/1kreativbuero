@@ -1,0 +1,4 @@
+Erste Materialversion. Bildmaterial mit integriertem Imagegen erzeugt, anschließend in Original-SVG-Konturen maskiert.
+Alle einzelnen PNG-Ebenen: 3508 × 472 Pixel, gleiche Position, transparenter Hintergrund.
+Original.svg bleibt die verbindliche Geometrie. Räumliche Wirkung ist gerendert, keine 3D-Modelldatei.
+Materialprompt: Originalkonturen und frontale Perspektive erhalten. 1 Silber; K pinker Plüsch; R schwarzes Latex; E Chrom; A Glasgel; T Beton; I irisierendes Metall; V blaues Harz; B orange Keramik; Ü violetter Gummi; R Holz; O Goldfolie. Kohärentes Studiolicht, transparenter Hintergrund.

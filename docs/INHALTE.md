@@ -37,18 +37,11 @@ Nur Leistungen aufnehmen, die ihr tatsächlich anbietet. Die folgenden Zeilen si
 | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] |
 | [OFFEN] | [OFFEN] | [OFFEN] | [OFFEN] |
 
-Kurze Begriffe für das Schlagwortkarussell: Im aktuellen Entwurf laufen sie als endloses Band mit Pause-/Fortsetzen-Schalter. Bei reduzierter Bewegung sind sie unbewegt und horizontal scrollbar.
-
-1. [OFFEN]
-2. [OFFEN]
-3. [OFFEN]
-4. [OFFEN]
-5. [OFFEN]
-6. [OFFEN]
+Die drei festgelegten Begriffe für den Rasteraufbau sind **Foto**, **Video** und **Web**. Sie erscheinen an getrennten Hotspots und setzen sich im normalen Scrollfluss ausschliesslich aus Buchstaben zusammen. Das kompakte weisse Raster auf Schwarz lässt den zentrierten Titel «Das Büro.» frei und blendet im Kartenbereich aus. Der Titel wechselt beim Hover ebenfalls kurz durch Buchstaben. Einführungstexte und Schlagwortkarussell sind entfernt.
 
 ## Drei Kreativköpfe
 
-Die erste Stärke steht im Entwurf als Beschriftung am Porträt. Name und Rolle bleiben sichtbar; die persönliche Vorstellung und die weiteren Stärken werden über „Perspektive kennenlernen“ ausgeklappt.
+Die erste Stärke steht als Beschriftung am Porträt. Unter «Das Kreative» liegen die drei Personen als überlappende Karten. Hover, Tastaturfokus oder Antippen wählen eine Person; ihre persönliche Vorstellung und weiteren Stärken stehen unter dem Fächer. Die mittlere Person ist zunächst aktiv.
 
 ### Person 1
 
