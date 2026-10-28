@@ -1,7 +1,7 @@
 // Lokaler Wasserfarbenzug. Die Textur enthält nur Farbflächen, nie Seiteninhalte.
 (() => {
   const media = matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
-  const selector = '.site-header, .hero, .featured, .feature-stage, .about, .projects, .contact, .case-next, .site-footer';
+  const selector = '.site-header, .featured, .feature-stage, .about, .projects, .contact, .case-next, .site-footer';
   const MAX_PULL = 76;
   const GRID_WIDTH = 160;
   const vertexSource = `

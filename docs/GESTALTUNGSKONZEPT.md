@@ -9,7 +9,7 @@ Stand: 28. Oktober 2026. Diese Grundlage beschreibt einen lokalen, klickbaren En
 - Eine Hero Section nach der Bildreferenz mit prägnanter Typografie gestalten.
 - Ein ausgewähltes Projekt mit Bild und überlagertem Text hervorheben.
 - Im Über-uns-Bereich zuerst Fähigkeiten und Team als Ganzes vorstellen, danach die einzelnen Personen und ihre Stärken.
-- Schlagworte in einem Karussell zeigen; darunter beziehungsweise danach die drei Gesichter.
+- «Das Büro» mit Raster-Scrollytelling für Foto, Video und Web; danach «Das Kreative» mit drei Gesichtern in einem Kartenfächer. Dies ersetzt das ursprünglich vorgesehene Schlagwortkarussell.
 - Alle Projekte in einer Übersicht zugänglich machen.
 - Projekte anklickbar machen und auf eigenen Unterseiten ihre Entstehung erklären; die Videovorlage gibt die gestalterische Richtung vor.
 
@@ -42,19 +42,21 @@ Ein WebGL-Canvas rendert ausschliesslich die CSS-Farbflächen. Bilder, Höhenlin
 - Ein separater Link «Ab ins Projektbüro» öffnet die Wiriehorn-Vorschau. Der Bildwechsel bleibt innerhalb des Abschnitts.
 - Grosszügigere Abstände um Überschrift, Kartenstapel und Abschnittsende geben den Bildern Raum. Die obere Beschriftungszeile, die Bildunterschrift sowie die bisherigen Vor-/Zurück-Schaltflächen entfallen.
 
-### Über uns und Schlagwortkarussell
+### Das Büro und das Raster-Scrollytelling
 
-- Ein dunkler Bereich stellt zuerst die gemeinsame Haltung und einen Entwurf der angebotenen Leistungen vor.
-- Eine helle Rastercollage setzt dazu einen Kontrast. Das sichtbare Raster, fragmentierte Typografie und Bildausschnitte aus `ueberunshero.jpg` werden als Collageprinzip aufgegriffen.
-- Schlagworte laufen als endloses Band. Ein Schalter pausiert die Bewegung und setzt sie wieder fort; auch beim Überfahren mit der Maus pausiert das Band.
-- Bei aktivierter Einstellung für reduzierte Bewegung bleibt das Band unbewegt und lässt sich horizontal scrollen.
-- Die endgültigen Begriffe richten sich nach den tatsächlich angebotenen Leistungen.
+- Der kompakte Bereich beginnt mit einem weissen Raster auf Schwarz. «Das Büro.» steht horizontal und vertikal mittig. Eine schwarze Aussparung um den Titel hält die Linien hinter dem Text frei. Beim Hover, Tastaturfokus oder Antippen wechseln die Buchstaben kurz durch und finden nach etwa 520 Millisekunden zum Titel zurück. Die bisherigen Einführungstexte und Hinweise sind entfernt.
+- Acht Spalten und sechs Hauptzeilen greifen das Rasterprinzip aus `ueberunshero.jpg` beziehungsweise `assets/references/about-grid.jpg` auf. Die durchgehende linke Randlinie entfällt. Zusätzliche Zeilen führen bis in den Kartenfächer, wo das Raster weich ausblendet.
+- Der Linienaufbau setzt später im sichtbaren Viewport ein und erfolgt gestaffelt mit kurzen Übergängen. Es gibt kein Festhalten und keine zusätzliche Scrollstrecke. «Foto», «Video» und «Web» besetzen drei getrennte Hotspots; «Video» steht vertikal, die anderen Wörter horizontal.
+- Jeder Hotspot beginnt seine Buchstabensequenz beim eigenen Eintritt ins sichtbare Bild. Die bewegten Zufallszeichen sind ausschliesslich Buchstaben. Beim Zurückscrollen läuft die Sequenz reproduzierbar zurück.
+- Ohne JavaScript sowie bei reduzierter Bewegung erscheinen Raster und Wörter statisch und vollständig. Zufallszeichen sind für Screenreader verborgen; die drei echten Begriffe bleiben zugänglich.
 
-### Drei Personen im Fokus
+### Das Kreative und die drei Personen
 
-- Drei gleichwertige Porträtbereiche mit sichtbarem Namen, Rolle und einer hervorgehobenen Stärke.
+- «Das Kreative.» überlagert den Fächer. Die gefüllte Schrift liegt hinter den Karten. Eine gemeinsame Konturebene mit invertierender Farbmischung wird auf die gedrehten Kartenflächen begrenzt. Die Maske folgt der Geometrie während des Kartenwechsels. Hover beziehungsweise sichtbarer Tastaturfokus lassen die Konturen nach hinten verschwinden; ausserhalb der Karten bleibt die gefüllte Schrift bestehen. Der bisherige Begleittext entfällt.
+- Drei leicht gedrehte Porträtkarten überlappen sich als Fächer. Name, Rolle und eine hervorgehobene Stärke stehen auf den Karten.
 - Fokusrahmen aus `Personenbeschrieb.jpg` und das Wechselspiel von Porträt und Textfeldern aus `Personenbeschrieb_2.jpg` werden zu einem gemeinsamen Bildprinzip verbunden.
-- Fokusrahmen beziehungsweise Rasterlinien strukturieren die Porträts. Stärken erscheinen als Beschriftung; der persönliche Text und weitere Stärken lassen sich über „Perspektive kennenlernen“ ausklappen.
+- Hover, Tastaturfokus oder Antippen holen eine Karte mit demselben sanften Versatz und Ebenenwechsel wie beim Wiriehorn-Stapel nach vorne. Die mittlere Person ist zunächst aktiv. Feste Trefferflächen verhindern unbeabsichtigte Hover-Wechsel. Drei zusätzliche Auswahlknöpfe halten alle Personen auch mobil erreichbar.
+- Fokusrahmen beziehungsweise Rasterlinien strukturieren die Porträts. Die persönliche Vorstellung und weitere Stärken der ausgewählten Person stehen in einem gemeinsamen Bereich unter dem Fächer.
 - Die drei späteren Porträts erhalten eine abgestimmte Bildbearbeitung. Unterschiedliche Kompetenzen dürfen sich in Ausschnitt und Akzenten zeigen.
 - Die abgebildeten Personen in den Vorlagen sind Referenzpersonen und keine Mitglieder von 1Kreativbüro. Auch die Kampagnentexte der Vorlagen werden nicht als Agenturinhalt übernommen.
 
@@ -83,8 +85,8 @@ Am Ende steht ein nächstes Projekt; oben führt ein Rücklink ins Archiv. Beim 
 
 1. Hero mit Positionierung und Navigation.
 2. Featured Projekt als visueller Einstieg in die Arbeiten.
-3. Über uns: gemeinsame Haltung, Leistungen und Schlagwortkarussell.
-4. Drei Personen mit individuellen Stärken.
+3. Das Büro: zentrierter Titel und Rasteraufbau im normalen Scrollfluss für Foto, Video und Web.
+4. Das Kreative: drei Personen als Kartenfächer mit individuellen Stärken.
 5. Vollständige Projektübersicht.
 6. Kontakt und abschliessende Navigation.
 7. Eigene Detailansicht pro Projekt.
@@ -95,7 +97,7 @@ Die folgenden Punkte ergänzen das Briefing als Umsetzungsempfehlungen:
 
 - Auf schmalen Bildschirmen werden Raster und Projektzeilen untereinander angeordnet. Grosse Typografie darf den Bildschirm prägen, aber keine Bedienelemente verdecken.
 - Überlagerte Texte benötigen eine ausreichend ruhige beziehungsweise kontrastreiche Fläche. Wesentliche Angaben bleiben als echter Text verfügbar.
-- Die Bewegung des Schlagwortbands lässt sich per Schaltfläche und Tastatur pausieren und fortsetzen. Bei reduzierter Bewegung wird daraus eine unbewegte, horizontal scrollbar angeordnete Begriffsliste.
+- Der Rasteraufbau folgt dem normalen Scrollfluss ohne Festhalten. Bei reduzierter Bewegung bleiben Raster und Wörter vollständig sichtbar.
 - Animationen unterstützen den Wechsel zwischen Ansichten. Bei reduzierter Bewegung entfallen räumliche Übergänge und automatisch laufende Effekte.
 - Projektlinks, Navigation und aufklappbare Personeninformationen sind auch ohne Hover erreichbar. Sichtbare Fokuszustände und Bildbeschreibungen sind angelegt. Ein echter Kontaktlink entsteht nach dem Eintragen einer Kontaktadresse.
 - Bilder werden passend zur Anzeigegrösse bereitgestellt. Ein späteres Video startet mit einem geeigneten Vorschaubild.
@@ -104,10 +106,14 @@ Die folgenden Punkte ergänzen das Briefing als Umsetzungsempfehlungen:
 
 Die ursprünglichen sechs Bildreferenzen und das Video sind Gestaltungsreferenzen. Daraus wird keine Erlaubnis zur produktiven Werbenutzung der abgebildeten Personen, Projekte, Logos oder Bilder abgeleitet. Im lokalen Entwurf verwendete Referenzmotive bleiben sichtbar als solche gekennzeichnet. Die zusätzlich bereitgestellten Wiriehorn-Bilder werden im Highlight und in der zugehörigen Projektvorschau verwendet.
 
-Für die spätere Website werden echte Teamdaten und Projektgeschichten benötigt. Wo diese fehlen, stehen klar erkennbare Platzhalter. Die vier Projektmotive im Entwurf sind selbst erstellte Gestaltungsstudien; die Porträts und die Rastercollage nutzen gekennzeichnete Bildreferenzen. Die ausfüllbare Vorlage steht in [INHALTE.md](INHALTE.md).
+Für die spätere Website werden echte Teamdaten und Projektgeschichten benötigt. Wo diese fehlen, stehen klar erkennbare Platzhalter. Die vier Projektmotive im Entwurf sind selbst erstellte Gestaltungsstudien; die Porträts nutzen gekennzeichnete Bildreferenzen. Das Büro-Raster besteht aus HTML und CSS und verwendet kein Referenzfoto. Die ausfüllbare Vorlage steht in [INHALTE.md](INHALTE.md).
 
-Noch offen sind insbesondere die endgültige Positionierung, das Leistungsangebot, Namen und Porträts der drei Personen, weitere veröffentlichbare Projektbilder und Kontaktangaben. Diese Inhalte lassen sich ergänzen, ohne die beschriebene Seitenstruktur neu aufzubauen.
+Noch offen sind insbesondere die endgültige Positionierung, das Leistungsangebot, Namen und Porträts der drei Personen, die ausführliche Wiriehorn-Projektgeschichte sowie weitere veröffentlichbare Projektbilder und Kontaktangaben. Diese Inhalte lassen sich ergänzen, ohne die beschriebene Seitenstruktur neu aufzubauen.
 
 ## Wiriehorn-Timeline
 
-Zehn nummerierte Schritte führen von der Ausgangslage zum Ausblick. Grosse Überschriften, feine Trennlinien und asymmetrische Bildfolgen greifen die Projektvorlage auf. Am Desktop begleitet die Schrittnummer den Inhalt; mobil steht sie vor dem jeweiligen Abschnitt. Eine Sprungnavigation erschliesst alle Schritte. Der Vergleich zeigt die finalen Sommer- und Winter-SVG überlagert, steuerbar über einen beschrifteten Range-Regler. Videos laufen mit sichtbaren Bedienelementen ohne Autoplay. Das Gipfelpanorama ist eingebettet. Die Live-Karte nutzt auf freigegebenen Wiriehorn-Domains einen iFrame, sonst eine verlinkte Bildvorschau, da ihre Serverrichtlinie externe Einbettungen derzeit sperrt.
+Die zehn Schritte nutzen kompakte Bildraster und zweispaltige Textköpfe am Desktop. Rosé, Salbei, Eisblau und einzelne dunkle Flächen verbinden die Projektgeschichte mit dem aktuellen Hero und seinen farbigen Materialdetails. Mobil bleiben die Bildgruppen überwiegend zweispaltig; Videos und Einbettungen erhalten ausreichend Platz.
+
+Der Sommer-/Wintervergleich wird unmittelbar am Trennpfeil im Bild bedient, inklusive Touch und Tastatur. Stumme Videos laufen in Schleife, solange sie sichtbar sind; eine reduzierte Bewegungseinstellung und manuelles Pausieren werden respektiert. Native Videosteuerleisten entfallen. Karte und Gipfelpanorama sind eingebettet.
+
+Die Karte startet nach einem Klick innerhalb des iFrames. Dadurch zieht ihr automatischer Fokus die Projektseite beim Lesen nicht unerwartet zum Kartenabschnitt.

@@ -57,8 +57,8 @@ function renderWiriehorn(container) {
   const dimensions = (path) => { const size = wiriehornImageSizes[path]; return size ? `width="${size[0]}" height="${size[1]}"` : ''; };
   const photo = (name, caption, extra = '') => `<figure class="${extra}"><img src="${base}web/${name}.webp" ${dimensions(`web/${name}.webp`)} alt="${escapeHTML(caption)}" loading="lazy" decoding="async"><figcaption>${escapeHTML(caption)}</figcaption></figure>`;
   const svg = (name, caption) => `<figure><img src="${base}content-steps/${name}" ${dimensions(`content-steps/${name}`)} alt="${escapeHTML(caption)}" loading="lazy" decoding="async"><figcaption>${escapeHTML(caption)}</figcaption></figure>`;
-  const video = (name, caption, poster = '') => `<figure><video style="aspect-ratio:40 / 21" controls playsinline preload="none" ${poster ? `poster="${base}web/${poster}.webp"` : ''}><source src="${base}content-steps/${name}" type="video/mp4"><a href="${base}content-steps/${name}">Video öffnen</a></video><figcaption>${caption}</figcaption></figure>`;
-  const embed = (url, title) => `<div class="journey-embed"><iframe src="${url}" title="${title}" loading="lazy" allow="fullscreen" allowfullscreen></iframe><a class="text-link" href="${url}" target="_blank" rel="noopener">${title} separat öffnen ↗</a></div>`;
+  const video = (name, caption, poster = '') => `<figure class="journey-film"><div class="journey-video-wrap"><video style="aspect-ratio:40 / 21" ${reducedMotion.matches ? '' : 'autoplay'} muted loop playsinline preload="metadata" ${poster ? `poster="${base}web/${poster}.webp"` : ''}><source src="${base}content-steps/${name}" type="video/mp4"><a href="${base}content-steps/${name}">Video öffnen</a></video><button class="journey-video-toggle" type="button" aria-label="Video pausieren">Ⅱ</button></div><figcaption>${caption}</figcaption></figure>`;
+  const embed = (url, title, activate = false) => `<div class="journey-embed">${activate ? `<button class="journey-embed-start" type="button" data-src="${url}" data-title="${title}"><img src="assets/Wiriehorn_Sommer_Test.jpg" width="2464" height="1336" alt=""><span>Interaktive Karte starten ↗</span></button>` : `<iframe src="${url}" title="${title}" loading="lazy" allow="fullscreen" allowfullscreen></iframe>`}<a class="text-link" href="${url}" target="_blank" rel="noopener">${title} separat öffnen ↗</a></div>`;
   const media = [
     '',
     `<div class="journey-sketches">${photo('01_Skizze-Grob', '01 / Die erste Perspektive')}${photo('02_Skizze-Mittel', '02 / Wege und Orientierung')}${photo('03_Figma-Prototyp', '03 / Früher Figma-Prototyp', 'journey-phone')}</div>`,
@@ -66,11 +66,9 @@ function renderWiriehorn(container) {
     `<div class="journey-evolution">${photo('wiriehornkarte-sommer-v0', '01 / Grundriss der Illustration')}${svg('04/wiriehornkarte-sommer-v1.svg', '02 / Die erste SVG-Version')}${svg('04/wiriehornkarte-sommer-v20.svg', '03 / Die ausgearbeitete Sommerwelt')}</div><div class="journey-details">${svg('04/wiriehornkarte-sommer-v20_Bildausschnitt 1.svg', 'Ein Blick auf die Details der Bergwelt')}${svg('04/wiriehornkarte-sommer-v20_Bildausschnitt 2.svg', 'Eigene Figuren und liebevolle Einzelheiten')}${svg('04/wiriehornkarte-sommer-v20_ Bildausschnitt 3.svg', 'Illustration bis ins kleinste Detail')}</div>`,
     `<div class="journey-interaction">${video('05/PopUp.mp4', 'Hotspot antippen, Informationen öffnen, Bilder entdecken.', 'PopUp-Video')}${photo('Popup-offen', 'Angebote und Informationen direkt auf der Karte')}</div>`,
     `<div class="journey-operation">${photo('Oeffnungsstatus', 'Betriebsstatus und Öffnungszeiten auf einen Blick')}${video('06/SesselStart.mp4', 'Die Sesselbahn bewegt sich passend zum Betriebsstatus.', 'SesselStart')}</div>`,
-    `<figure class="season-figure"><div class="season-compare" style="--split:50%"><img src="${base}content-steps/07/wiriehornkarte-sommer-v20.svg" alt="Illustrierte Sommerkarte des Wiriehorns" loading="lazy"><img class="season-winter" src="${base}content-steps/07/wiriehornkarte-winter-v14.svg" alt="Illustrierte Winterkarte des Wiriehorns" loading="lazy"><span class="season-label summer">Sommer</span><span class="season-label winter">Winter</span><span class="season-divider" aria-hidden="true">↔</span></div><figcaption><label for="season-range">Jahreszeiten vergleichen <span aria-hidden="true">↔</span></label><input id="season-range" type="range" min="0" max="100" value="50" aria-label="Anteil der Winterkarte" aria-valuetext="50 Prozent Winterkarte"><span>Regler verschieben oder Pfeiltasten verwenden.</span></figcaption></figure>`,
+    `<figure class="season-figure"><div class="season-compare" style="--split:50%"><img src="${base}content-steps/07/wiriehornkarte-sommer-v20.svg" alt="Illustrierte Sommerkarte des Wiriehorns" loading="lazy"><img class="season-winter" src="${base}content-steps/07/wiriehornkarte-winter-v14.svg" alt="Illustrierte Winterkarte des Wiriehorns" loading="lazy"><span class="season-label summer">Sommer</span><span class="season-label winter">Winter</span><span class="season-divider" role="slider" tabindex="0" aria-label="Anteil der Winterkarte" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="50 Prozent Winterkarte" aria-orientation="horizontal"><span aria-hidden="true">↔</span></span></div><figcaption>Am Pfeil ziehen, ins Bild tippen oder Pfeiltasten verwenden.</figcaption></figure>`,
     embed('https://erlebniskarte.wiriehorn.ch/360/?embed=1#wiriehorn-gipfel', '360°-Panorama Wiriehorn-Gipfel'),
-    (['https://erlebniskarte.wiriehorn.ch', 'https://wiriehorn.ch', 'https://www.wiriehorn.ch', 'https://wiriehorn.cmsbox.cloud'].includes(window.location.origin)
-      ? embed('https://erlebniskarte.wiriehorn.ch/', 'Interaktive Erlebniskarte Wiriehorn')
-      : `<a class="journey-map-preview" href="https://erlebniskarte.wiriehorn.ch/" target="_blank" rel="noopener"><img src="assets/Wiriehorn_Sommer_Test.jpg" alt="Vorschau der Wiriehorn-Erlebniskarte – interaktive Karte in einem neuen Tab öffnen" width="2464" height="1336" loading="lazy"><span class="text-link">Erlebniskarte interaktiv entdecken ↗</span></a>`),
+    embed('https://erlebniskarte.wiriehorn.ch/', 'Interaktive Erlebniskarte Wiriehorn', true),
     photo('Mockup-Karte', 'Ausblick / Visualisierung einer möglichen Infotafel – noch keine realisierte Anwendung.')
   ];
   const labels = ['Ausgangslage', 'Skizzen', 'Vor Ort', 'Illustration', 'Interaktion', 'Betrieb', 'Jahreszeiten', '360°', 'Erlebniskarte', 'Ausblick'];
@@ -79,8 +77,85 @@ function renderWiriehorn(container) {
   document.body.classList.add('wiriehorn-page');
   $('.preview-badge .badge-detail').textContent = '/ Wiriehorn';
   container.innerHTML = `<section class="case-intro" aria-labelledby="case-title"><div class="case-breadcrumb meta"><a href="index.html#highlight">← Zur Projektübersicht</a><span>WIRIEHORN / PROJEKTGESCHICHTE</span></div><h1 class="case-title" id="case-title">Ein Berg.<br>Eine Erlebniswelt.</h1><div class="case-meta"><p>Von der ersten Linie zur interaktiven Karte.<br>Das Wiriehorn entdecken – im Sommer und im Winter.</p><div class="case-tags"><span class="meta">PROJEKT<br>Wiriehorn</span><span class="meta">LEISTUNGEN<br>Konzept · Illustration · Digital</span></div></div></section><figure class="case-hero"><img data-case-cover="wiriehorn" src="assets/Wiriehorn_Sommer_Test.jpg" alt="Die illustrierte Sommerwelt des Wiriehorns mit Bergen, Wegen und Angeboten" width="2464" height="1336" fetchpriority="high"></figure><nav class="journey-nav" aria-label="Projektschritte">${labels.map((label, i) => `<a href="#schritt-${twoDigits(i + 1)}"><span>${twoDigits(i + 1)}</span> ${label}</a>`).join('')}</nav><div class="journey">${wiriehornSteps.map((step, i) => `<section class="journey-step" id="schritt-${step.number}" aria-labelledby="step-title-${step.number}"><div class="journey-marker"><span>${step.number}</span><span class="meta">${labels[i]}</span></div><div class="journey-content"><div class="journey-copy"><h2 id="step-title-${step.number}">${escapeHTML(step.title)}</h2><p>${escapeHTML(step.text)}</p></div>${media[i]}</div></section>`).join('')}</div><section class="journey-end"><span class="meta">VOM GEDANKEN ZUM ERLEBNIS</span><h2>Jetzt selbst<br>auf Entdeckung gehen.</h2><a class="text-link" href="https://erlebniskarte.wiriehorn.ch/" target="_blank" rel="noopener">Zur Wiriehorn-Erlebniskarte ↗</a><a class="text-link" href="index.html#projekte">Weitere Projekte entdecken ↗</a></section>`;
-  $('#season-range').addEventListener('input', (event) => {
-    $('.season-compare').style.setProperty('--split', `${event.target.value}%`);
-    event.target.setAttribute('aria-valuetext', `${event.target.value} Prozent Winterkarte`);
+  document.querySelectorAll('.journey-embed-start').forEach((button) => {
+    button.addEventListener('click', () => {
+      const frame = document.createElement('iframe');
+      frame.src = button.dataset.src;
+      frame.title = button.dataset.title;
+      frame.allow = 'fullscreen';
+      frame.allowFullscreen = true;
+      button.replaceWith(frame);
+    });
+  });
+  setupSeasonCompare();
+  setupJourneyVideos();
+}
+
+function setupSeasonCompare() {
+  const compare = $('.season-compare');
+  const handle = $('.season-divider', compare);
+  let value = 50;
+  const update = (next) => {
+    value = Math.max(0, Math.min(100, Math.round(next)));
+    compare.style.setProperty('--split', `${value}%`);
+    handle.setAttribute('aria-valuenow', value);
+    handle.setAttribute('aria-valuetext', `${value} Prozent Winterkarte`);
+  };
+  const position = (event) => {
+    const rect = compare.getBoundingClientRect();
+    update((event.clientX - rect.left) / rect.width * 100);
+  };
+  compare.addEventListener('pointerdown', (event) => {
+    if (!event.isPrimary || event.button !== 0) return;
+    compare.setPointerCapture(event.pointerId);
+    handle.focus({ preventScroll: true });
+    position(event);
+  });
+  compare.addEventListener('pointermove', (event) => {
+    if (compare.hasPointerCapture(event.pointerId)) position(event);
+  });
+  const finish = (event) => {
+    if (compare.hasPointerCapture(event.pointerId)) compare.releasePointerCapture(event.pointerId);
+  };
+  compare.addEventListener('pointerup', finish);
+  compare.addEventListener('pointercancel', finish);
+  compare.addEventListener('dragstart', (event) => event.preventDefault());
+  handle.addEventListener('keydown', (event) => {
+    const keys = { ArrowLeft: value - 1, ArrowDown: value - 1, ArrowRight: value + 1, ArrowUp: value + 1, Home: 0, End: 100, PageDown: value - 10, PageUp: value + 10 };
+    if (!(event.key in keys)) return;
+    event.preventDefault();
+    update(keys[event.key]);
+  });
+}
+
+function setupJourneyVideos() {
+  document.querySelectorAll('.journey-film').forEach((figure) => {
+    const video = $('video', figure);
+    const button = $('button', figure);
+    let userPaused = false;
+    let visible = false;
+    let manualPlay = false;
+    video.muted = true;
+    const sync = () => {
+      button.textContent = video.paused ? '▷' : 'Ⅱ';
+      button.setAttribute('aria-label', video.paused ? 'Video abspielen' : 'Video pausieren');
+      button.classList.toggle('is-paused', video.paused);
+    };
+    const play = () => video.play().catch(sync);
+    const refresh = () => {
+      if (visible && !document.hidden && !userPaused && (!reducedMotion.matches || manualPlay)) play();
+      else video.pause();
+      sync();
+    };
+    button.addEventListener('click', () => {
+      if (video.paused) { userPaused = false; manualPlay = true; play(); }
+      else { userPaused = true; video.pause(); }
+    });
+    video.addEventListener('play', sync);
+    video.addEventListener('pause', sync);
+    new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; refresh(); }, { threshold: 0.15 }).observe(video);
+    reducedMotion.addEventListener('change', () => { manualPlay = false; refresh(); });
+    document.addEventListener('visibilitychange', refresh);
+    sync();
   });
 }

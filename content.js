@@ -2,9 +2,6 @@
 const studio = {
   name: '1Kreativbüro',
   email: '',
-  intro: 'Drei Perspektiven. Ein gemeinsamer Gedanke. Wir sind 1Kreativbüro – und geben Ideen eine Form.',
-  // Vorgeschlagene Leistungen, bis euer tatsächliches Angebot feststeht.
-  keywords: ['Konzept', 'Identität', 'Design', 'Digital', 'Bewegtbild', 'Perspektive'],
 };
 
 const people = [
