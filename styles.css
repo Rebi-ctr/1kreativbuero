@@ -490,3 +490,16 @@ button:not(.studio-title-label), .text-link, .feature-open, a[role="button"] { f
 .studio-title-label::after { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: max(100%, var(--title-hit-width, 100%)); transform: translateX(-50%); }
 
 .portrait-beni, .portrait-rebecca, .portrait-mathis { object-position: center 60%; }
+
+/* Wiriehorn: monochrome Abstufungen, Farbe ausschliesslich in den Projektmedien. */
+.wiriehorn-page .journey-step { --step-bg: var(--paper); --step-ink: var(--ink); }
+.wiriehorn-page .journey-step:nth-child(2), .wiriehorn-page .journey-step:nth-child(6), .wiriehorn-page .journey-step:nth-child(10) { --step-bg: #dededb; }
+.wiriehorn-page .journey-step:nth-child(3), .wiriehorn-page .journey-step:nth-child(7) { --step-bg: #e9e9e6; }
+.wiriehorn-page .journey-step:nth-child(8) { --step-bg: #d3d3d0; }
+.wiriehorn-page .journey-step:nth-child(4), .wiriehorn-page .journey-step:nth-child(9) { --step-bg: #242424; --step-ink: var(--paper); }
+.wiriehorn-page .season-compare, .wiriehorn-page .journey-embed iframe, .wiriehorn-page .journey-embed-start { background: #dededb; }
+.wiriehorn-page .journey-image { display: block; overflow: hidden; }
+.wiriehorn-page .journey-image img { transition: transform .5s cubic-bezier(.2,.7,.3,1), filter .5s; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+ .wiriehorn-page .journey-image:hover img { transform: scale(1.035); filter: contrast(1.025); }
+}

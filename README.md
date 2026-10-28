@@ -56,7 +56,7 @@ Der Wischeffekt erfasst auch den Titelbereich der Startseite sowie die dunklen E
 
 `projekt.html?projekt=wiriehorn` zeigt alle zehn Schritte aus `assets/projects/wiriehorn/content-steps/Beschreibung-Projektschritte.docx`. Inhalte und Interaktionen stehen in `wiriehorn.js`, komprimierte Rasterbilder in `assets/projects/wiriehorn/web/`. Die Originalmedien bleiben unverändert.
 
-Kompakte Bildraster und wechselnde Rosé-, Salbei-, Blau- und dunkle Flächen orientieren sich an der aktuellen Hauptseite. Der Jahreszeitenvergleich lässt sich direkt im Bild per Ziehen, Touch und Tastatur bedienen. Videos spielen im sichtbaren Bereich stumm und in Schleife; native Steuerelemente sind ausgeblendet. Ein dezenter Pause-/Play-Schalter erscheint bei Hover, Tastaturfokus oder auf Touch-Geräten. Reduzierte Bewegung verhindert automatisches Abspielen. Ausserhalb des sichtbaren Bereichs pausieren die Videos.
+Kompakte Bildraster und wechselnde helle und dunkle monochrome Flächen orientieren sich an der aktuellen Hauptseite. Der Jahreszeitenvergleich lässt sich direkt im Bild per Ziehen, Touch und Tastatur bedienen. Videos spielen im sichtbaren Bereich stumm und in Schleife; native Steuerelemente sind ausgeblendet. Ein dezenter Pause-/Play-Schalter erscheint bei Hover, Tastaturfokus oder auf Touch-Geräten. Reduzierte Bewegung verhindert automatisches Abspielen. Ausserhalb des sichtbaren Bereichs pausieren die Videos.
 
 Panorama und Erlebniskarte laden als verzögerte iFrames mit ergänzenden Direktlinks. Die frühere Einbettungssperre der Karte wurde entfernt und am 28. Oktober 2026 erneut geprüft. Die Infotafel bleibt als Zukunfts-Mockup gekennzeichnet.
 

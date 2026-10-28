@@ -120,7 +120,7 @@ Noch offen sind insbesondere die endgültige Positionierung, das Leistungsangebo
 
 ## Wiriehorn-Timeline
 
-Die zehn Schritte nutzen kompakte Bildraster und zweispaltige Textköpfe am Desktop. Rosé, Salbei, Eisblau und einzelne dunkle Flächen verbinden die Projektgeschichte mit dem aktuellen Hero und seinen farbigen Materialdetails. Mobil bleiben die Bildgruppen überwiegend zweispaltig; Videos und Einbettungen erhalten ausreichend Platz.
+Die zehn Schritte nutzen kompakte Bildraster und zweispaltige Textköpfe am Desktop. Helle und dunkle monochrome Flächen verbinden die Projektgeschichte mit der übrigen Website. Farbe bleibt den Projektmedien vorbehalten. Ein dezenter Bildzoom beim Hover belebt die Bildgruppen; bei reduzierter Bewegung entfällt er. Mobil bleiben die Bildgruppen überwiegend zweispaltig; Videos und Einbettungen erhalten ausreichend Platz.
 
 Der Sommer-/Wintervergleich wird unmittelbar am Trennpfeil im Bild bedient, inklusive Touch und Tastatur. Stumme Videos laufen in Schleife, solange sie sichtbar sind; eine reduzierte Bewegungseinstellung und manuelles Pausieren werden respektiert. Native Videosteuerleisten entfallen. Karte und Gipfelpanorama sind eingebettet.
 
