@@ -28,6 +28,17 @@ const people = [
   },
 ];
 
+// Das Highlight ist unabhängig von den Layoutstudien in der Projektübersicht.
+const featuredProject = {
+  slug: 'wiriehorn',
+  title: 'Wiriehorn',
+  lead: 'Das Wiriehorn im Sommer und im Winter.',
+  views: [
+    { season: 'Sommer', image: 'assets/Wiriehorn_Sommer_Test.jpg', alt: 'Illustrierte Sommeransicht des Wiriehorns mit Wanderwegen und Bergbahnen.', width: 2464, height: 1336 },
+    { season: 'Winter', image: 'assets/Wiriehorn_Winter_Test.jpg', alt: 'Illustrierte Winteransicht des Wiriehorns mit Skipisten und verschneiten Bergen.', width: 2461, height: 1333 },
+  ],
+};
+
 // Eigenständig erstellte Layoutstudien, keine behaupteten Kundenreferenzen.
 const projects = [
   {

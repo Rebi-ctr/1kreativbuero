@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 720" fill="none" stroke="#d9dfd0" stroke-width="1">
+  <defs>
+    <path id="ridge" d="M-370-110C-330-240-170-220-90-280S100-320 180-210 370-140 360-20 250 90 180 200 10 260-80 190-280 210-330 100-410 20-370-110Z"/>
+    <path id="summit" d="M-330-100C-280-220-140-180-60-250S110-210 150-130 300-100 310 0 200 110 120 160-50 260-130 170-300 150-310 60-360-10-330-100Z"/>
+  </defs>
+  <g transform="translate(175 180) rotate(-18)">
+    <use href="#ridge" transform="scale(1.65)"/>
+    <use href="#ridge" transform="scale(1.47)"/>
+    <use href="#ridge" transform="scale(1.29)"/>
+    <use href="#ridge" transform="scale(1.11)"/>
+    <use href="#ridge" transform="scale(.93)"/>
+    <use href="#ridge" transform="scale(.75)"/>
+    <use href="#ridge" transform="scale(.57)"/>
+    <use href="#ridge" transform="scale(.39)"/>
+    <use href="#ridge" transform="scale(.21)"/>
+  </g>
+  <g transform="translate(1170 585) rotate(22)">
+    <use href="#summit" transform="scale(1.7)"/>
+    <use href="#summit" transform="scale(1.51)"/>
+    <use href="#summit" transform="scale(1.32)"/>
+    <use href="#summit" transform="scale(1.13)"/>
+    <use href="#summit" transform="scale(.94)"/>
+    <use href="#summit" transform="scale(.75)"/>
+    <use href="#summit" transform="scale(.56)"/>
+    <use href="#summit" transform="scale(.37)"/>
+    <use href="#summit" transform="scale(.18)"/>
+  </g>
+  <path d="M460-30C560 100 580 195 540 310S490 510 615 620 790 700 820 760M520-30C620 105 650 215 600 330S560 510 670 600 860 675 885 760M580-30C690 100 710 230 660 350S630 505 730 580 920 660 950 760M640-30C750 105 775 240 720 365S700 490 795 565 985 640 1010 760"/>
+</svg>

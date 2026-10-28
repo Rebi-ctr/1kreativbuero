@@ -7,22 +7,30 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 function renderFeature() {
   const stage = $('#feature-stage');
   if (!stage) return;
-  let current = 0;
-  const render = () => {
-    const project = projects[current];
-    stage.innerHTML = `<a class="feature-link" data-project="${project.slug}" href="${projectURL(project)}" aria-label="Layoutstudie ${escapeHTML(project.title)} ansehen">
-      <div class="feature-shadow" aria-hidden="true"></div>
-      <img class="feature-image" src="${project.image}" alt="${escapeHTML(project.alt)}" width="1600" height="1100">
-      <span class="feature-info meta">VISUELLE STUDIE ${project.number}<br>${escapeHTML(project.category.toUpperCase())} / ${escapeHTML(project.year.toUpperCase())}</span>
-      <h3 class="feature-title">${escapeHTML(project.title)}</h3>
-      <span class="feature-open" aria-hidden="true">↗</span>
-    </a>`;
-    $('#feature-count').textContent = `${twoDigits(current + 1)} / ${twoDigits(projects.length)}`;
-    $('#feature-caption').textContent = `${project.descriptor} / Layoutstudie`;
+  stage.innerHTML = `${featuredProject.views.map((view, index) => `<button class="feature-card${index === 0 ? ' is-active' : ''}" type="button" aria-label="${escapeHTML(view.season)}bild in den Vordergrund holen" aria-pressed="${index === 0}">
+      <span class="feature-sheet"><img src="${view.image}" alt="${escapeHTML(view.alt)}" width="${view.width}" height="${view.height}" loading="lazy"></span>
+    </button>`).join('')}
+    <h3 class="feature-title">${escapeHTML(featuredProject.title)}</h3>
+    <a class="feature-open" data-project="${featuredProject.slug}" href="${projectURL(featuredProject)}" aria-label="Ab ins Projektbüro: Wiriehorn-Projekt im Detail">Ab ins Projektbüro <span aria-hidden="true">↗</span></a>`;
+
+  const cards = stage.querySelectorAll('.feature-card');
+  const hoverAvailable = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const selectCard = (selected) => {
+    if (!selected || selected.classList.contains('is-active')) return;
+    cards.forEach((card) => {
+      const active = card === selected;
+      card.classList.toggle('is-active', active);
+      card.setAttribute('aria-pressed', String(active));
+    });
   };
-  $('#feature-prev').addEventListener('click', () => { current = (current - 1 + projects.length) % projects.length; render(); });
-  $('#feature-next').addEventListener('click', () => { current = (current + 1) % projects.length; render(); });
-  render();
+  cards.forEach((card) => {
+    // Die Trefferflächen bleiben fest; nur das innere Bild bewegt sich.
+    card.addEventListener('pointerenter', (event) => {
+      if (hoverAvailable.matches && event.pointerType !== 'touch') selectCard(card);
+    });
+    card.addEventListener('focus', () => selectCard(card));
+  });
+  stage.addEventListener('click', (event) => selectCard(event.target.closest('.feature-card')));
 }
 
 function renderStudio() {
@@ -93,6 +101,20 @@ function renderCase() {
   const container = $('#case-content');
   if (!container) return;
   const slug = new URLSearchParams(window.location.search).get('projekt');
+  if (slug === featuredProject.slug) {
+    const [cover, ...gallery] = featuredProject.views;
+    document.title = `${featuredProject.title} — 1Kreativbüro`;
+    $('.preview-badge .badge-detail').textContent = '/ Projektvorschau';
+    container.innerHTML = `
+      <section class="case-intro" aria-labelledby="case-title">
+        <div class="case-breadcrumb meta"><a href="index.html#highlight">← Zurück zum Projekt</a><span>WIRIEHORN</span></div>
+        <h1 class="case-title" id="case-title">${escapeHTML(featuredProject.title)}</h1>
+        <div class="case-meta"><p>${escapeHTML(featuredProject.lead)}</p></div>
+      </section>
+      <figure class="case-hero"><img data-case-cover="${featuredProject.slug}" src="${cover.image}" alt="${escapeHTML(cover.alt)}" width="${cover.width}" height="${cover.height}" fetchpriority="high"></figure>
+      <div class="case-gallery case-gallery-featured">${gallery.map((view) => `<figure><img src="${view.image}" alt="${escapeHTML(view.alt)}" width="${view.width}" height="${view.height}" loading="lazy"><figcaption class="meta">${escapeHTML(view.season)}</figcaption></figure>`).join('')}</div>`;
+    return;
+  }
   const project = projects.find((item) => item.slug === slug);
   if (!project) {
     document.title = 'Projekt nicht gefunden — 1Kreativbüro';
@@ -123,8 +145,9 @@ function setupProjectTransitions() {
   let activatedImage = null;
   const slugFromURL = (url) => url.searchParams.get('projekt');
   const resetNames = () => document.querySelectorAll('[style*="view-transition-name"]').forEach((element) => element.style.removeProperty('view-transition-name'));
+  const coverForLink = (link) => link.querySelector('img') || link.closest('.feature-stage')?.querySelector('.feature-card.is-active img');
   const projectImage = (slug) => {
-    const images = Array.from(document.querySelectorAll('a[data-project]')).filter((link) => link.dataset.project === slug).map((link) => link.querySelector('img')).filter(Boolean);
+    const images = Array.from(document.querySelectorAll('a[data-project]')).filter((link) => link.dataset.project === slug).map(coverForLink).filter(Boolean);
     return images.find((image) => {
       const rect = image.getBoundingClientRect();
       return rect.bottom > 0 && rect.top < innerHeight;
@@ -132,7 +155,7 @@ function setupProjectTransitions() {
   };
   document.addEventListener('click', (event) => {
     const link = event.target.closest('a[data-project]');
-    if (link && !event.metaKey && !event.ctrlKey && !event.shiftKey && event.button === 0) activatedImage = link.querySelector('img');
+    if (link && !event.metaKey && !event.ctrlKey && !event.shiftKey && event.button === 0) activatedImage = coverForLink(link);
   });
   window.addEventListener('pageswap', (event) => {
     if (!event.viewTransition) return;
