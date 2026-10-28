@@ -53,6 +53,7 @@ const wiriehornSteps = [
 ];
 
 function renderWiriehorn(container) {
+  const twoDigits = value => String(value).padStart(2, '0');
   const base = 'assets/projects/wiriehorn/';
   const dimensions = (path) => { const size = wiriehornImageSizes[path]; return size ? `width="${size[0]}" height="${size[1]}"` : ''; };
   const photo = (name, caption, extra = '') => `<figure class="${extra}"><img src="${base}web/${name}.webp" ${dimensions(`web/${name}.webp`)} alt="${escapeHTML(caption)}" loading="lazy" decoding="async"><figcaption>${escapeHTML(caption)}</figcaption></figure>`;
