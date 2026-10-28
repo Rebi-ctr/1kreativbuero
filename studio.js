@@ -6,7 +6,7 @@
     const switches = $('#people-switches');
     const panel = $('#person-panel');
     const initial = 0;
-    const title = $('#creative-title', deck)?.textContent || 'Das Kreative.';
+    const title = $('#creative-title', deck)?.textContent || 'DAS KREATIVE.';
     deck.innerHTML = `<h3 class="creative-title creative-title-fill" id="creative-title"><span>${escapeHTML(title)}</span></h3>` + people.map((person, index) => `<article class="person-card${index === initial ? ' is-active' : ''}" data-person="${index}" aria-labelledby="person-name-${index}">
       <div class="person-sheet"><div class="person-visual">
         <img src="${person.image}" class="${person.imageClass}" alt="Referenzporträt für den vorläufigen Personenplatz ${person.number}; kein Mitglied von 1Kreativbüro." loading="lazy" width="${index === 1 ? 354 : 1080}" height="${index === 1 ? 500 : 1440}">
@@ -130,7 +130,7 @@
       columns = nextColumns;
       grid.innerHTML = [
         ...Array.from({ length: Math.ceil(columns) + 1 }, (_, i) => `<span class="studio-line is-vertical" style="--line-position:${offset + i / columns * 100}%"></span>`),
-        ...Array.from({ length: 28 }, (_, i) => `<span class="studio-line is-horizontal" style="--line-row:${i}"></span>`),
+        ...Array.from({ length: 32 }, (_, i) => `<span class="studio-line is-horizontal" style="--line-row:${i - 4}"></span>`),
       ].join('');
       lines = Array.from(grid.querySelectorAll('.studio-line'));
     }
@@ -154,18 +154,20 @@
         const width = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight;
         const height = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
         // Die sichtbaren Konturen passen mit einem kleinen Rand in die 100er-Zelle.
-        const scale = Math.min(96 / Math.max(1, width), 96 / Math.max(1, height));
+        const scaleY = 96 / Math.max(1, height);
+        const scaleX = Math.min(scaleY, 96 / Math.max(1, width));
         fitted = {
-          size: 100 * scale,
-          x: (100 - width * scale) / 2 + metrics.actualBoundingBoxLeft * scale,
-          y: (100 - height * scale) / 2 + metrics.actualBoundingBoxAscent * scale,
+          scaleX, scaleY,
+          x: (100 - width * scaleX) / 2 + metrics.actualBoundingBoxLeft * scaleX,
+          y: 2 + metrics.actualBoundingBoxAscent * scaleY,
         };
         glyphMetrics.set(key, fitted);
       }
       text.textContent = character;
-      text.setAttribute('font-size', fitted.size);
-      text.setAttribute('x', fitted.x);
-      text.setAttribute('y', fitted.y);
+      text.setAttribute('font-size', 100);
+      text.setAttribute('x', 0);
+      text.setAttribute('y', 0);
+      text.setAttribute('transform', `translate(${fitted.x} ${fitted.y}) scale(${fitted.scaleX} ${fitted.scaleY})`);
     }
 
     const deck = $('#people-grid');
@@ -211,6 +213,13 @@
       lastState = '';
       buildGrid();
       story.classList.toggle('is-enhanced', !reducedMotion.matches);
+      const cell = scene.getBoundingClientRect().width / columns;
+      const breathing = parseFloat(getComputedStyle(story).paddingTop);
+      const rowOffset = scene.getBoundingClientRect().width > 700 ? -cell * 6 / 85 : 0;
+      lines.filter(line => line.classList.contains('is-horizontal')).forEach(line => {
+        const row = Number(line.style.getPropertyValue('--line-row'));
+        line.style.setProperty('--line-dark-height', row * cell + rowOffset < -breathing ? '1px' : '0px');
+      });
       if (deck) {
         const sceneBounds = scene.getBoundingClientRect();
         const deckBounds = deck.getBoundingClientRect();
