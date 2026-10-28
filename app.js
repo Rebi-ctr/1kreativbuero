@@ -42,7 +42,6 @@
       <div><h3 class="project-row-title">${escapeHTML(project.title)}</h3>${project.category ? `<span class="project-row-label">${escapeHTML(project.category)}</span>` : ''}</div>
       <div class="project-row-image">${projectVisual(project)}</div>
       <div class="project-row-type"><span class="meta">Projekt entdecken</span><span class="project-row-arrow" aria-hidden="true">↗</span></div>
-      <span class="project-row-number" aria-hidden="true">[ ${project.number} ]</span>
     </a>`).join('');
   }
 

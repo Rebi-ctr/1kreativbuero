@@ -1,6 +1,6 @@
 @view-transition { navigation: auto; }
 
-:root { --ink: #111110; --paper: #f0efe9; --muted: #a0a09a; --line: #cdcdc5; --dark-line: #3b3b37; --gutter: clamp(22px, 4vw, 80px); --title-font: "Sansation", sans-serif; --sans: 'Inter', sans-serif; --mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace; }
+:root { --ink: #111110; --pink: #e890b8; --paper: #f0efe9; --muted: #a0a09a; --line: #cdcdc5; --dark-line: #3b3b37; --gutter: clamp(22px, 4vw, 80px); --title-font: "Sansation", sans-serif; --sans: 'Inter', sans-serif; --mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace; }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 92px; }
 body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-optical-sizing: auto; font-weight: 100; font-style: normal; -webkit-font-smoothing: antialiased; }
@@ -148,7 +148,6 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--title-font); font-weight: 400; font-
 .project-row-type { display: flex; flex-direction: column; align-items: end; gap: 12px; text-align: right; height: 100%; }
 .project-row-arrow { width: 37px; height: 37px; display: grid; place-items: center; border: 1px solid #b9bab0; border-radius: 50%; font-size: 18px; margin-top: auto; transition: background .2s, color .2s; }
 .project-row:hover .project-row-arrow { background: var(--ink); color: var(--paper); }
-.project-row-number { display: block; position: absolute; bottom: 24px; left: 0; font-family: var(--mono); font-size: 11px; color: #6e7065; }
 .contact { color: var(--paper); background: var(--ink); padding-bottom: 80px; }
 .contact .section-label { border-color: var(--dark-line); }
 .contact h2 { font-size: clamp(65px, 11vw, 180px); margin: 90px 0 70px; }
@@ -266,7 +265,6 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--title-font); font-weight: 400; font-
   .project-row-type { justify-content: start; gap: 8px; }
   .project-row-type > .meta { font-size: 9px; }
   .project-row-arrow { width: 28px; height: 28px; font-size: 14px; margin: 0; }
-  .project-row-number { bottom: 32px; left: 12px; z-index: 1; color: white; background: var(--ink); padding: 3px 6px; }
   .contact h2 { font-size: clamp(54px, 12vw, 90px); margin: 55px 0 40px; }
   .contact-bottom { display: block; }
   .contact-bottom > p { font-size: 16px; margin-bottom: 30px; }
@@ -448,7 +446,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--title-font); font-weight: 400; font-
 
 /* Gemeinsame Typografie für Texte, Bedienelemente und Titelgrafiken. */
 .creative-title { font-family: var(--title-font); font-weight: 400; }
-.studio-word { font-family: var(--title-font); font-weight: 700; color: #e890b8; }
+.studio-word { font-family: var(--title-font); font-weight: 700; color: var(--pink); }
 p { font-family: var(--sans); font-optical-sizing: auto; font-weight: 300; font-style: normal; }
 h1 .serif, h2 .serif, h3 .serif { font-family: inherit; font-style: inherit; }
 
@@ -503,3 +501,5 @@ button:not(.studio-title-label), .text-link, .feature-open, a[role="button"] { f
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
  .wiriehorn-page .journey-image:hover img { transform: scale(1.035); filter: contrast(1.025); }
 }
+
+#contact-title { color: var(--pink); }
