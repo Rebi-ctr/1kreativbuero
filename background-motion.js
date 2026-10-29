@@ -1,7 +1,7 @@
 // Lokaler Wasserfarbenzug. Die Textur enthält nur Farbflächen, nie Seiteninhalte.
 (() => {
   const media = matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
-  const selector = '.site-header, .hero, .hero-composition, .featured, .feature-stage, .about, .projects, .contact, .case-intro, .case-hero, .journey-nav, .journey-step, .journey-end, .case-next, .site-footer';
+  const selector = '.site-header, .hero, .hero-composition, .featured, .feature-stage, .about, .projects, .contact, .contact-page-main, .case-intro, .case-hero, .journey-nav, .journey-step, .journey-end, .case-next, .site-footer';
   const isTransparent = (color) => color === 'transparent' || /^rgba\([^)]*,\s*0(?:\.0+)?\s*\)$/.test(color);
   const MAX_PULL = 76;
   const GRID_WIDTH = 160;

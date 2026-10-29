@@ -8,6 +8,7 @@
   let configured = !!config?.endpoint && !config.native;
   let token = "";
   let sending = false;
+  let submitted = false;
 
   button.disabled = !configured;
   if (configured) status.textContent = '';
@@ -26,7 +27,7 @@
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
-    if (!configured || sending || !form.reportValidity()) return;
+    if (!configured || sending || submitted || !form.reportValidity()) return;
     sending = true;
     button.disabled = true;
     form.setAttribute('aria-busy', 'true');
@@ -43,7 +44,12 @@
       const result = await response.json();
       if (!response.ok || result.success === false || result.errors) throw new Error('Form submission failed');
       status.dataset.state = 'success';
-      status.textContent = 'Danke für deine Nachricht! Wir melden uns bei dir.';
+      const message = 'Danke für deine Nachricht! Deine Anfrage wurde in unsere Ideenbude geschleudert und du hörst bald von uns.';
+      status.textContent = message;
+      button.textContent = message;
+      button.className = 'form-submit is-success';
+      button.type = 'button';
+      submitted = true;
       form.reset();
     } catch {
       status.dataset.state = 'error';
