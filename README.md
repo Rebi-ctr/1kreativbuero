@@ -4,21 +4,40 @@ Lokaler, klickbarer Gestaltungsentwurf für die Agenturwebsite. Grundlage sind d
 
 ## Entwurf öffnen
 
-`index.html` direkt im Browser öffnen. Der Entwurf funktioniert ohne Installation und ohne laufenden Server; auch die Projektlinks bleiben lokal nutzbar.
+`index.html` lässt sich wie bisher direkt im Browser öffnen. Styles, Bilder und Projektlinks funktionieren auch per `file://`. Ein einfacher lokaler Dateiserver (zum Beispiel Python oder VS Code Live Server) kann ebenfalls weiterverwendet werden. In diesen lokalen Ansichten führen Links zu den HTML-Dateien.
 
-Für die Entwicklung und die browserabhängigen Bildübergänge alternativ im Projektordner einen lokalen Server starten:
+Für eine Vorschau mit denselben sauberen URLs wie auf dem Hosting im Projektordner mit Node.js starten:
 
 ```sh
-python3 -m http.server 4173 --bind 127.0.0.1
+node scripts/preview.cjs
 ```
 
-Dann `http://127.0.0.1:4173` im Browser öffnen. Es gibt keine Build-Abhängigkeiten und keinen Installationsschritt.
+Dann `http://127.0.0.1:4173/` im Browser öffnen. Optional kann ein anderer Port angegeben werden, etwa `node scripts/preview.cjs 4174`. Es gibt keine Build-Abhängigkeiten und keinen Installationsschritt. Diese Vorschau leitet lokale Dateilinks auf die sauberen URLs um; ein einfacher Dateiserver liefert stattdessen die ursprünglichen HTML-Adressen aus.
+
+## Saubere URLs auf METANET
+
+Die Website wird im Hauptverzeichnis der Domain bereitgestellt:
+
+| Seite | Öffentliche URL | Intern ausgelieferte Datei |
+| --- | --- | --- |
+| Startseite | `/` | `index.html` |
+| Kontakt | `/kontakt` | `kontakt.html` |
+| Wiriehorn | `/projekte/wiriehorn` | `projekt.html` |
+| Rigi | `/projekte/rigi` | `projekt.html` |
+
+Die `.htaccess` gehört neben die drei HTML-Dateien ins Web-Hauptverzeichnis (bei METANET gewöhnlich `httpdocs`). Beim Upload auch diese versteckte Datei übertragen. Voraussetzung ist Apache 2.4 mit erlaubten Rewrite-Regeln und `Options -MultiViews`. Eine schon auf dem Hosting vorhandene `.htaccess` vor dem Zusammenführen sichern und deren Regeln berücksichtigen.
+
+Direkte Aufrufe von `/index.html` und `/kontakt.html` werden mit HTTP 301 auf `/` beziehungsweise `/kontakt` weitergeleitet; zusätzliche Query-Parameter bleiben erhalten. Alte Links wie `/projekt.html?projekt=wiriehorn` werden auf `/projekte/wiriehorn` weitergeleitet, wobei die bisherige Query-Zeichenfolge entfällt. Unterseiten verwenden keinen abschliessenden Schrägstrich. Anker wie `/#projekte` und `/kontakt#kontaktformular` bleiben nutzbar. Medien und `/api/contact.php` werden regulär ausgeliefert. Unbekannte Projektpfade liefern auf dem Hosting einen normalen HTTP-404-Fehler.
+
+Die Projektauswahl und nativen Bildübergänge lesen den Projektnamen aus dem URL-Pfad oder aus einem bisherigen Projektlink. Für ein zusätzliches Projekt neben den Daten in `content.js` auch die freigegebenen Projektpfade in `.htaccess` und `scripts/preview.cjs` ergänzen. Ressourcen verwenden relative Pfade; `projekt.html` setzt nur unter verschachtelten Projekt-URLs eine passende Basisadresse. `navigation.js` erhält Kapitelanker auf der aktuellen Seite und verwendet bei direkten Dateien und auf localhost Dateilinks. Auf dem Hosting werden die sauberen Adressen verlinkt.
+
+Nach dem Upload auf dem echten Hosting prüfen: alle vier URLs direkt öffnen und neu laden, Logo und Navigation verwenden, alte Links auf die jeweilige Weiterleitung prüfen sowie Bilder, Projektübergänge und Kontaktformular kontrollieren. Die lokale Node-Vorschau bildet die vorgesehenen URLs und Weiterleitungen nach; sie führt weder Apache-Regeln noch PHP aus und ersetzt diesen Hosting-Test nicht.
 
 ## Aufbau
 
 - `index.html`: Hero, Highlight-Projekt, Büro, drei Personen, Projektarchiv und Kontakt.
-- `projekt.html?projekt=wiriehorn`: Wiriehorn-Projektgeschichte mit zehn Schritten, Bildern, Videos, Sommer-/Winter-Vergleich und eingebetteten Karten.
-- `projekt.html?projekt=rigi`: Rigi-Detailansicht mit grossformatigem Einstieg, vier Filmstills zum Imagefilm und einem vorbereiteten Bereich für das Fotoshooting.
+- `/projekte/wiriehorn` (`projekt.html`): Wiriehorn-Projektgeschichte mit zehn Schritten, Bildern, Videos, Sommer-/Winter-Vergleich und eingebetteten Karten.
+- `/projekte/rigi` (`projekt.html`): Rigi-Detailansicht mit grossformatigem Einstieg, vier Filmstills zum Imagefilm und einem vorbereiteten Bereich für das Fotoshooting.
 - `content.js`: Zentraler Ort für Teamtexte, Rollen, Leistungen, Kontakt und Projekte.
 - `styles.css`: Gestaltung, Raster, mobile Ansichten, Bewegungen und reduzierte Animationen.
 - `shared.js`: Gemeinsame DOM-, Text- und URL-Hilfsfunktionen sowie die Einstellung für reduzierte Bewegung. Wird vor den Seiten-Scripts geladen.
@@ -54,7 +73,7 @@ Der Wischeffekt erfasst auch den Titelbereich der Startseite sowie die dunklen E
 
 ## Wiriehorn-Projektgeschichte
 
-`projekt.html?projekt=wiriehorn` zeigt alle zehn Schritte aus `assets/projects/wiriehorn/content-steps/Beschreibung-Projektschritte.docx`. Inhalte und Interaktionen stehen in `wiriehorn.js`, komprimierte Rasterbilder in `assets/projects/wiriehorn/web/`. Die Originalmedien bleiben unverändert.
+`/projekte/wiriehorn` zeigt alle zehn Schritte aus `assets/projects/wiriehorn/content-steps/Beschreibung-Projektschritte.docx`. Inhalte und Interaktionen stehen in `wiriehorn.js`, komprimierte Rasterbilder in `assets/projects/wiriehorn/web/`. Die Originalmedien bleiben unverändert.
 
 Kompakte Bildraster und wechselnde helle und dunkle monochrome Flächen orientieren sich an der aktuellen Hauptseite. Der Jahreszeitenvergleich lässt sich direkt im Bild per Ziehen, Touch und Tastatur bedienen. Videos spielen im sichtbaren Bereich stumm und in Schleife; native Steuerelemente sind ausgeblendet. Ein dezenter Pause-/Play-Schalter erscheint bei Hover, Tastaturfokus oder auf Touch-Geräten. Reduzierte Bewegung verhindert automatisches Abspielen. Ausserhalb des sichtbaren Bereichs pausieren die Videos.
 
@@ -99,4 +118,4 @@ Vor der Aktivierung:
 
 Der Endpunkt prüft Pflichtfelder, E-Mail-Adressen und Feldlängen. Er verwendet ein sitzungsgebundenes Token, einen Honeypot und eine serverseitige Mengenbegrenzung (maximal fünf Versuche pro IP in 15 Minuten und 30 pro Stunde insgesamt). Die temporäre Limitdatei enthält nur Zeitpunkte und gehashte IP-Kennungen, keine Nachrichten. Der Webserver muss sein temporäres Verzeichnis schreiben können.
 
-Der lokale Python-Webserver führt PHP nicht aus. Die Vorschau lässt das Formular deshalb deaktiviert. Auf dieser Entwicklungsumgebung ist PHP derzeit nicht installiert; Syntaxprüfung und Zustelltest des PHP-Endpunkts stehen noch aus. Der JavaScript-Versand und die Fehlerfälle sind separat automatisiert geprüft.
+Die lokale Node-Vorschau führt PHP nicht aus und antwortet für `/api/contact.php` mit einem nicht verfügbaren Dienst. Die Vorschau lässt das Formular deshalb deaktiviert und liefert keine PHP-Quelltexte aus. Auf dieser Entwicklungsumgebung ist PHP derzeit nicht installiert; Syntaxprüfung und Zustelltest des PHP-Endpunkts stehen noch aus. Der JavaScript-Versand und die Fehlerfälle sind separat automatisiert geprüft.

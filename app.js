@@ -78,21 +78,21 @@
     document.body.classList.add('project-story-page', 'rigi-page');
     container.innerHTML = `<article class="case-project" aria-labelledby="case-title">
       <section class="case-intro" aria-labelledby="case-title">
-        <div class="case-breadcrumb meta"><a href="index.html#projekte">← Zur Projektübersicht</a><span>${escapeHTML(project.title.toUpperCase())} / PROJEKTGESCHICHTE</span></div>
+        <div class="case-breadcrumb meta"><a href="/#projekte">← Zur Projektübersicht</a><span>${escapeHTML(project.title.toUpperCase())} / PROJEKTGESCHICHTE</span></div>
         <h1 class="case-title" id="case-title">${headline.map(escapeHTML).join('<br>')}</h1>
         <div class="case-meta"><p>${escapeHTML(project.lead)}</p><div class="case-tags"><span class="meta">PROJEKT<br>${escapeHTML(project.title)}</span><span class="meta">LEISTUNGEN<br>${escapeHTML(project.category)}</span></div></div>
       </section>
       <figure class="case-hero">${projectVisual(project, true)}${project.coverCaption ? `<figcaption class="sr-only">${escapeHTML(project.coverCaption)}</figcaption>` : ''}</figure>
       <nav class="journey-nav" aria-label="Projektbereiche"><a href="#imagefilm"><span>01</span> Imagefilm</a><a href="#fotoshooting"><span>02</span> Fotoshooting</a></nav>
       ${renderProjectStory(project)}
-      <section class="journey-end"><span class="meta">AUS UNSEREM KREATIVBÜRO</span><h2>Noch mehr<br>zu entdecken.</h2><a class="text-link" data-project="${nextProject.slug}" href="${projectURL(nextProject)}">${escapeHTML(nextProject.title)} entdecken ↗</a><a class="text-link" href="index.html#projekte">Weitere Projekte entdecken ↗</a></section>
+      <section class="journey-end"><span class="meta">AUS UNSEREM KREATIVBÜRO</span><h2>Noch mehr<br>zu entdecken.</h2><a class="text-link" data-project="${nextProject.slug}" href="${projectURL(nextProject)}">${escapeHTML(nextProject.title)} entdecken ↗</a><a class="text-link" href="/#projekte">Weitere Projekte entdecken ↗</a></section>
       </article>`;
   }
 
   function renderCase() {
     const container = $('#case-content');
     if (!container) return;
-    const slug = new URLSearchParams(window.location.search).get('projekt');
+    const slug = projectSlugFromURL();
     if (slug === featuredProject.slug) {
       renderWiriehorn(container);
       return;
@@ -100,7 +100,7 @@
     const project = projects.find((item) => item.slug === slug);
     if (!project) {
       document.title = 'Projekt nicht gefunden - 1Kreativbüro';
-      container.innerHTML = '<section class="case-not-found"><span class="meta">404 / PROJEKT</span><h1>Hier ist noch<br>Raum für Ideen.</h1><p>Dieses Projekt gibt es im Entwurf noch nicht.</p><a class="text-link" href="index.html#projekte">Zur Projektübersicht <span>↗</span></a></section>';
+      container.innerHTML = '<section class="case-not-found"><span class="meta">404 / PROJEKT</span><h1>Hier ist noch<br>Raum für Ideen.</h1><p>Dieses Projekt gibt es im Entwurf noch nicht.</p><a class="text-link" href="/#projekte">Zur Projektübersicht <span>↗</span></a></section>';
       return;
     }
     if (project.film) {
@@ -113,7 +113,7 @@
     container.innerHTML = `
       <article class="case-project" aria-labelledby="case-title">
       <section class="case-intro" aria-labelledby="case-title">
-        <div class="case-breadcrumb meta"><a href="index.html#projekte">← Projektübersicht</a><span>${escapeHTML(project.title.toUpperCase())}</span></div>
+        <div class="case-breadcrumb meta"><a href="/#projekte">← Projektübersicht</a><span>${escapeHTML(project.title.toUpperCase())}</span></div>
         <h1 class="case-title" id="case-title">${escapeHTML(project.title)}</h1>
         <div class="case-meta"><p>${escapeHTML(project.lead)}</p></div>
       </section>
@@ -127,7 +127,6 @@
   // Native, progressive Bild-zu-Bild-Übergänge. Ohne API navigieren normale Links.
   function setupProjectTransitions() {
     let activatedImage = null;
-    const slugFromURL = (url) => url.searchParams.get('projekt');
     const resetNames = () => document.querySelectorAll('[style*="view-transition-name"]').forEach((element) => element.style.removeProperty('view-transition-name'));
     const coverForLink = (link) => link.querySelector('img') || link.closest('.feature-stage')?.querySelector('.feature-card.is-active img');
     const projectImage = (slug) => {
@@ -150,7 +149,7 @@
       const destination = event.activation?.entry?.url;
       if (!destination) return;
       const destinationURL = new URL(destination);
-      const slug = slugFromURL(destinationURL);
+      const slug = projectSlugFromURL(destinationURL);
       const image = slug ? (activatedImage || projectImage(slug)) : $('[data-case-cover]');
       if (image) image.style.viewTransitionName = 'project-cover';
     });
@@ -162,7 +161,7 @@
       resetNames();
       const hero = $('[data-case-cover]');
       const from = window.navigation?.activation?.from?.url;
-      const image = hero || (from ? projectImage(slugFromURL(new URL(from))) : null);
+      const image = hero || (from ? projectImage(projectSlugFromURL(new URL(from))) : null);
       if (image) {
         image.style.viewTransitionName = 'project-cover';
         event.viewTransition.finished.finally(() => image.style.removeProperty('view-transition-name')).catch(() => {});

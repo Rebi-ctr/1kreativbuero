@@ -1,0 +1,29 @@
+# Apache 2.4 / METANET: Dateiendungen bleiben aus den öffentlichen URLs heraus.
+Options -MultiViews
+DirectoryIndex index.html
+RewriteEngine On
+
+# Nur direkte Aufrufe alter Dateinamen umleiten, keine internen Zuordnungen.
+# THE_REQUEST bleibt bei einer internen Umschreibung unverändert.
+RewriteCond %{THE_REQUEST} "\s/+index\.html(?:[?\s])"
+RewriteRule ^index\.html$ / [R=301,L]
+
+RewriteCond %{THE_REQUEST} "\s/+kontakt\.html(?:[?\s])"
+RewriteRule ^kontakt\.html$ /kontakt [R=301,L]
+
+RewriteCond %{THE_REQUEST} "\s/+projekt\.html(?:[?\s])"
+RewriteCond %{QUERY_STRING} "(?:^|&)projekt=([a-z0-9-]+)(?:&|$)"
+RewriteRule ^projekt\.html$ /projekte/%1 [R=301,L,QSD]
+
+# Unterseiten verwenden einheitlich keinen abschliessenden Schrägstrich.
+RewriteRule ^kontakt/$ /kontakt [R=301,L]
+RewriteRule ^projekte/([a-z0-9-]+)/$ /projekte/$1 [R=301,L]
+
+# Medien, Scripts, Verzeichnisse und insbesondere die PHP-API normal ausliefern.
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [END]
+
+# Die Dateien bleiben im Hauptverzeichnis; die Browseradresse bleibt sauber.
+RewriteRule ^kontakt$ kontakt.html [END]
+RewriteRule ^projekte/(wiriehorn|rigi)$ projekt.html [END]

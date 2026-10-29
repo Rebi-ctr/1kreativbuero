@@ -2,13 +2,14 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const { pathToFileURL } = require('node:url');
 const { test } = require('node:test');
 
 const root = path.resolve(__dirname, '..');
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 
 // Ohne Ersatz für Anwendungsfunktionen: die echten Scripts in HTML-Reihenfolge laden.
-function renderProject(slug) {
+function renderProject(slug, address = `https://1kreativbuero.ch/projekte/${slug}`) {
   const container = { innerHTML: '' };
   const element = {
     style: { setProperty() {}, removeProperty() {} },
@@ -29,12 +30,12 @@ function renderProject(slug) {
   const context = vm.createContext({
     document, URL, URLSearchParams,
     window: {
-      location: { search: `?projekt=${slug}` },
+      location: new URL(address),
       matchMedia() { return { matches: false, addEventListener() {} }; },
       addEventListener() {},
     },
   });
-  const scripts = [...read('projekt.html').matchAll(/<script\b[^>]*src="([^"?]+)(?:\?[^"]*)?"/g)].map(match => match[1]);
+  const scripts = [...read('projekt.html').matchAll(/<script\b[^>]*src="([^"?]+)(?:\?[^"]*)?"/g)].map(match => match[1].replace(/^\//, ''));
   for (const file of scripts.filter(file => file !== 'background-motion.js')) {
     vm.runInContext(read(file), context, { filename: file });
   }
@@ -45,7 +46,7 @@ test('HTML lädt lokale Assets und Scripts eindeutig in Abhängigkeitsreihenfolg
   for (const file of ['index.html', 'projekt.html', 'kontakt.html']) {
     const html = read(file);
     assert.doesNotMatch(html, /^(<<<<<<<|=======|>>>>>>>)/m);
-    const scripts = [...html.matchAll(/<script\b[^>]*src="([^"?]+)(?:\?[^"]*)?"/g)].map(match => match[1]);
+    const scripts = [...html.matchAll(/<script\b[^>]*src="([^"?]+)(?:\?[^"]*)?"/g)].map(match => match[1].replace(/^\//, ''));
     assert.equal(new Set(scripts).size, scripts.length);
     if (file !== 'kontakt.html') {
       assert(scripts.indexOf('shared.js') < scripts.indexOf('app.js'));
@@ -54,7 +55,8 @@ test('HTML lädt lokale Assets und Scripts eindeutig in Abhängigkeitsreihenfolg
     if (file === 'projekt.html') assert(scripts.indexOf('wiriehorn.js') < scripts.indexOf('app.js'));
     for (const match of html.matchAll(/(?:src|href)="([^"?#]+)(?:[?#][^"]*)?"/g)) {
       if (/^(https?:|mailto:)/.test(match[1])) continue;
-      assert(fs.existsSync(path.join(root, match[1])), `Fehlende Datei: ${match[1]}`);
+      const files = { '/': 'index.html', '/kontakt': 'kontakt.html' };
+      assert(fs.existsSync(path.join(root, files[match[1]] || match[1].replace(/^\//, ''))), `Fehlende Datei: ${match[1]}`);
     }
   }
 });
@@ -161,12 +163,43 @@ test('Kontaktseite zeigt nur den kleinen Footer, andere Seiten den Kontaktbereic
   for (const html of pages) {
     assert.equal(footer(html), footer(pages[0]));
     assert.equal((html.match(/id="kontakt"/g) || []).length, 1);
-    assert.match(html, /href="kontakt.html">Kontakt/);
-    assert.match(footer(html), /href="kontakt.html#kontaktformular"/);
+    assert.match(html, /href="\/kontakt">Kontakt/);
+    assert.match(footer(html), /href="\/kontakt#kontaktformular"/);
     assert.match(footer(html), /mailto:team@1kreativbuero.ch/);
   }
   assert.doesNotMatch(footer(read('kontakt.html')), /Etwas im Kopf|id="kontakt"/);
   assert.match(footer(read('kontakt.html')), /class="footer-bottom"/);
   assert.match(read('kontakt.html'), /id="kontaktformular"/);
   assert.match(read('kontakt.html'), /type="email"[^>]*required/);
+});
+
+test('Projektpfade liefern ohne Query denselben Inhalt wie bisherige Projektlinks', () => {
+  for (const slug of ['wiriehorn', 'rigi']) {
+    const clean = renderProject(slug);
+    const legacy = renderProject(slug, `https://1kreativbuero.ch/projekt.html?projekt=${slug}`);
+    assert.equal(clean.html, legacy.html);
+    assert.equal(renderProject(slug, `https://1kreativbuero.ch/projekte/${slug}/`).html, clean.html);
+    assert.equal(renderProject(slug, `https://1kreativbuero.ch/projekte/${slug}?projekt=unbekannt`).html, clean.html);
+    assert.equal(vm.runInContext(`projectURL({ slug: '${slug}' })`, clean.context), `/projekte/${slug}`);
+    for (const address of [
+      `${pathToFileURL(path.join(root, 'projekt.html')).href}?projekt=${slug}`,
+      `http://127.0.0.1:5500/projekt.html?projekt=${slug}`,
+    ]) {
+      const local = renderProject(slug, address);
+      assert.match(local.html, /id="case-title"/);
+      assert.doesNotMatch(local.html, /case-not-found/);
+      assert.equal(vm.runInContext(`projectURL({ slug: '${slug}' })`, local.context), `projekt.html?projekt=${slug}`);
+    }
+  }
+});
+
+test('Projektzuordnung erkennt Pfade und alte Links auch für Bildübergänge', () => {
+  const { context } = renderProject('rigi');
+  for (const [address, expected] of [
+    ['/projekte/rigi', 'rigi'], ['/projekte/wiriehorn?utm_source=test', 'wiriehorn'],
+    ['/projekt.html?projekt=rigi', 'rigi'], ['/', null], ['/kontakt?projekt=rigi', null],
+    ['/projekte/rigi/weiter', null],
+  ]) {
+    assert.equal(context.projectSlugFromURL(new URL(address, 'https://1kreativbuero.ch')), expected);
+  }
 });

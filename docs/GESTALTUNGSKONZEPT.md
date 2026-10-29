@@ -71,7 +71,7 @@ Alle Seiten verwenden denselben dunklen Header mit Logo, Positionierung und den 
 - Unter «Aus unserem Kreativbüro.» zeigt eine helle, zeilenbasierte Übersicht nach `Projektübersicht_2.png` ausschliesslich Wiriehorn und Rigi.
 - Jede Zeile kombiniert Projekttitel, Kategorie oder Leistung, Bild und einen eindeutigen Link.
 - Feine Trennlinien und grosszügige Bildflächen bilden einen ruhigen Rahmen. Im aktuellen Entwurf stehen die Titel neben den Bildern; auf schmalen Bildschirmen darüber.
-- Abschnittsnummer, zusätzliche Beschriftungszeile, Studienzählung, Filter und der bisherige Studienhinweis entfallen. Wiriehorn verlinkt auf die bestehende Detailansicht. Das Bahn-Motiv aus dem Rigi-Imagefilm dient als Vorschau für `projekt.html?projekt=rigi`.
+- Abschnittsnummer, zusätzliche Beschriftungszeile, Studienzählung, Filter und der bisherige Studienhinweis entfallen. Wiriehorn verlinkt auf die bestehende Detailansicht. Das Bahn-Motiv aus dem Rigi-Imagefilm dient als Vorschau für `/projekte/rigi`.
 - Das dunkle Kartenstapelmotiv aus `Projektübersicht.jpg` bleibt dem Featured Bereich zugeordnet. Dadurch bleibt das vollständige Archiv einfach zu überblicken und lässt sich um weitere Arbeiten ergänzen.
 
 ### Projektunterseite
