@@ -75,6 +75,22 @@ function setup({ enabled = true, gpu = true } = {}) {
   };
 }
 
+test('Kreative Pause stoppt den Wasserfarbenzug und gibt die nativen Flächen zurück', () => {
+  const page = setup();
+  page.move(100); page.move(140); page.tick();
+  assert(page.active());
+  page.window.emit('creativepausechange', { detail: { active: true } });
+  assert(!page.active());
+  assert.equal(page.frames.size, 0);
+  assert(page.canvases.every(canvas => !canvas.attached));
+  const draws = page.counts.draws;
+  page.move(180); page.move(220); page.tick();
+  assert.equal(page.counts.draws, draws);
+  page.window.emit('creativepausechange', { detail: { active: false } });
+  page.move(260); page.move(300); page.tick();
+  assert(page.active());
+});
+
 test('Laden und Scrollen ohne Mausspur benötigen keine Hintergrundbilder oder Geometriemessungen', () => {
   const page = setup();
   for (let i = 0; i < 60; i++) { page.window.emit('scroll'); page.tick(); }

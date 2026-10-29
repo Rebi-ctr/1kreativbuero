@@ -56,6 +56,7 @@
   let painting = false, scrollUntil = 0;
   let layoutDirty = true;
   let baseColor = '#f0efe9';
+  let creativePause = false;
 
   function schedule() {
     if (canvas && !frame) frame = requestAnimationFrame(draw);
@@ -240,7 +241,7 @@
   }
 
   function sync() {
-    if (!media.matches || document.hidden) { stop(); return; }
+    if (!media.matches || document.hidden || creativePause) { stop(); return; }
     if (canvas) return;
     try {
       const bodyColor = getComputedStyle(document.body).backgroundColor;
@@ -326,6 +327,10 @@
   window.addEventListener('scroll', suspend, { passive: true });
   window.addEventListener('resize', invalidate, { passive: true });
   window.addEventListener('pagehide', stop);
+  window.addEventListener('creativepausechange', event => {
+    creativePause = event.detail.active;
+    sync();
+  });
   window.addEventListener('pageshow', sync);
   document.addEventListener('visibilitychange', sync);
   media.addEventListener('change', sync);
