@@ -73,3 +73,30 @@ node --test tests/site.test.cjs
 Sie prüfen lokale HTML-Verweise, eindeutige Script-Einbindungen, deren Ladefolge und den tatsächlichen Seitenaufbau aller Projekte. Die Wiriehorn-Prüfung kontrolliert zusätzlich die zehn Schritte, Vergleich, Videos und lokalen Medien. Browser-APIs werden dabei vereinfacht nachgebildet; die visuellen Interaktionen müssen zusätzlich im Browser geprüft werden.
 
 Gemeinsame Styles und Typografie liegen in `styles.css`. Titel verwenden Sansation, Absätze und Aktionsbuttons Inter mit Gewicht 300. Änderungen am Hero müssen auf beiden Seiten des 650-px-Breakpoints geprüft werden. Die SVG-Konturen und Masken müssen stets gemeinsam verändert werden.
+
+## Kontaktseite und Formular
+
+`kontakt.html` enthält das Kontaktformular. Der Kontaktbereich ist Bestandteil des gemeinsamen Footers in `index.html`, `projekt.html` und `kontakt.html`. Die Navigation und «Melde dich bei uns» verlinken auf die Formularseite; der direkte E-Mail-Link bleibt erhalten.
+
+Für direkten Versand wird ein Formular-Dienst benötigt. Dessen öffentliche Formular-Adresse und öffentliche Felder werden in `studio.contactForm` in `content.js` eingetragen. Solange keine Adresse eingerichtet ist, bleibt der Versand deaktiviert. `contact.js` prüft die Formularfelder, verhindert doppelte Absendungen und zeigt einen Erfolg erst nach bestätigter Antwort des Dienstes. Bei Fehlern bleiben die Eingaben erhalten. Keine geheimen Server- oder Kontoschlüssel in diese Browser-Konfiguration eintragen.
+
+Alle Prüfungen inklusive Formular- und Hero-Verhalten:
+
+```sh
+node --test tests/*.test.cjs
+```
+
+### Versand auf METAhost S
+
+Das Formular ist für `api/contact.php` vorbereitet. `api/contact-config.php` enthält einen Aktivierungsschalter sowie Absender, Empfänger und erlaubte Website-Domains. Es werden keine SMTP-Passwörter im Browser benötigt. Der Versand nutzt den auf dem Hosting eingerichteten PHP-Mailtransport; falls dieser nicht verfügbar ist, muss die Versandkonfiguration mit METANET abgestimmt bzw. SMTP serverseitig eingerichtet werden.
+
+Vor der Aktivierung:
+
+1. Die Website einschliesslich `api/` auf das PHP-Webhosting hochladen und HTTPS verwenden.
+2. Prüfen, dass `team@1kreativbuero.ch` als zulässiger Absender und als erreichbarer Empfänger eingerichtet ist. Die tatsächlichen Website-Adressen unter `allowed_hosts` eintragen.
+3. Auf dem Hosting `php -l api/contact.php` und `php -l api/contact-config.php` prüfen.
+4. In `api/contact-config.php` `enabled` auf `true` setzen. Danach eine kontrollierte Testnachricht senden und den Eingang im Team-Postfach prüfen; eine Bestätigung des Mailservers allein beweist noch keine Zustellung.
+
+Der Endpunkt prüft Pflichtfelder, E-Mail-Adressen und Feldlängen. Er verwendet ein sitzungsgebundenes Token, einen Honeypot und eine serverseitige Mengenbegrenzung (maximal fünf Versuche pro IP in 15 Minuten und 30 pro Stunde insgesamt). Die temporäre Limitdatei enthält nur Zeitpunkte und gehashte IP-Kennungen, keine Nachrichten. Der Webserver muss sein temporäres Verzeichnis schreiben können.
+
+Der lokale Python-Webserver führt PHP nicht aus. Die Vorschau lässt das Formular deshalb deaktiviert. Auf dieser Entwicklungsumgebung ist PHP derzeit nicht installiert; Syntaxprüfung und Zustelltest des PHP-Endpunkts stehen noch aus. Der JavaScript-Versand und die Fehlerfälle sind separat automatisiert geprüft.

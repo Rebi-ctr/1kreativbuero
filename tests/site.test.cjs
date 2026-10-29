@@ -42,13 +42,15 @@ function renderProject(slug) {
 }
 
 test('HTML lädt lokale Assets und Scripts eindeutig in Abhängigkeitsreihenfolge', () => {
-  for (const file of ['index.html', 'projekt.html']) {
+  for (const file of ['index.html', 'projekt.html', 'kontakt.html']) {
     const html = read(file);
     assert.doesNotMatch(html, /^(<<<<<<<|=======|>>>>>>>)/m);
     const scripts = [...html.matchAll(/<script\b[^>]*src="([^"?]+)(?:\?[^"]*)?"/g)].map(match => match[1]);
     assert.equal(new Set(scripts).size, scripts.length);
-    assert(scripts.indexOf('shared.js') < scripts.indexOf('app.js'));
-    assert(scripts.indexOf('content.js') < scripts.indexOf('app.js'));
+    if (file !== 'kontakt.html') {
+      assert(scripts.indexOf('shared.js') < scripts.indexOf('app.js'));
+      assert(scripts.indexOf('content.js') < scripts.indexOf('app.js'));
+    } else assert(scripts.indexOf('content.js') < scripts.indexOf('contact.js'));
     if (file === 'projekt.html') assert(scripts.indexOf('wiriehorn.js') < scripts.indexOf('app.js'));
     for (const match of html.matchAll(/(?:src|href)="([^"?#]+)(?:[?#][^"]*)?"/g)) {
       if (/^(https?:|mailto:)/.test(match[1])) continue;
@@ -151,4 +153,20 @@ test('Titel-Hover verwendet freigegebene Begriffe und behält DAS bei und endet 
     assert(text.length <= 'DAS KREATIV.'.length);
   }
   assert.equal(context.studioHoverText('DAS BÜRO.', 1), 'DAS KREATIV.');
+});
+
+test('Kontaktseite zeigt nur den kleinen Footer, andere Seiten den Kontaktbereich', () => {
+  const pages = ['index.html', 'projekt.html'].map(read);
+  const footer = html => html.match(/<footer class="site-footer">[\s\S]*?<\/footer>/)?.[0];
+  for (const html of pages) {
+    assert.equal(footer(html), footer(pages[0]));
+    assert.equal((html.match(/id="kontakt"/g) || []).length, 1);
+    assert.match(html, /href="kontakt.html">Kontakt/);
+    assert.match(footer(html), /href="kontakt.html#kontaktformular"/);
+    assert.match(footer(html), /mailto:team@1kreativbuero.ch/);
+  }
+  assert.doesNotMatch(footer(read('kontakt.html')), /Etwas im Kopf|id="kontakt"/);
+  assert.match(footer(read('kontakt.html')), /class="footer-bottom"/);
+  assert.match(read('kontakt.html'), /id="kontaktformular"/);
+  assert.match(read('kontakt.html'), /type="email"[^>]*required/);
 });

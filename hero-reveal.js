@@ -3,7 +3,7 @@
   const stage = document.querySelector('.hero-reveal-stage');
   if (!stage) return;
   const mobile = matchMedia('(max-width: 650px)');
-  let width = 1474.02, bandTop = 295, bandBottom = 415;
+  let width = 1474.02, bandTop = 265, bandBottom = 445;
   let minSpeed = 65, maxSpeed = 110;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const positions = [
@@ -171,7 +171,9 @@
         time: event.timeStamp, clientX: event.clientX, clientY: event.clientY, moved: false };
       handle.classList.add('is-dragging');
     });
-    handle.addEventListener('pointerleave', detachHover);
+    // Am Rand kann die begrenzte Kontur den Cursor nicht weiter begleiten.
+    // Erst das Verlassen des Hero-Bereichs löst die Haftung, nicht die Kontur.
+    stage.addEventListener('pointerleave', detachHover);
     handle.addEventListener('pointerdown', event => {
       if (active?.hole === hole && active.mode === 'hover') return;
       if (active || (event.pointerType === 'mouse' && event.button !== 0)) return;
@@ -184,7 +186,7 @@
       handle.classList.add('is-dragging');
       render(hole);
     });
-    handle.addEventListener('pointermove', event => {
+    window.addEventListener('pointermove', event => {
       if (active?.hole !== hole || active.id !== event.pointerId) return;
       const cursor = point(event);
       if (active.mode === 'hover') {
@@ -200,6 +202,9 @@
       if (cursor) {
         const oldX = hole.x, oldY = hole.y;
         move(hole, cursor.x - active.offsetX, cursor.y - active.offsetY);
+        // Überschüssige Bewegung am Rand nicht aufstauen: Zurückziehen folgt sofort.
+        active.offsetX = cursor.x - hole.x;
+        active.offsetY = cursor.y - hole.y;
         const dt = Math.max(8, event.timeStamp - active.time) / 1000;
         hole.vx = Math.max(-400, Math.min(400, (hole.x - oldX) / dt));
         hole.vy = Math.max(-400, Math.min(400, (hole.y - oldY) / dt));
@@ -241,8 +246,8 @@
     }
     const compact = mobile.matches;
     width = compact ? 623.62 : 1474.02;
-    bandTop = compact ? 255 : 295;
-    bandBottom = compact ? 465 : 415;
+    bandTop = compact ? 230 : 265;
+    bandBottom = compact ? 490 : 445;
     minSpeed = compact ? 40 : 65;
     maxSpeed = compact ? 65 : 110;
     stage.setAttribute('viewBox', `0 0 ${width} 680.31`);

@@ -11,10 +11,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300&amp;family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=52">
+  <link rel="stylesheet" href="styles.css?v=64">
   <!-- Gemeinsame Helfer und Daten vor den Seiten-Scripts laden. -->
   <script defer src="shared.js?v=45"></script>
-  <script defer src="content.js?v=48"></script>
+  <script defer src="content.js?v=64"></script>
   <script defer src="wiriehorn.js?v=51"></script>
   <script defer src="app.js?v=52"></script>
   <script defer src="background-motion.js?v=45"></script>
@@ -24,10 +24,17 @@
   <header class="site-header">
     <a class="wordmark navbar-logo" href="index.html" aria-label="1Kreativbüro Startseite"><img src="assets/LogoNavbar.svg?v=3" alt="1Kreativbüro" width="842" height="113"></a>
     <span class="header-note">Drei Köpfe.<br>Ein gemeinsamer Gedanke.</span>
-    <nav aria-label="Hauptnavigation"><a href="index.html#projekte">Projekte <span>↗</span></a><a href="index.html#buero">Das Büro <span>↗</span></a><a href="index.html#kontakt">Kontakt <span>↗</span></a></nav>
+    <nav aria-label="Hauptnavigation"><a href="index.html#projekte">Projekte <span>↗</span></a><a href="index.html#buero">Das Büro <span>↗</span></a><a href="kontakt.html">Kontakt <span>↗</span></a></nav>
   </header>
   <main id="inhalt" class="case-main"><div id="case-content"></div></main>
-  <footer class="site-footer"><a class="wordmark navbar-logo" href="index.html" aria-label="1Kreativbüro Startseite"><img src="assets/LogoNavbar.svg?v=3" alt="1Kreativbüro" width="842" height="113" loading="lazy"></a><span class="meta">Drei Köpfe. Ein Büro.</span><a href="#inhalt" class="meta">Nach oben ↑</a></footer>
+  <footer class="site-footer">
+    <section class="contact section-pad" id="kontakt" aria-labelledby="contact-title">
+      <div class="section-label meta"><span>Der nächste Gedanke</span><span>Beginnt mit einem Hallo.</span></div>
+      <h2 id="contact-title">Etwas im Kopf<span class="serif">?</span></h2>
+      <div class="contact-bottom"><p>Wir geben deiner Idee Raum.<br>Lass uns gemeinsam weiterdenken.</p><div id="contact-action"><a class="contact-placeholder" href="kontakt.html#kontaktformular">Melde dich bei uns <span aria-hidden="true">↗</span></a><a class="meta" href="mailto:team@1kreativbuero.ch" data-studio-email data-email-address>team@1kreativbuero.ch</a></div></div>
+    </section>
+  <div class="footer-bottom"><a class="wordmark navbar-logo" href="index.html" aria-label="1Kreativbüro Startseite"><img src="assets/LogoNavbar.svg?v=3" alt="1Kreativbüro" width="842" height="113" loading="lazy"></a><span class="meta">Drei Köpfe. Ein Büro.</span><a href="#inhalt" class="meta">Nach oben ↑</a></div>
+  </footer>
   <noscript><p class="noscript-note">Bitte JavaScript aktivieren, um die Projektvorlage anzuzeigen. <a href="index.html#projekte">Zurück zur Übersicht</a></p></noscript>
 </body>
 </html>

@@ -1,24 +1,26 @@
 // Inhalte für Büro, Team und Projekte.
 const studio = {
   name: '1Kreativbüro',
-  email: '',
+  email: 'team@1kreativbuero.ch',
+  // Hier nur die öffentliche Formular-Adresse und öffentliche Formularfelder eintragen.
+  contactForm: { endpoint: 'api/contact.php', native: true, fields: {} },
 };
 
 const people = [
   {
-    number: '01', name: 'Beni', role: 'Film · Web · Fotografie · Produktion',
+    number: '01', name: 'Beni', email: 'beni@1kreativbuero.ch', role: 'Film · Web · Fotografie · Produktion',
     strengths: ['Film', 'Web', 'Fotografie'],
     description: 'Ein Multitalent: Filmer, Webkönner, Fotograf und Produzent mit Event- und Agenturerfahrung. Zudem leidenschaftlicher Volleyballer.',
     image: 'assets/Beni.png', imageClass: 'portrait-beni', width: 1028, height: 1588,
   },
   {
-    number: '02', name: 'Rebecca', role: 'Gestaltung · Illustration · Web · Konzept',
+    number: '02', name: 'Rebecca', email: 'rebecca@1kreativbuero.ch', role: 'Gestaltung · Illustration · Web · Konzept',
     strengths: ['Ideen', 'Konzept', 'Details'],
     description: 'Ein kreativer Kopf mit vielen Ideen. Gestalterin und Illustratorin mit einem Gespür für Web und einem Auge fürs Detail, die in Konzepten denkt, schöne Dinge liebt und von Neuem fasziniert ist.',
     image: 'assets/Rebecca.png', imageClass: 'portrait-rebecca', width: 1026, height: 1590,
   },
   {
-    number: '03', name: 'Mathis', role: 'Film · FPV · Storytelling · Produktion',
+    number: '03', name: 'Mathis', email: 'mathis@1kreativbuero.ch', role: 'Film · FPV · Storytelling · Produktion',
     strengths: ['Film', 'FPV', 'Storytelling'],
     description: 'Ein Macher: Filmer, FPV-Pilot, Abenteurer, Storyteller und Produzent mit Eventerfahrung. Er liebt es, cinematische Aufnahmen einzufangen.',
     image: 'assets/Mathis.png', imageClass: 'portrait-mathis', width: 1028, height: 1588,

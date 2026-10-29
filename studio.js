@@ -47,7 +47,7 @@
       cards.forEach((card, i) => card.classList.toggle('is-active', i === index));
       controls.forEach((control) => control.setAttribute('aria-pressed', String(Number(control.dataset.person) === index)));
       const person = people[index];
-      panel.innerHTML = `<div><h4>${escapeHTML(person.name)}</h4><p class="person-panel-role">${escapeHTML(person.role)}</p></div><div><p class="person-description">${escapeHTML(person.description)}</p><div class="strength-tags">${person.strengths.map((strength) => `<span>${escapeHTML(strength)}</span>`).join('')}</div></div>`;
+      panel.innerHTML = `<div><div class="person-heading"><h4>${escapeHTML(person.name)}</h4><p class="person-panel-role">${escapeHTML(person.role)}</p></div><a class="person-email" href="mailto:${escapeHTML(person.email)}">${escapeHTML(person.email)}</a></div><div><p class="person-description">${escapeHTML(person.description)}</p><div class="strength-tags">${person.strengths.map((strength) => `<span>${escapeHTML(strength)}</span>`).join('')}</div></div>`;
       refreshTitle();
     };
     cards.forEach((card, index) => {
@@ -59,14 +59,12 @@
     controls.forEach((control) => control.addEventListener('click', () => selectPerson(Number(control.dataset.person))));
     selectPerson(initial);
 
-    // Ein funktionierender Kontaktlink erscheint, sobald eine echte Adresse vorliegt.
     if (studio.email) {
       const container = $('#contact-action');
-      const link = document.createElement('a');
-      link.className = 'contact-placeholder';
-      link.href = `mailto:${studio.email}`;
-      link.textContent = `${studio.email} ↗`;
-      container.replaceChildren(link);
+      container?.querySelectorAll('[data-studio-email]').forEach(link => {
+        link.href = `mailto:${studio.email}`;
+        if (link.hasAttribute('data-email-address')) link.textContent = studio.email;
+      });
     }
   }
 

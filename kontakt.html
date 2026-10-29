@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Eine Idee im Kopf? Schreib Beni, Rebecca und Mathis vom 1Kreativbüro.">
+  <meta name="theme-color" content="#111110">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Kontakt — 1Kreativbüro</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300&amp;family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=66">
+  <script defer src="content.js?v=64"></script>
+  <script defer src="contact.js?v=64"></script>
+  <script defer src="background-motion.js?v=63"></script>
+</head>
+<body class="contact-page">
+  <a class="skip-link" href="#inhalt">Zum Inhalt</a>
+  <header class="site-header">
+    <a class="wordmark navbar-logo" href="index.html" aria-label="1Kreativbüro Startseite"><img src="assets/LogoNavbar.svg?v=3" alt="1Kreativbüro" width="842" height="113"></a>
+    <span class="header-note">Drei Köpfe.<br>Ein gemeinsamer Gedanke.</span>
+    <nav aria-label="Hauptnavigation"><a href="index.html#projekte">Projekte <span>↗</span></a><a href="index.html#buero">Das Büro <span>↗</span></a><a href="kontakt.html">Kontakt <span>↗</span></a></nav>
+  </header>
+  <main id="inhalt" class="contact-page-main">
+    <section class="contact-intro section-pad" aria-labelledby="contact-page-title">
+      <p class="meta">Ein Gedanke. Ein Anfang.</p>
+      <h1 id="contact-page-title">Lass uns<br>weiterdenken<span>.</span></h1>
+      <div class="contact-form-layout">
+        <div class="contact-form-copy">
+          <h2>Was hast du im Kopf?</h2>
+          <p>Eine erste Idee, ein konkretes Projekt oder einfach eine Frage: Wir freuen uns, von dir zu hören.</p>
+          <a class="contact-direct" href="mailto:team@1kreativbuero.ch">team@1kreativbuero.ch ↗</a>
+        </div>
+        <form class="contact-form" id="kontaktformular" method="post" aria-label="Kontaktformular" aria-describedby="form-note">
+          <div class="form-pair">
+            <div class="form-field"><label for="contact-name">Dein Name <span aria-hidden="true">*</span></label><input id="contact-name" name="name" autocomplete="name" maxlength="120" required></div>
+            <div class="form-field"><label for="contact-email">Deine E-Mail <span aria-hidden="true">*</span></label><input id="contact-email" name="email" type="email" autocomplete="email" maxlength="254" required></div>
+          </div>
+          <div class="form-field"><label for="contact-company">Firma / Organisation <span class="muted">optional</span></label><input id="contact-company" name="company" autocomplete="organization" maxlength="160"></div>
+          <fieldset class="form-services">
+            <legend>Was können wir für euch machen?</legend>
+            <p class="form-services-note">Mehrfachauswahl möglich.</p>
+            <div class="form-service-options">
+              <label class="form-service"><input type="checkbox" name="services[]" value="Interaktive Karte"><span>Interaktive Karte</span></label>
+              <label class="form-service"><input type="checkbox" name="services[]" value="Fotografie"><span>Fotografie</span></label>
+              <label class="form-service"><input type="checkbox" name="services[]" value="Video"><span>Video</span></label>
+              <label class="form-service"><input type="checkbox" name="services[]" value="Webdesign"><span>Webdesign</span></label>
+              <label class="form-service"><input type="checkbox" name="services[]" value="Gemeinsam herausfinden"><span>Gemeinsam herausfinden</span></label>
+            </div>
+          </fieldset>
+          <div class="form-field"><label for="contact-message">Deine Nachricht <span aria-hidden="true">*</span></label><textarea id="contact-message" name="message" rows="6" maxlength="6000" required></textarea></div>
+          <div class="form-honeypot" aria-hidden="true"><label for="contact-website">Website</label><input id="contact-website" name="website" tabindex="-1" autocomplete="off"></div>
+          <p class="form-note" id="form-note">* Pflichtfelder. Wir verwenden deine Angaben, um deine Anfrage zu beantworten.</p>
+          <button class="form-submit" type="submit" disabled>Nachricht senden <span aria-hidden="true">↗</span></button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite">Das Formular wird gerade eingerichtet. Du erreichst uns bereits per E-Mail.</p>
+          <noscript><p>Bitte schreib uns direkt an <a href="mailto:team@1kreativbuero.ch">team@1kreativbuero.ch</a>.</p></noscript>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+  <div class="footer-bottom"><a class="wordmark navbar-logo" href="index.html" aria-label="1Kreativbüro Startseite"><img src="assets/LogoNavbar.svg?v=3" alt="1Kreativbüro" width="842" height="113" loading="lazy"></a><span class="meta">Drei Köpfe. Ein Büro.</span><a href="#inhalt" class="meta">Nach oben ↑</a></div>
+  </footer>
+</body>
+</html>
