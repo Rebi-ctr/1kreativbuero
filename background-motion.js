@@ -1,10 +1,12 @@
-// Lokaler Wasserfarbenzug. Die Textur enthält nur Farbflächen, nie Seiteninhalte.
+// Lokaler Wasserfarbenzug bei ruhender Seite. Beim Scrollen zeichnet allein CSS.
+// Die Textur enthält nur Farbflächen, nie Seiteninhalte.
 (() => {
   const media = matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
   const selector = '.site-header, .hero, .hero-composition, .featured, .feature-stage, .about, .projects, .contact, .contact-page-main, .case-intro, .case-hero, .journey-nav, .journey-step, .journey-end, .case-next, .site-footer';
   const isTransparent = (color) => color === 'transparent' || /^rgba\([^)]*,\s*0(?:\.0+)?\s*\)$/.test(color);
   const MAX_PULL = 76;
   const GRID_WIDTH = 160;
+  const SCROLL_PAUSE = 160;
   const vertexSource = `
     attribute vec2 aPosition;
     varying vec2 vUv;
@@ -51,6 +53,7 @@
   let velocityX, velocityY, wetness, pixels;
   let width = 0, height = 0, rows = 0;
   let frame = 0, lastTime = 0;
+  let painting = false, scrollUntil = 0;
   let layoutDirty = true;
   let baseColor = '#f0efe9';
 
@@ -66,11 +69,28 @@
     lastPointer = null;
   }
 
+  function hide() {
+    if (!painting) return;
+    canvas.hidden = true;
+    document.body.classList.remove('has-fluid-background');
+    surfaces.forEach(({ element }) => element.classList.remove('has-fluid-surface'));
+    painting = false;
+  }
+
   function invalidate() {
     layoutDirty = true;
-    // Beim Scrollen darf keine alte Farbe an einer neuen Abschnittskante kleben.
+    lastPointer = null;
+    // Keine Messungen, Textur-Uploads oder Render-Schleifen durch Scroll-Ereignisse.
+    if (!painting && !frame && !strokes.length) return;
+    if (frame) cancelAnimationFrame(frame);
+    frame = lastTime = 0;
+    hide();
     clearFlow();
-    schedule();
+  }
+
+  function suspend() {
+    scrollUntil = performance.now() + SCROLL_PAUSE;
+    invalidate();
   }
 
   function compile(type, code) {
@@ -99,11 +119,12 @@
   function measure() {
     const w = Math.max(1, document.documentElement.clientWidth || innerWidth);
     const h = Math.max(1, innerHeight);
-    if (w !== width || h !== height) {
+    const resized = w !== width || h !== height;
+    if (resized) {
       width = w; height = h;
-      const ratio = Math.min(devicePixelRatio || 1, 1.5);
-      canvas.width = Math.round(w * ratio);
-      canvas.height = Math.round(h * ratio);
+      // Weiche Farbflächen benötigen keine zusätzliche HiDPI-Auflösung.
+      canvas.width = w;
+      canvas.height = h;
       source.width = w; source.height = h;
       rows = Math.max(64, Math.min(256, Math.round(GRID_WIDTH * h / w)));
       const count = GRID_WIDTH * rows;
@@ -111,9 +132,11 @@
       velocityY = new Float32Array(count);
       wetness = new Float32Array(count);
       pixels = new Uint8Array(count * 4);
-      clearFlow();
       gl.viewport(0, 0, canvas.width, canvas.height);
       gl.uniform2f(gl.getUniformLocation(program, 'uSize'), w, h);
+      gl.activeTexture(gl.TEXTURE1);
+      gl.bindTexture(gl.TEXTURE_2D, flow);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, GRID_WIDTH, rows, 0, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
     }
     const rects = surfaces.map(({ element }) => element.getBoundingClientRect());
     context.fillStyle = baseColor;
@@ -129,7 +152,8 @@
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, colors);
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
+    if (resized) gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
+    else gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, gl.RGBA, gl.UNSIGNED_BYTE, source);
     layoutDirty = false;
   }
 
@@ -155,6 +179,7 @@
   function draw(time) {
     frame = 0;
     if (!canvas) return;
+    if (performance.now() < scrollUntil || document.hidden) { invalidate(); return; }
     if (layoutDirty) measure();
     const elapsed = lastTime ? Math.max(1, time - lastTime) : 16;
     lastTime = time;
@@ -176,13 +201,24 @@
       pixels[p + 2] = Math.round(wetness[i] * 255);
       pixels[p + 3] = 255;
     }
+    if (!active) {
+      hide();
+      lastTime = 0;
+      return;
+    }
     gl.activeTexture(gl.TEXTURE1);
     gl.bindTexture(gl.TEXTURE_2D, flow);
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, GRID_WIDTH, rows, 0, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+    gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, GRID_WIDTH, rows, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
-    if (active) schedule();
-    else lastTime = 0;
+    if (!painting) {
+      // Erst nach einem erfolgreichen Bild die CSS-Flächen kurzzeitig ersetzen.
+      canvas.hidden = false;
+      document.body.classList.add('has-fluid-background');
+      surfaces.forEach(({ element }) => element.classList.add('has-fluid-surface'));
+      painting = true;
+    }
+    schedule();
   }
 
   function stop() {
@@ -190,9 +226,8 @@
     frame = lastTime = 0;
     observer?.disconnect();
     observer = null;
-    surfaces.forEach(({ element }) => element.classList.remove('has-fluid-surface'));
+    hide();
     surfaces = [];
-    document.body.classList.remove('has-fluid-background');
     if (gl) {
       gl.deleteTexture(colors); gl.deleteTexture(flow);
       gl.deleteBuffer(buffer); gl.deleteProgram(program);
@@ -219,6 +254,7 @@
       if (!surfaces.length) return;
       canvas = document.createElement('canvas');
       canvas.className = 'site-background';
+      canvas.hidden = true;
       canvas.setAttribute('aria-hidden', 'true');
       gl = canvas.getContext('webgl', { alpha: false, antialias: false, depth: false, stencil: false, powerPreference: 'low-power' });
       if (!gl) throw new Error('WebGL nicht verfügbar');
@@ -243,12 +279,9 @@
       gl.uniform1i(gl.getUniformLocation(program, 'uColors'), 0);
       gl.uniform1i(gl.getUniformLocation(program, 'uFlow'), 1);
       canvas.addEventListener('webglcontextlost', (event) => { event.preventDefault(); stop(); });
-      // Zuerst erfolgreich rendern, erst danach die normalen Hintergründe ersetzen.
+      // Solange die Maus ruht, bleiben Canvas und Render-Schleife inaktiv.
       layoutDirty = true;
-      draw(performance.now());
       document.body.prepend(canvas);
-      document.body.classList.add('has-fluid-background');
-      surfaces.forEach(({ element }) => element.classList.add('has-fluid-surface'));
       if ('ResizeObserver' in window) {
         observer = new ResizeObserver(invalidate);
         surfaces.forEach(({ element }) => observer.observe(element));
@@ -261,7 +294,7 @@
 
   function move(event) {
     if (!canvas) return;
-    if (event.pointerType !== 'mouse') { lastPointer = null; return; }
+    if (event.pointerType !== 'mouse' || event.buttons || performance.now() < scrollUntil) { lastPointer = null; return; }
     const point = { x: event.clientX, y: event.clientY, time: event.timeStamp };
     if (lastPointer && point.time - lastPointer.time < 100) {
       const dx = point.x - lastPointer.x;
@@ -284,8 +317,13 @@
 
   window.addEventListener('pointermove', move, { passive: true });
   document.documentElement.addEventListener('pointerleave', () => { lastPointer = null; });
-  window.addEventListener('blur', () => { lastPointer = null; });
-  window.addEventListener('scroll', invalidate, { passive: true });
+  window.addEventListener('blur', invalidate);
+  // Mausrad und Scroll-Tasten schon vor der Standardaktion abfangen.
+  window.addEventListener('wheel', suspend, { passive: true });
+  window.addEventListener('keydown', (event) => {
+    if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(event.key)) suspend();
+  });
+  window.addEventListener('scroll', suspend, { passive: true });
   window.addEventListener('resize', invalidate, { passive: true });
   window.addEventListener('pagehide', stop);
   window.addEventListener('pageshow', sync);

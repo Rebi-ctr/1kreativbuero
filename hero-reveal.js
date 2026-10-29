@@ -277,7 +277,6 @@
       render(hole);
     });
     holes = allHoles.slice(0, layout.length);
-    document.querySelector('.hero-reveal-hint').textContent = 'Berühren. Verschieben. Entdecken.';
     stage.querySelector('#reveal-description').textContent = compact
       ? 'Zwei bewegliche Gucklöcher zeigen die bunten Buchstaben und Ideen unter dem weissen Logo. Mit dem Finger verschieben und loslassen, um sie sanft zum Logo zurückkehren zu lassen.'
       : 'Drei bewegliche Gucklöcher zeigen die bunten Buchstaben und Ideen unter dem weissen Logo. Mit dem Cursor mitnehmen und durch eine schnelle Bewegung lösen. Alternativ mit den Pfeiltasten verschieben.';
