@@ -7,10 +7,11 @@ const root = path.resolve(__dirname, '..');
 const pages = new Map([
   ['/', 'index.html'],
   ['/kontakt', 'kontakt.html'],
-  ['/projekte/wiriehorn', 'projekt.html'],
-  ['/projekte/rigi', 'projekt.html'],
+  ['/projekte/wiriehorn', 'projekt-wiriehorn.html'],
+  ['/projekte/rigi', 'projekt-rigi.html'],
 ]);
 const types = {
+  '.xml': 'application/xml; charset=utf-8', '.txt': 'text/plain; charset=utf-8',
   '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
   '.css': 'text/css; charset=utf-8', '.svg': 'image/svg+xml',
   '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
@@ -34,6 +35,8 @@ function createPreviewServer() {
     }
     if (url.pathname === '/index.html') return redirect(`/${url.search}`);
     if (url.pathname === '/kontakt.html') return redirect(`/kontakt${url.search}`);
+    const generated = url.pathname.match(/^\/projekt-(wiriehorn|rigi)\.html$/);
+    if (generated) return redirect(`/projekte/${generated[1]}`);
     const slug = url.searchParams.get('projekt');
     if (url.pathname === '/projekt.html' && /^[a-z0-9-]+$/.test(slug || '')) return redirect(`/projekte/${slug}`);
     if (/^\/(?:kontakt|projekte\/[a-z0-9-]+)\/$/.test(url.pathname)) return redirect(`${url.pathname.slice(0, -1)}${url.search}`);
@@ -44,7 +47,7 @@ function createPreviewServer() {
     const file = path.resolve(root, relative);
     const extension = path.extname(file).toLowerCase();
     // Keine Konfigurationen, PHP-Quellen oder Dateien ausserhalb des Projekts ausgeben.
-    const publicPath = /^(?:assets\/|[a-z-]+\.(?:html|js|css)$)/.test(relative);
+    const publicPath = ['robots.txt', 'sitemap.xml'].includes(relative) || /^(?:assets\/|[a-z-]+\.(?:html|js|css)$)/.test(relative);
     if (!publicPath || !types[extension] || !file.startsWith(root + path.sep) || relative.includes('\\')) {
       response.writeHead(404); response.end(); return;
     }

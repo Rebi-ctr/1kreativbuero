@@ -15,6 +15,10 @@ RewriteCond %{THE_REQUEST} "\s/+projekt\.html(?:[?\s])"
 RewriteCond %{QUERY_STRING} "(?:^|&)projekt=([a-z0-9-]+)(?:&|$)"
 RewriteRule ^projekt\.html$ /projekte/%1 [R=301,L,QSD]
 
+# Generierte HTML-Dateien nur über ihre kanonischen Projekt-URLs öffnen.
+RewriteCond %{THE_REQUEST} "\s/+projekt-(wiriehorn|rigi)\.html(?:[?\s])"
+RewriteRule ^projekt-(wiriehorn|rigi)\.html$ /projekte/$1 [R=301,L,QSD]
+
 # Unterseiten verwenden einheitlich keinen abschliessenden Schrägstrich.
 RewriteRule ^kontakt/$ /kontakt [R=301,L]
 RewriteRule ^projekte/([a-z0-9-]+)/$ /projekte/$1 [R=301,L]
@@ -26,4 +30,4 @@ RewriteRule ^ - [END]
 
 # Die Dateien bleiben im Hauptverzeichnis; die Browseradresse bleibt sauber.
 RewriteRule ^kontakt$ kontakt.html [END]
-RewriteRule ^projekte/(wiriehorn|rigi)$ projekt.html [END]
+RewriteRule ^projekte/(wiriehorn|rigi)$ projekt-$1.html [END]

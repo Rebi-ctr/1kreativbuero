@@ -124,3 +124,19 @@ Vor der Aktivierung:
 Der Endpunkt prüft Pflichtfelder, E-Mail-Adressen und Feldlängen. Er verwendet ein sitzungsgebundenes Token, einen Honeypot und eine serverseitige Mengenbegrenzung (maximal fünf Versuche pro IP in 15 Minuten und 30 pro Stunde insgesamt). Die temporäre Limitdatei enthält nur Zeitpunkte und gehashte IP-Kennungen, keine Nachrichten. Der Webserver muss sein temporäres Verzeichnis schreiben können.
 
 Die lokale Node-Vorschau führt PHP nicht aus und antwortet für `/api/contact.php` mit einem nicht verfügbaren Dienst. Die Vorschau lässt das Formular deshalb deaktiviert und liefert keine PHP-Quelltexte aus. Auf dieser Entwicklungsumgebung ist PHP derzeit nicht installiert; Syntaxprüfung und Zustelltest des PHP-Endpunkts stehen noch aus. Der JavaScript-Versand und die Fehlerfälle sind separat automatisiert geprüft.
+## SEO und Social-Vorschauen
+
+Die bevorzugte Domain ist `https://1kreativbuero.ch` ohne www. Öffentliche URLs: `/`, `/kontakt`, `/projekte/wiriehorn`, `/projekte/rigi`. Die Seiten erlauben Indexierung; `robots.txt` verweist auf `sitemap.xml`.
+
+Nach Änderungen an `projekt.html` oder an den Metadaten in `scripts/build-seo.cjs` ausführen:
+
+```sh
+node scripts/build-seo.cjs
+node --test tests/seo.test.cjs tests/site.test.cjs tests/urls.test.cjs tests/local-preview.test.cjs
+```
+
+Der Generator pflegt Canonical, Open Graph und Twitter Cards und erzeugt `projekt-wiriehorn.html` und `projekt-rigi.html` aus der gemeinsamen Vorlage. Diese Dateien samt `.htaccess` mit veröffentlichen: Die Projekt-URLs liefern dadurch bereits ohne JavaScript individuelle Metadaten. Die Vorschau unter `scripts/preview.cjs` bildet diese Zuordnung ebenfalls ab. `projekt.html` bleibt Vorlage und lokale Datei-Vorschau; alte Query-Links werden auf dem Server umgeleitet.
+
+Die Social-Bilder unter `assets/social/` sind JPEG-Ableitungen vorhandener Motive mit 1200 × 630 Pixeln. Nach Motivwechseln auch diese Dateien aktualisieren. Auf der Startseite steht die H1 «1Kreativbüro» klein und sichtbar unter dem Hero. Organization-Markup auf der Startseite enthält Name, URL, Logo, Kontakt-E-Mail und Beschreibung aus den vorhandenen öffentlichen Angaben. Die Daten werden in `scripts/build-seo.cjs` gepflegt. Das Rigi-Titelbild und die Social-Vorschau verwenden `0710-Familien-Fotoshooting-Rigi-28.webp`.
+
+Nach Veröffentlichung in der Search Console die vier öffentlichen URLs live prüfen, die Sitemap einreichen und die Indexierung beantragen. Eine mögliche zusätzliche Sperre im Hosting muss dort entfernt werden; die geprüfte Live-Startseite lieferte am 30. Oktober 2026 keinen X-Robots-Tag. Indexierung und Darstellung liegen bei den Suchmaschinen.
