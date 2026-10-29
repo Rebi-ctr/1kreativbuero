@@ -87,22 +87,23 @@ Die erste Stärke steht als Beschriftung am Porträt. Unter «Das Kreative» lie
 
 ## Projektübersicht und Featured Projekt
 
-Die Übersicht «Aus unserem Kreativbüro.» enthält aktuell nur **Wiriehorn** und **Rigi**, ohne Filter oder Studienzählung. Beide öffnen eine eigene Detailansicht. Für Rigi sind Imagefilm und Fotoshooting festgelegt. Die vier bereits bereitgestellten Bilder gehören zum Imagefilm; Fotoshooting-Bilder, Filmdatei und ausführliche Projektgeschichte sind noch offen.
+Die Übersicht «Aus unserem Kreativbüro.» enthält aktuell nur **Wiriehorn** und **Rigi**, ohne Filter oder Studienzählung. Beide öffnen eine eigene Detailansicht. Rigi zeigt Imagefilm und Fotoshooting in getrennten Kapiteln. Vier Filmstills und zehn neue Bilder aus dem Familien-Fotoshooting sind eingebunden; die Filmdatei ist noch offen.
 
 Ein Projekt pro Zeile aufnehmen; die ausführliche Case-Vorlage darunter für jedes Projekt kopieren. Frühere Arbeiten einzelner Teammitglieder können gezeigt werden, wenn der konkrete Beitrag und der damalige Zusammenhang klar benannt werden.
 
 | Projekttitel | Kunde oder Eigenprojekt | Jahr | Leistung | Vorschaubild | Reihenfolge |
 | --- | --- | --- | --- | --- | --- |
 | Wiriehorn | [OFFEN] | [OFFEN] | Interaktive Übersichtskarte | `assets/Wiriehorn_Sommer_Test.jpg` | 1 |
-| Rigi | [OFFEN] | [OFFEN] | Imagefilm & Fotoshooting | `assets/Rigi8-verkleinert.jpg` | 2 |
+| Rigi | [OFFEN] | [OFFEN] | Imagefilm & Fotoshooting | `assets/projects/rigi/Rigi8-verkleinert.jpg` | 2 |
 
 ### Rigi: vorhandenes Material und Ergänzungen
 
-- Einstieg und Vorschaubild: `assets/Rigi8-verkleinert.jpg` (Bahnfahrt).
-- Weitere Filmstills: `assets/Rigi6-verkleinert.jpg` (Wald), `assets/Rigi3-verkleinert.jpg` (Kinder), `assets/Rigi11-verkleinert.jpg` (Lokomotivdetail).
+- Einstieg und Vorschaubild: `assets/projects/rigi/Rigi8-verkleinert.jpg` (Bahnfahrt).
+- Weitere Filmstills: `assets/projects/rigi/Rigi6-verkleinert.jpg` (Wald), `assets/projects/rigi/Rigi3-verkleinert.jpg` (Kinder), `assets/projects/rigi/Rigi11-verkleinert.jpg` (Lokomotivdetail).
 - Filmdatei für den Player: [OFFEN]; später unter `film.video` in `content.js` eintragen.
-- Bilder aus dem Fotoshooting: [OFFEN]; separat unter `photoshoot.images` ergänzen, jeweils mit `image`, `alt`, `width`, `height` und optional `caption`. Danach den Einleitungstext des Fotoshooting-Kapitels anpassen.
-- Projektaufgabe, Zeitraum, konkrete Beiträge und Credits: [OFFEN].
+- Bilder aus dem Fotoshooting: zehn Original-WebPs `0710-Familien-Fotoshooting-Rigi-*.webp` in `assets/projects/rigi/`, separat unter `photoshoot.images` mit Bildbeschreibungen und Bildmassen eingebunden. Die Galerie ist zweispaltig, mit grossen Einstiegs- und Schlussbildern; mobil stehen die Fotos untereinander.
+- Fotoshooting-Kapitel: «Familienzeit im Bild.» Neues Bildmaterial soll die Spielplätze und das Familienangebot von Rigi Kaltbad sichtbar machen. Das Team organisierte zwei Familien und setzte wechselnde Perspektiven für einen abwechslungsreichen Einblick ein.
+- Zeitraum, weitere konkrete Beiträge und Credits: [OFFEN].
 
 ### Featured Projekt
 

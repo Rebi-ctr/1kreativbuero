@@ -62,7 +62,7 @@
       <section class="journey-step" id="fotoshooting" aria-labelledby="case-photo-title">
         <div class="journey-marker"><span>02</span><span class="meta">Fotoshooting</span></div>
         <div class="journey-content"><div class="journey-copy"><h2 id="case-photo-title">${escapeHTML(photoshoot.title)}</h2><p>${escapeHTML(photoshoot.text)}</p></div>
-        ${photoshoot.images.length ? `<div class="journey-report rigi-photo-gallery">${caseFigures(photoshoot.images)}</div>` : '<div class="rigi-photo-placeholder" aria-hidden="true"><span>Fotoshooting.</span><span class="meta">Bilder folgen</span></div>'}</div>
+        ${photoshoot.images.length ? `<div class="journey-report rigi-photo-gallery" role="group" aria-label="Familien-Fotoshooting in Rigi Kaltbad">${caseFigures(photoshoot.images)}</div>` : '<div class="rigi-photo-placeholder" aria-hidden="true"><span>Fotoshooting.</span><span class="meta">Bilder folgen</span></div>'}</div>
       </section>
       </div>`;
     }
@@ -74,7 +74,7 @@
     const nextProject = projects[(projects.indexOf(project) + 1) % projects.length];
     const headline = project.headline || [project.title];
     document.title = `${project.title} – Imagefilm & Fotoshooting — 1Kreativbüro`;
-    document.querySelector('meta[name="description"]').content = `${project.title}: Einblicke in den Imagefilm und das Fotoshooting von 1Kreativbüro.`;
+    document.querySelector('meta[name="description"]').content = `${project.title}: ${project.lead}`;
     document.body.classList.add('project-story-page', 'rigi-page');
     container.innerHTML = `<article class="case-project" aria-labelledby="case-title">
       <section class="case-intro" aria-labelledby="case-title">

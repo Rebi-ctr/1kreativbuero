@@ -64,7 +64,7 @@ test('Saubere Projekt-URLs lösen Ressourcen zur Website und Kapitelanker zur Pr
   for (const address of ['https://1kreativbuero.ch/projekte/rigi', 'https://1kreativbuero.ch/projekte/rigi/']) {
     const view = page('projekt.html', address);
     assert.equal(new URL('styles.css', view.baseURI).href, 'https://1kreativbuero.ch/styles.css');
-    assert.equal(new URL('assets/Rigi8-verkleinert.jpg', view.baseURI).href, 'https://1kreativbuero.ch/assets/Rigi8-verkleinert.jpg');
+    assert.equal(new URL('assets/projects/rigi/Rigi8-verkleinert.jpg', view.baseURI).href, 'https://1kreativbuero.ch/assets/projects/rigi/Rigi8-verkleinert.jpg');
     assert(view.links.some(link => link.href === new URL('#inhalt', address).href));
     assert(view.links.some(link => link.href === '/#projekte'));
     assert.equal(vm.runInContext('projectURL({ slug: "wiriehorn" })', view.context), '/projekte/wiriehorn');

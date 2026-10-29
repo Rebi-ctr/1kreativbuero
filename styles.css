@@ -432,6 +432,8 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--title-font); font-weight: 400; font-
 /* Rigi nutzt das gemeinsame Kapitelraster; Filmstills bleiben unbeschnitten. */
 .rigi-page .journey-step:first-child .journey-copy { margin-bottom: 28px; }
 .rigi-film-gallery img { aspect-ratio: 16 / 9; object-fit: contain; }
+.rigi-photo-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.rigi-photo-gallery > figure:first-child, .rigi-photo-gallery > figure:last-child { grid-column: 1 / -1; }
 .rigi-photo-gallery img { aspect-ratio: auto; object-fit: contain; }
 .rigi-film-player { margin-bottom: 28px; }
 .rigi-film-player video { aspect-ratio: 16 / 9; }

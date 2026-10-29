@@ -38,12 +38,25 @@ const featuredProject = {
   ],
 };
 
-// Die bereitgestellten Rigi-Bilder gehören zum Imagefilm, nicht zum Fotoshooting.
+// Filmstills und Fotoshooting bleiben als eigene Bildstrecken im Rigi-Projekt.
 const rigiFilmFrames = [
-  { image: 'assets/Rigi8-verkleinert.jpg', alt: 'Eine Frau und Kinder schauen aus dem offenen Fenster eines historischen Bahnwagens.', width: 2304, height: 1296, caption: 'Unterwegs mit der Bahn' },
-  { image: 'assets/Rigi6-verkleinert.jpg', alt: 'Eine Frau und Kinder blicken während der Bahnfahrt in einen sonnenbeschienenen Wald.', width: 1920, height: 1080, caption: 'Mitten im Wald' },
-  { image: 'assets/Rigi3-verkleinert.jpg', alt: 'Kinder sitzen im Sonnenlicht mit Blick auf die Berglandschaft.', width: 2304, height: 1296, caption: 'Gemeinsam unterwegs' },
-  { image: 'assets/Rigi11-verkleinert.jpg', alt: 'Mit einer Schaufel wird Kohle in die glühende Feuerung einer Dampflokomotive gegeben.', width: 2304, height: 1296, caption: 'Ganz nah am Detail' },
+  { image: 'assets/projects/rigi/Rigi8-verkleinert.jpg', alt: 'Eine Frau und Kinder schauen aus dem offenen Fenster eines historischen Bahnwagens.', width: 2304, height: 1296, caption: 'Unterwegs mit der Bahn' },
+  { image: 'assets/projects/rigi/Rigi6-verkleinert.jpg', alt: 'Eine Frau und Kinder blicken während der Bahnfahrt in einen sonnenbeschienenen Wald.', width: 1920, height: 1080, caption: 'Mitten im Wald' },
+  { image: 'assets/projects/rigi/Rigi3-verkleinert.jpg', alt: 'Kinder sitzen im Sonnenlicht mit Blick auf die Berglandschaft.', width: 2304, height: 1296, caption: 'Gemeinsam unterwegs' },
+  { image: 'assets/projects/rigi/Rigi11-verkleinert.jpg', alt: 'Mit einer Schaufel wird Kohle in die glühende Feuerung einer Dampflokomotive gegeben.', width: 2304, height: 1296, caption: 'Ganz nah am Detail' },
+];
+
+const rigiPhotoshootImages = [
+  { image: 'assets/projects/rigi/0710-Familien-Fotoshooting-Rigi-26.webp', alt: 'Spielplatz in Rigi Kaltbad mit Holzturm, Rutsche und Schaukeln vor dem Bergpanorama.', width: 3000, height: 2000 },
+  { image: 'assets/projects/rigi/0710-Familien-Fotoshooting-Rigi-02.webp', alt: 'Eine Frau und zwei Kinder betrachten gemeinsam eine Karte.', width: 3000, height: 2000 },
+  { image: 'assets/projects/rigi/0710-Familien-Fotoshooting-Rigi-10.webp', alt: 'Ein Kind sitzt auf einem Holzstamm und lacht mit einer Frau neben dem Spielgerät.', width: 3000, height: 2000 },
+  { image: 'assets/projects/rigi/0710-Familien-Fotoshooting-Rigi-13.webp', alt: 'Drei Kinder schauen über ein Geländer zwischen Gräsern und Sträuchern.', width: 3000, height: 2000 },
+  { image: 'assets/projects/rigi/0710-Familien-Fotoshooting-Rigi-14.webp', alt: 'Kinder rutschen gemeinsam eine rote Rutsche hinunter, aufgenommen vom unteren Ende der Rutsche.', width: 3000, height: 2000 },
+  { image: 'assets/projects/rigi/0710-Familien-Fotoshooting-Rigi-18.webp', alt: 'Eine Frau hält ein Kind auf dem Arm vor der Berglandschaft bei Rigi Kaltbad.', width: 3000, height: 1996 },
+  { image: 'assets/projects/rigi/0710-Familien-Fotoshooting-Rigi-22.webp', alt: 'Ein Kind schaukelt hoch in die Luft, während ein anderes daneben steht.', width: 3000, height: 2000 },
+  { image: 'assets/projects/rigi/0710-Familien-Fotoshooting-Rigi-28.webp', alt: 'Zwei Kinder klettern in einem Seilnetz, fotografiert durch eine runde Öffnung im Holzturm.', width: 3000, height: 2000 },
+  { image: 'assets/projects/rigi/0710-Familien-Fotoshooting-Rigi-39.webp', alt: 'Kinder klettern die Holzwand eines Spielturms hinauf, aus tiefer Perspektive aufgenommen.', width: 3000, height: 1996 },
+  { image: 'assets/projects/rigi/0710-Familien-Fotoshooting-Rigi-46.webp', alt: 'Mehrere Kinder schaukeln gemeinsam auf einer grossen Nestschaukel.', width: 3000, height: 2000 },
 ];
 
 // Nur bestätigte Projekte; noch fehlende Inhalte bleiben als solche erkennbar.
@@ -58,7 +71,7 @@ const projects = [
     slug: 'rigi', number: '02', title: 'Rigi',
     headline: ['Ein Berg.', 'Viele Augenblicke.'],
     category: 'Imagefilm & Fotoshooting',
-    lead: 'Die Rigi in Bewegung. Und in Bildern.',
+    lead: 'Ein Imagefilm von unterwegs und neue Bilder für das Familienangebot in Rigi Kaltbad.',
     ...rigiFilmFrames[0],
     coverCaption: 'Imagefilm / Unterwegs mit der Bahn',
     film: {
@@ -68,9 +81,9 @@ const projects = [
       frames: rigiFilmFrames.slice(1),
     },
     photoshoot: {
-      title: 'Die Rigi im Fokus.',
-      text: 'Der zweite Blick aufs Projekt: Die Bildstrecke aus dem Fotoshooting folgt.',
-      images: [], // Eigene Fotos separat ergänzen; die Filmstills bleiben beim Imagefilm.
+      title: 'Familienzeit im Bild.',
+      text: 'Für Rigi Kaltbad sollte neues Bildmaterial entstehen, das die Spielplätze und das Familienangebot sichtbar macht. Dafür haben wir zwei Familien für das Shooting organisiert und beim Spielen und Entdecken begleitet. Wir wechselten zwischen nahen Momenten, ungewöhnlichen Blickwinkeln und weiten Ansichten der Spielplätze in ihrer Umgebung. So entstand eine abwechslungsreiche Bildstrecke, die zeigt, was Familien auf der Rigi gemeinsam erleben können.',
+      images: rigiPhotoshootImages,
     },
   },
 ];

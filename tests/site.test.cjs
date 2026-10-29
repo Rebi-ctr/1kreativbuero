@@ -91,6 +91,17 @@ test('Rigi behält den neuen Projekteinstieg und das gemeinsame Kapitelraster', 
   assert.match(html, /id="fotoshooting"/);
   assert.match(html, /class="journey-end"/);
   assert.doesNotMatch(html, /class="case-section case-film"/);
+  const filmSection = html.match(/<section class="journey-step" id="imagefilm"[\s\S]*?<\/section>/)?.[0];
+  const photoSection = html.match(/<section class="journey-step" id="fotoshooting"[\s\S]*?<\/section>/)?.[0];
+  assert(filmSection && photoSection);
+  assert.doesNotMatch(filmSection, /Familien-Fotoshooting-Rigi/);
+  assert.doesNotMatch(photoSection, /Rigi\d+-verkleinert\.jpg|rigi-photo-placeholder|Bilder folgen/);
+  const photoSources = [...photoSection.matchAll(/src="(assets\/projects\/rigi\/[^"?]+\.webp)"/g)].map(match => match[1]);
+  const providedPhotos = fs.readdirSync(path.join(root, 'assets/projects/rigi'))
+    .filter(file => /Familien-Fotoshooting-Rigi-\d+\.webp$/.test(file))
+    .map(file => `assets/projects/rigi/${file}`);
+  assert.equal(photoSources.length, 10);
+  assert.deepEqual([...photoSources].sort(), providedPhotos.sort());
   for (const match of html.matchAll(/(?:src|poster)="(assets\/[^"?#]+)"/g)) {
     assert(fs.existsSync(path.join(root, match[1])), `Fehlendes Rigi-Medium: ${match[1]}`);
   }
