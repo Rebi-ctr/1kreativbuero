@@ -4,7 +4,7 @@
     const stage = $('#feature-stage');
     if (!stage) return;
     stage.innerHTML = `<h3 class="feature-title">${escapeHTML(featuredProject.title)}</h3>${featuredProject.views.map((view, index) => `<button class="feature-card${index === 0 ? ' is-active' : ''}" type="button" aria-label="${escapeHTML(view.season)}bild in den Vordergrund holen" aria-pressed="${index === 0}">
-        <span class="feature-sheet"><img src="${view.image}" alt="${escapeHTML(view.alt)}" width="${view.width}" height="${view.height}" loading="lazy"></span>
+        <span class="feature-sheet"><img src="${view.image}" srcset="${view.srcset}" sizes="(max-width: 700px) 78vw, (min-width: 1500px) 820px, 61vw" alt="${escapeHTML(view.alt)}" width="${view.width}" height="${view.height}" loading="lazy" decoding="async"></span>
       </button>`).join('')}
       <a class="feature-open" data-project="${featuredProject.slug}" href="${projectURL(featuredProject)}" aria-label="Ab ins Projektbüro: Wiriehorn-Projekt im Detail">Ab ins Projektbüro <span aria-hidden="true">↗</span></a>`;
 
@@ -32,7 +32,7 @@
     if (!project.image) {
       return `<div class="project-placeholder" aria-hidden="true"><span class="project-placeholder-title">${escapeHTML(project.title)}.</span><span class="meta">Projektbilder folgen</span></div>`;
     }
-    return `<img${hero ? ` data-case-cover="${escapeHTML(project.slug)}"` : ''} src="${escapeHTML(project.image)}" alt="${escapeHTML(project.alt)}" width="${project.width}" height="${project.height}" ${hero ? 'fetchpriority="high"' : 'loading="lazy"'}>`;
+    return `<img${hero ? ` data-case-cover="${escapeHTML(project.slug)}"` : ''} src="${escapeHTML(project.image)}"${project.srcset ? ` srcset="${project.srcset}" sizes="${hero ? '100vw' : '(max-width: 700px) 100vw, 50vw'}"` : ''} alt="${escapeHTML(project.alt)}" width="${project.width}" height="${project.height}" decoding="async" ${hero ? 'fetchpriority="high"' : 'loading="lazy"'}>`;
   }
 
   function renderProjects() {

@@ -49,6 +49,7 @@ test('HTTP-Anfragen für saubere URLs, Weiterleitungen und lokale Ressourcen wer
     vm.runInContext(read('shared.js'), context);
     vm.runInContext(read('content.js'), context);
     sources.push(...vm.runInContext('people.map(person => person.image).concat(projects.map(project => project.image), rigiFilmFrames.map(frame => frame.image), projects.flatMap(project => project.photoshoot?.images.map(view => view.image) || []))', context));
+    sources.push(...vm.runInContext('people.concat(featuredProject.views).flatMap(item => (item.srcset || "").split(",").filter(Boolean).map(candidate => candidate.trim().split(/\\s+/)[0]))', context));
     for (const source of sources) {
       const resource = new URL(source.replaceAll('&amp;', '&'), baseURI);
       if (resource.origin !== origin || checked.has(resource.href)) continue;

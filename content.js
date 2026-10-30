@@ -11,19 +11,19 @@ const people = [
     number: '01', name: 'Beni', email: 'beni@1kreativbuero.ch', role: 'Film · Web · Fotografie · Produktion',
     strengths: ['Film', 'Web', 'Fotografie'],
     description: 'Ein Multitalent: Filmer, Webkönner, Fotograf und Produzent mit Event- und Agenturerfahrung. Zudem leidenschaftlicher Volleyballer.',
-    image: 'assets/Beni.png', imageClass: 'portrait-beni', width: 1028, height: 1588,
+    image: 'assets/Beni-640.webp', srcset: 'assets/Beni-320.webp 320w, assets/Beni-640.webp 640w, assets/Beni-1028.webp 1028w', imageClass: 'portrait-beni', width: 1028, height: 1588,
   },
   {
     number: '02', name: 'Rebecca', email: 'rebecca@1kreativbuero.ch', role: 'Gestaltung · Illustration · Web · Konzept',
     strengths: ['Ideen', 'Konzept', 'Details'],
     description: 'Ein kreativer Kopf mit vielen Ideen. Gestalterin und Illustratorin mit einem Gespür für Web und einem Auge fürs Detail, die in Konzepten denkt, schöne Dinge liebt und von Neuem fasziniert ist.',
-    image: 'assets/Rebecca.png', imageClass: 'portrait-rebecca', width: 1026, height: 1590,
+    image: 'assets/Rebecca-640.webp', srcset: 'assets/Rebecca-320.webp 320w, assets/Rebecca-640.webp 640w, assets/Rebecca-1026.webp 1026w', imageClass: 'portrait-rebecca', width: 1026, height: 1590,
   },
   {
     number: '03', name: 'Mathis', email: 'mathis@1kreativbuero.ch', role: 'Film · FPV · Storytelling · Produktion',
     strengths: ['Film', 'FPV', 'Storytelling'],
     description: 'Ein Macher: Filmer, FPV-Pilot, Abenteurer, Storyteller und Produzent mit Eventerfahrung. Er liebt es, cinematische Aufnahmen einzufangen.',
-    image: 'assets/Mathis.png', imageClass: 'portrait-mathis', width: 1028, height: 1588,
+    image: 'assets/Mathis-640.webp', srcset: 'assets/Mathis-320.webp 320w, assets/Mathis-640.webp 640w, assets/Mathis-1028.webp 1028w', imageClass: 'portrait-mathis', width: 1028, height: 1588,
   },
 ];
 
@@ -33,8 +33,8 @@ const featuredProject = {
   title: 'Wiriehorn',
   lead: 'Das Wiriehorn im Sommer und im Winter.',
   views: [
-    { season: 'Sommer', image: 'assets/Wiriehorn_Sommer_Test.jpg', alt: 'Illustrierte Sommeransicht des Wiriehorns mit Wanderwegen und Bergbahnen.', width: 2464, height: 1336 },
-    { season: 'Winter', image: 'assets/Wiriehorn_Winter_Test.jpg', alt: 'Illustrierte Winteransicht des Wiriehorns mit Skipisten und verschneiten Bergen.', width: 2461, height: 1333 },
+    { season: 'Sommer', image: 'assets/Wiriehorn_Sommer_Test.webp', srcset: 'assets/Wiriehorn_Sommer_Test-800.webp 800w, assets/Wiriehorn_Sommer_Test-1600.webp 1600w, assets/Wiriehorn_Sommer_Test.webp 2464w', alt: 'Illustrierte Sommeransicht des Wiriehorns mit Wanderwegen und Bergbahnen.', width: 2464, height: 1336 },
+    { season: 'Winter', image: 'assets/Wiriehorn_Winter_Test.webp', srcset: 'assets/Wiriehorn_Winter_Test-800.webp 800w, assets/Wiriehorn_Winter_Test-1600.webp 1600w, assets/Wiriehorn_Winter_Test.webp 2461w', alt: 'Illustrierte Winteransicht des Wiriehorns mit Skipisten und verschneiten Bergen.', width: 2461, height: 1333 },
   ],
 };
 
@@ -64,7 +64,7 @@ const projects = [
   {
     ...featuredProject,
     number: '01', category: 'Interaktive Übersichtskarte',
-    image: featuredProject.views[0].image, alt: featuredProject.views[0].alt,
+    image: featuredProject.views[0].image, srcset: featuredProject.views[0].srcset, alt: featuredProject.views[0].alt,
     width: featuredProject.views[0].width, height: featuredProject.views[0].height,
   },
   {

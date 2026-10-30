@@ -3,6 +3,25 @@ Options -MultiViews -Indexes
 DirectoryIndex index.html
 RewriteEngine On
 
+# Text komprimieren; bereits komprimierte Bilder und Videos nicht nochmals packen.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript application/json application/xml image/svg+xml
+</IfModule>
+
+# Wiederholte Besuche entlasten. HTML bleibt aktuell, die PHP-API behält no-store.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 hour"
+  ExpiresByType text/javascript "access plus 1 hour"
+  ExpiresByType application/javascript "access plus 1 hour"
+  ExpiresByType image/webp "access plus 1 week"
+  ExpiresByType image/jpeg "access plus 1 week"
+  ExpiresByType image/png "access plus 1 week"
+  ExpiresByType image/svg+xml "access plus 1 week"
+  ExpiresByType font/woff2 "access plus 1 week"
+</IfModule>
+
 # Interne Dateien bleiben auch bei einem vollständigen Upload nicht öffentlich.
 # .well-known bleibt für Zertifikatsvalidierung erreichbar.
 RewriteRule "(^|/)\.(?!well-known(?:/|$))" - [F,END]

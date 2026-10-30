@@ -9,7 +9,7 @@
     const title = $('#creative-title', deck)?.textContent || 'DAS KREATIVE.';
     deck.innerHTML = `<h3 class="creative-title creative-title-fill" id="creative-title"><span>${escapeHTML(title)}</span></h3>` + people.map((person, index) => `<article class="person-card${index === initial ? ' is-active' : ''}" data-person="${index}" aria-labelledby="person-name-${index}">
       <div class="person-sheet"><div class="person-visual">
-        <img src="${person.image}" class="${person.imageClass}" alt="${escapeHTML(person.name)} von 1Kreativbüro" loading="lazy" width="${person.width}" height="${person.height}">
+        <img src="${person.image}" srcset="${person.srcset}" sizes="(max-width: 700px) 66vw, (min-width: 1500px) 480px, 33vw" class="${person.imageClass}" alt="${escapeHTML(person.name)} von 1Kreativbüro" loading="lazy" decoding="async" width="${person.width}" height="${person.height}">
       </div>
       <div class="person-info"><div class="person-title"><h4 id="person-name-${index}">${escapeHTML(person.name)}</h4></div>
       <p class="person-role">${escapeHTML(person.role)}</p></div></div>
