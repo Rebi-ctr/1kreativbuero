@@ -2,6 +2,7 @@
 const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
+const { securityHeaders } = require('./security.cjs');
 
 const root = path.resolve(__dirname, '..');
 const pages = new Map([
@@ -20,7 +21,10 @@ const types = {
 };
 
 function createPreviewServer() {
+  const headers = securityHeaders();
   return http.createServer((request, response) => {
+    const writeHead = response.writeHead.bind(response);
+    response.writeHead = (status, values = {}) => writeHead(status, { ...headers, ...values });
     const url = new URL(request.url, 'http://127.0.0.1');
     const redirect = target => { response.writeHead(301, { Location: target }); response.end(); };
     if (url.pathname === '/api/contact.php') {

@@ -31,6 +31,9 @@ test('HTTP-Anfragen für saubere URLs, Weiterleitungen und lokale Ressourcen wer
   ]) {
     const response = await request(server, address);
     assert.equal(response.status, 200, address);
+    assert.equal(response.headers.get('x-content-type-options'), 'nosniff');
+    assert.equal(response.headers.get('x-frame-options'), 'SAMEORIGIN');
+    assert.match(response.headers.get('content-security-policy'), /frame-ancestors 'self'/);
     const html = await response.text();
     assert.match(html, expected);
     assert.doesNotMatch(html, /href="(?:index|kontakt|projekt)\.html/);

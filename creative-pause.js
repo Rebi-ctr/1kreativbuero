@@ -16,7 +16,7 @@
     <div class="creative-pause-message">
       <p class="meta">Kreative Pause</p>
       <h2 id="creative-pause-title">Gute Ideen brauchen<br><span>manchmal eine Pause.</span></h2>
-      <button class="creative-pause-resume" type="button" autofocus>Weiter geht’s <span aria-hidden="true">↗</span></button>
+      <button class="creative-pause-resume" type="button">Weiter geht’s <span aria-hidden="true">↗</span></button>
     </div>`;
   document.body.append(dialog);
   const scene = dialog.querySelector('.creative-pause-scene');

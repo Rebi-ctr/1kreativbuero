@@ -611,4 +611,4 @@ html.is-creative-paused { overflow: hidden; scrollbar-gutter: stable; }
 }
 
 /* Sichtbare Hauptüberschrift als ruhige Beschriftung unter dem grafischen Hero. */
-.hero .hero-site-title { position: relative; margin: 14px 0 0; font: 400 18px/1.4 var(--title-font); letter-spacing: .01em; color: var(--paper); }
+.featured .hero-site-title { margin: 0 0 20px; font: 400 18px/1.4 var(--title-font); letter-spacing: .01em; color: var(--ink); }

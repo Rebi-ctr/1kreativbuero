@@ -41,4 +41,5 @@ for (const page of pages) {
 }
 write('sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + pages.map(page=>`  <url><loc>${origin}${page.url}</loc></url>`).join('\n') + '\n</urlset>\n');
 write('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${origin}/sitemap.xml\n`);
-console.log('SEO: vier Seiten, Sitemap und robots.txt erzeugt.');
+require('./security.cjs').writeApacheHeaders();
+console.log('SEO: vier Seiten, Sitemap, robots.txt und Sicherheitsheader erzeugt.');
