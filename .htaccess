@@ -60,7 +60,7 @@ RewriteRule ^projekte/(wiriehorn|rigi)$ projekt-$1.html [END]
 # SECURITY:START — generiert durch scripts/build-seo.cjs
 <IfModule mod_headers.c>
   Header onsuccess unset Content-Security-Policy
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-BTXoNJVYTrqGDmeIjLJRUvnIuHi3gGvEW4Yn1vGPN40=' 'sha256-Pp2jj0ejgDqE+NoyQ26vgzIwak7kMuJBdHgvgkxuZsw='; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; frame-src https://erlebniskarte.wiriehorn.ch; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://www.googletagmanager.com 'sha256-BTXoNJVYTrqGDmeIjLJRUvnIuHi3gGvEW4Yn1vGPN40=' 'sha256-MpQMgbwwHwsliByk+oDhnOuWfzO+VrHk6tTp6GFPudc=' 'sha256-Pp2jj0ejgDqE+NoyQ26vgzIwak7kMuJBdHgvgkxuZsw='; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com; media-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; frame-src https://erlebniskarte.wiriehorn.ch; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
   Header onsuccess unset X-Content-Type-Options
   Header always set X-Content-Type-Options "nosniff"
   Header onsuccess unset X-Frame-Options

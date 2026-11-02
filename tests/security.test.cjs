@@ -11,7 +11,8 @@ test('Ausgelieferte Apache-CSP erlaubt bestehende Inline-Scripts nur per passend
   const csp = config.match(/Header always set Content-Security-Policy "([^"]+)"/)[1];
   assert.equal(csp, securityHeaders()['Content-Security-Policy'], 'Nach Änderungen an Inline-Scripts build-seo ausführen');
   const scripts = csp.match(/(?:^|; )script-src ([^;]+)/)[1];
-  assert.doesNotMatch(scripts, /unsafe-inline|unsafe-eval|https:|\*/);
+  assert.doesNotMatch(scripts, /unsafe-inline|unsafe-eval|https:\s|\*/);
+  assert.ok(scripts.includes('https://www.googletagmanager.com'));
   for (const page of ['index.html', 'kontakt.html', 'projekt-wiriehorn.html', 'projekt-rigi.html']) {
     const html = fs.readFileSync(path.join(root, page), 'utf8').replace(/\r\n?/g, '\n');
     for (const [, attrs, body] of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {

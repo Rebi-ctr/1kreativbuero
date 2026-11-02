@@ -36,7 +36,7 @@ function renderProject(slug, address = `https://1kreativbuero.ch/projekte/${slug
     },
   });
   const scripts = [...read('projekt.html').matchAll(/<script\b[^>]*src="([^"?]+)(?:\?[^"]*)?"/g)].map(match => match[1].replace(/^\//, ''));
-  for (const file of scripts.filter(file => file !== 'background-motion.js')) {
+  for (const file of scripts.filter(file => file !== 'background-motion.js' && !file.startsWith('https:'))) {
     vm.runInContext(read(file), context, { filename: file });
   }
   return { html: container.innerHTML, context };

@@ -15,10 +15,10 @@ function securityHeaders() {
   }
   return {
     'Content-Security-Policy': [
-      "default-src 'self'", `script-src 'self' ${[...hashes].join(' ')}`,
+      "default-src 'self'", `script-src 'self' https://www.googletagmanager.com ${[...hashes].join(' ')}`,
       "script-src-attr 'none'", "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-      "font-src 'self' https://fonts.gstatic.com", "img-src 'self' data:",
-      "media-src 'self'", "connect-src 'self'", 'frame-src https://erlebniskarte.wiriehorn.ch',
+      "font-src 'self' https://fonts.gstatic.com", "img-src 'self' data: https://*.google-analytics.com https://www.googletagmanager.com",
+      "media-src 'self'", "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com", 'frame-src https://erlebniskarte.wiriehorn.ch',
       "object-src 'none'", "base-uri 'self'", "form-action 'self'", "frame-ancestors 'self'",
     ].join('; '),
     'X-Content-Type-Options': 'nosniff',
