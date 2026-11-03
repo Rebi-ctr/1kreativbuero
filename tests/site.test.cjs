@@ -91,7 +91,7 @@ test('Rigi behält den neuen Projekteinstieg und das gemeinsame Kapitelraster', 
   assert.match(html, /id="fotoshooting"/);
   assert.match(html, /class="journey-end"/);
   assert.doesNotMatch(html, /class="case-section case-film"/);
-  const filmSection = html.match(/<section class="journey-step" id="imagefilm"[\s\S]*?<\/section>/)?.[0];
+  const filmSection = html.match(/<section class="journey-step" id="eventfilm"[\s\S]*?<\/section>/)?.[0];
   const photoSection = html.match(/<section class="journey-step" id="fotoshooting"[\s\S]*?<\/section>/)?.[0];
   assert(filmSection && photoSection);
   assert.doesNotMatch(filmSection, /Familien-Fotoshooting-Rigi/);

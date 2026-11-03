@@ -70,13 +70,13 @@ const projects = [
   {
     slug: 'rigi', number: '02', title: 'Rigi',
     headline: ['Ein Berg.', 'Viele Augenblicke.'],
-    category: 'Imagefilm & Fotoshooting',
-    lead: 'Ein Imagefilm von unterwegs und neue Bilder für das Familienangebot in Rigi Kaltbad.',
+    category: 'Eventfilm & Fotoshooting',
+    lead: 'Ein Eventfilm von unterwegs und neue Bilder für das Familienangebot in Rigi Kaltbad.',
     ...rigiPhotoshootImages.find(view => view.image.endsWith('0710-Familien-Fotoshooting-Rigi-28.webp')),
     coverCaption: 'Fotoshooting / Familienzeit in Rigi Kaltbad',
     film: {
       title: 'Die Rigi in Bewegung.',
-      text: 'Menschen, Natur und die Fahrt mit der Bahn. Vier Einblicke in unseren Rigi-Imagefilm.',
+      text: 'Menschen, Natur und die Fahrt mit der Bahn. Vier Einblicke in unseren Rigi-Eventfilm.',
       video: '', // Hier später die lokale Filmdatei eintragen.
       frames: rigiFilmFrames,
     },

@@ -87,14 +87,14 @@ Die erste Stärke steht als Beschriftung am Porträt. Unter «Das Kreative» lie
 
 ## Projektübersicht und Featured Projekt
 
-Die Übersicht «Aus unserem Kreativbüro.» enthält aktuell nur **Wiriehorn** und **Rigi**, ohne Filter oder Studienzählung. Beide öffnen eine eigene Detailansicht. Rigi zeigt Imagefilm und Fotoshooting in getrennten Kapiteln. Vier Filmstills und zehn neue Bilder aus dem Familien-Fotoshooting sind eingebunden; die Filmdatei ist noch offen.
+Die Übersicht «Aus unserem Kreativbüro.» enthält aktuell nur **Wiriehorn** und **Rigi**, ohne Filter oder Studienzählung. Beide öffnen eine eigene Detailansicht. Rigi zeigt Eventfilm und Fotoshooting in getrennten Kapiteln. Vier Filmstills und zehn neue Bilder aus dem Familien-Fotoshooting sind eingebunden; die Filmdatei ist noch offen.
 
 Ein Projekt pro Zeile aufnehmen; die ausführliche Case-Vorlage darunter für jedes Projekt kopieren. Frühere Arbeiten einzelner Teammitglieder können gezeigt werden, wenn der konkrete Beitrag und der damalige Zusammenhang klar benannt werden.
 
 | Projekttitel | Kunde oder Eigenprojekt | Jahr | Leistung | Vorschaubild | Reihenfolge |
 | --- | --- | --- | --- | --- | --- |
 | Wiriehorn | [OFFEN] | [OFFEN] | Interaktive Übersichtskarte | `assets/Wiriehorn_Sommer_Test.jpg` | 1 |
-| Rigi | [OFFEN] | [OFFEN] | Imagefilm & Fotoshooting | `assets/projects/rigi/Rigi8-verkleinert.jpg` | 2 |
+| Rigi | [OFFEN] | [OFFEN] | Eventfilm & Fotoshooting | `assets/projects/rigi/Rigi8-verkleinert.jpg` | 2 |
 
 ### Rigi: vorhandenes Material und Ergänzungen
 

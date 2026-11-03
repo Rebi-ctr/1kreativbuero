@@ -53,11 +53,11 @@
     if (project.film) {
       const { film, photoshoot } = project;
       return `<div class="journey">
-      <section class="journey-step" id="imagefilm" aria-labelledby="case-film-title">
-        <div class="journey-marker"><span>01</span><span class="meta">Imagefilm</span></div>
+      <section class="journey-step" id="eventfilm" aria-labelledby="case-film-title">
+        <div class="journey-marker"><span>01</span><span class="meta">Eventfilm</span></div>
         <div class="journey-content"><div class="journey-copy"><h2 id="case-film-title">${escapeHTML(film.title)}</h2><p>${escapeHTML(film.text)}</p></div>
-        ${film.video ? `<figure class="rigi-film-player"><video src="${escapeHTML(film.video)}" poster="${escapeHTML(project.image)}" controls playsinline preload="none">Dein Browser unterstützt dieses Video nicht. <a href="${escapeHTML(film.video)}">Imagefilm öffnen</a></video><figcaption>Imagefilm / ${escapeHTML(project.title)}</figcaption></figure>` : ''}
-        <div class="journey-report rigi-film-gallery" role="group" aria-label="Filmstills aus dem Rigi-Imagefilm">${caseFigures(film.frames)}</div></div>
+        ${film.video ? `<figure class="rigi-film-player"><video src="${escapeHTML(film.video)}" poster="${escapeHTML(project.image)}" controls playsinline preload="none">Dein Browser unterstützt dieses Video nicht. <a href="${escapeHTML(film.video)}">Eventfilm öffnen</a></video><figcaption>Eventfilm / ${escapeHTML(project.title)}</figcaption></figure>` : ''}
+        <div class="journey-report rigi-film-gallery" role="group" aria-label="Filmstills aus dem Rigi-Eventfilm">${caseFigures(film.frames)}</div></div>
       </section>
       <section class="journey-step" id="fotoshooting" aria-labelledby="case-photo-title">
         <div class="journey-marker"><span>02</span><span class="meta">Fotoshooting</span></div>
@@ -73,7 +73,7 @@
   function renderFilmCase(container, project) {
     const nextProject = projects[(projects.indexOf(project) + 1) % projects.length];
     const headline = project.headline || [project.title];
-    document.title = `${project.title} – Imagefilm & Fotoshooting — 1Kreativbüro`;
+    document.title = `${project.title} – Eventfilm & Fotoshooting — 1Kreativbüro`;
     document.querySelector('meta[name="description"]').content = `${project.title}: ${project.lead}`;
     document.body.classList.add('project-story-page', 'rigi-page');
     container.innerHTML = `<article class="case-project" aria-labelledby="case-title">
@@ -83,7 +83,7 @@
         <div class="case-meta"><p>${escapeHTML(project.lead)}</p><div class="case-tags"><span class="meta">PROJEKT<br>${escapeHTML(project.title)}</span><span class="meta">LEISTUNGEN<br>${escapeHTML(project.category)}</span></div></div>
       </section>
       <figure class="case-hero">${projectVisual(project, true)}${project.coverCaption ? `<figcaption class="sr-only">${escapeHTML(project.coverCaption)}</figcaption>` : ''}</figure>
-      <nav class="journey-nav" aria-label="Projektbereiche"><a href="#imagefilm"><span>01</span> Imagefilm</a><a href="#fotoshooting"><span>02</span> Fotoshooting</a></nav>
+      <nav class="journey-nav" aria-label="Projektbereiche"><a href="#eventfilm"><span>01</span> Eventfilm</a><a href="#fotoshooting"><span>02</span> Fotoshooting</a></nav>
       ${renderProjectStory(project)}
       <section class="journey-end"><span class="meta">AUS UNSEREM KREATIVBÜRO</span><h2>Noch mehr<br>zu entdecken.</h2><a class="text-link" data-project="${nextProject.slug}" href="${projectURL(nextProject)}">${escapeHTML(nextProject.title)} entdecken ↗</a><a class="text-link" href="/#projekte">Weitere Projekte entdecken ↗</a></section>
       </article>`;
